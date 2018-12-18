@@ -11,13 +11,22 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import java.awt.Color;
 import javax.swing.JLabel;
+import java.awt.Font;
 
 /**
  * The view. The user interacts with this.
  * 
  * @author jhwang73
+ * @param <Species> The type of species
+ * @param <Organism> The type of organism
  */
-public class View extends JFrame {
+public class View<Species, Organism> extends JFrame {
+	
+	/**
+	 * The serial version UID
+	 */
+	private static final long serialVersionUID = 3477867755243767271L;
+
 	/**
 	 * The adapter from the view to the model. Initialized to the no-op adapter.
 	 */
@@ -40,9 +49,9 @@ public class View extends JFrame {
 	 */
 	private final JButton btnQuit = new JButton("Quit");
 	/**
-	 * The list of "things".
+	 * The list of species.
 	 */
-	private final JComboBox comboBoxThings = new JComboBox();
+	private final JComboBox<Species> comboBoxThings = new JComboBox<Species>();
 	/**
 	 * Begin a new generation.
 	 */
@@ -59,6 +68,10 @@ public class View extends JFrame {
 	 * Go to the next generation.
 	 */
 	private final JButton btnNextGeneration = new JButton("Next Generation");
+	/**
+	 * Labels the list of species.
+	 */
+	private final JLabel lblSpecies = new JLabel("Species:");
 
 	/**
 	 * Initializes the GUI
@@ -103,11 +116,14 @@ public class View extends JFrame {
 		
 		btnQuit.setToolTipText("Quit the application");
 		panelNorth.add(btnQuit);
+		lblSpecies.setToolTipText("The available species are:");
 		
-		comboBoxThings.setToolTipText("The list of things you can simulate generations of");
+		panelNorth.add(lblSpecies);
+		comboBoxThings.setToolTipText("The list of species");
+		
 		panelNorth.add(comboBoxThings);
 		
-		btnBegin.setToolTipText("Start a new generation of the selected \"thing\".");
+		btnBegin.setToolTipText("Start a new generation of the selected species.");
 		panelNorth.add(btnBegin);
 
 		lblGenerationNumber.setToolTipText("The #th generation");

@@ -2,8 +2,8 @@ package main.controller;
 
 import java.awt.EventQueue;
 
-import main.model.Model;
-import main.view.View;
+import main.model.*;
+import main.view.*;
 
 /**
  * The controller. Determines and instantiates the model and view.
@@ -26,8 +26,13 @@ public class Controller {
 	 * The constructor of the Controller.
 	 */
 	public Controller() {
-		_model = new Model(null);
-		_view = new View(null);
+		_model = new Model(new IModelToViewAdapter() {
+			
+		});
+		
+		_view = new View(new IViewToModelAdapter() {
+			
+		});
 	}
 
 	/**
