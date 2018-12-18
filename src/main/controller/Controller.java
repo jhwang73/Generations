@@ -45,7 +45,7 @@ public class Controller {
 
 	/**
 	 * Launch the application.
-	 * @param args Arguments given by the system or command line.
+	 * @param args Arguments given by the system or command line
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() { 

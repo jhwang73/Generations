@@ -11,16 +11,14 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import java.awt.Color;
 import javax.swing.JLabel;
-import java.awt.Font;
 
 /**
  * The view. The user interacts with this.
  * 
  * @author jhwang73
- * @param <Species> The type of species
- * @param <Organism> The type of organism
+ * @param <Species> The species
  */
-public class View<Species, Organism> extends JFrame {
+public class View<Species> extends JFrame {
 	
 	/**
 	 * The serial version UID

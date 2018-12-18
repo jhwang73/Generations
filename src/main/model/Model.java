@@ -14,7 +14,7 @@ public class Model {
 	
 	/**
 	 * The Constructor for the model.
-	 * @param m2vAdapter The adapter from the model to the view.
+	 * @param m2vAdapter The adapter from the model to the view
 	 */
 	public Model(IModelToViewAdapter m2vAdapter) {
 		this._m2vAdapter = m2vAdapter;
