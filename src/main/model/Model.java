@@ -6,5 +6,25 @@ package main.model;
  * @author jhwang73
  */
 public class Model {
+	
+	/**
+	 * The adapter from the model to the view. Initialized to the no-op adapter.
+	 */
+	private IModelToViewAdapter _m2vAdapter = IModelToViewAdapter.NULL_ADAPTER;
+	
+	/**
+	 * The Constructor for the model.
+	 * @param m2vAdapter The adapter from the model to the view.
+	 */
+	public Model(IModelToViewAdapter m2vAdapter) {
+		this._m2vAdapter = m2vAdapter;
+	}
+	
+	/**
+	 * Start the model
+	 */
+	public void start() {
+		// TODO: Anything?
+	}
 
 }

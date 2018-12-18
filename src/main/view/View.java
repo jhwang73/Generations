@@ -18,7 +18,11 @@ import javax.swing.JLabel;
  * @author jhwang73
  */
 public class View extends JFrame {
-
+	/**
+	 * The adapter from the view to the model. Initialized to the no-op adapter.
+	 */
+	private IViewToModelAdapter _v2mAdapter = IViewToModelAdapter.NULL_ADAPTER;
+	
 	/**
 	 * The pane that holds all the components.
 	 */
@@ -65,8 +69,10 @@ public class View extends JFrame {
 
 	/**
 	 * Constructor for the view.
+	 * @param v2mAdapter The adapter from the view to the model.
 	 */
-	public View() {
+	public View(IViewToModelAdapter v2mAdapter) {
+		this._v2mAdapter = v2mAdapter;
 		setSize(new Dimension(500, 500));
 		initGUI();
 	}

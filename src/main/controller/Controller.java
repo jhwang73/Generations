@@ -26,15 +26,15 @@ public class Controller {
 	 * The constructor of the Controller.
 	 */
 	public Controller() {
-		_model = new Model();
-		_view = new View();
+		_model = new Model(null);
+		_view = new View(null);
 	}
 
 	/**
 	 * Start the system.
 	 */
 	public void start() {
-//		_model.start();
+		_model.start();
 		_view.start();
 	}
 
