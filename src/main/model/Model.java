@@ -29,5 +29,6 @@ public class Model {
 	
 	public void initialGeneration(String species) {
 //		ecosystem = new SurvivalEcosystem(species);
+//		GenInfo = ecosystem.initialGeneration();
 	}
 }

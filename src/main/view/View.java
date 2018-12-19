@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 
 /**
  * The view. The user interacts with this.
@@ -69,6 +71,14 @@ public class View<Species> extends JFrame {
 	 * Labels the list of species.
 	 */
 	private final JLabel lblSpecies = new JLabel("Species:");
+	/**
+	 * Labels the size of the generation.
+	 */
+	private final JLabel lblGenerationSize = new JLabel("Generation Size");
+	/**
+	 * The size of the generation.
+	 */
+	private final JSpinner spinnerGenerationSize = new JSpinner(new SpinnerNumberModel(2, 2, 10, 1));
 
 	/**
 	 * Initializes the GUI
@@ -119,6 +129,13 @@ public class View<Species> extends JFrame {
 		comboBoxThings.setToolTipText("The list of species");
 		
 		panelNorth.add(comboBoxThings);
+		
+		lblGenerationSize.setToolTipText("The size of the generation (The number of organisms in each generation)");
+		panelNorth.add(lblGenerationSize);
+		
+		((JSpinner.DefaultEditor) spinnerGenerationSize.getEditor()).getTextField().setEditable(false);
+		spinnerGenerationSize.setToolTipText("Input the size of the generation");
+		panelNorth.add(spinnerGenerationSize);
 		
 		btnBegin.setToolTipText("Start a new generation of the selected species.");
 		panelNorth.add(btnBegin);
