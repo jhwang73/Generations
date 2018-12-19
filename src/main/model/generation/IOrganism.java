@@ -6,5 +6,4 @@ package main.model.generation;
  * @author jhwang73
  */
 public interface IOrganism {
-
 }

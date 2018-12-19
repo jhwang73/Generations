@@ -27,4 +27,7 @@ public class Model {
 		// TODO: Anything?
 	}
 	
+	public void initialGeneration(String species) {
+//		ecosystem = new SurvivalEcosystem(species);
+	}
 }

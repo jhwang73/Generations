@@ -16,8 +16,8 @@ public class GenerationInfo {
 
 	/**
 	 * The information regarding this generation.
-	 * For the initial generation, this info will describe the species, the ecosystem the species is in, its generation properties, and the breeding process.
-	 * For all other generations, this info will describe what happened to get to this current generation from the previous generation.
+	 * This info will describe what happened to get to this current generation from the previous generation,
+	 * and any relevant information about this generation.
 	 */
 	private String info;
 	
