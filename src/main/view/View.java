@@ -24,7 +24,6 @@ public class View<Species> extends JFrame {
 	 * The serial version UID
 	 */
 	private static final long serialVersionUID = 3477867755243767271L;
-
 	/**
 	 * The adapter from the view to the model. Initialized to the no-op adapter.
 	 */
