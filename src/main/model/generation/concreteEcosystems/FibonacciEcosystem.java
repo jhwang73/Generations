@@ -2,6 +2,7 @@ package main.model.generation.concreteEcosystems;
 
 import java.util.List;
 
+import main.model.generation.AOrganismFactory;
 import main.model.generation.GenerationInfo;
 import main.model.generation.IEcosystem;
 import main.model.generation.concreteOrganisms.FibonacciOrganism;
@@ -11,7 +12,7 @@ import main.model.generation.concreteOrganisms.FibonacciOrganism;
  * 
  * @author jhwang73
  */
-public class FibonacciEcosystem implements IEcosystem {
+public class FibonacciEcosystem<Fibonacci> implements IEcosystem {
 	
 	/**
 	 * The iteration of the current generation.
@@ -26,13 +27,13 @@ public class FibonacciEcosystem implements IEcosystem {
 	/**
 	 * The current generation.
 	 */
-	private List<FibonacciOrganism> _currentGeneration;
+	private List<Fibonacci> _currentGeneration;
 	
 	/**
 	 * The Constructor for the fibonacci ecosystem.
 	 * @param generationSize The size of the generation
 	 */
-	public FibonacciEcosystem(int generationSize) {
+	public FibonacciEcosystem(int generationSize, AOrganismFactory<Fibonacci> fibonacciFactory) {
 		this._generationSize = generationSize;
 		this._generationNumber = 0;
 	}

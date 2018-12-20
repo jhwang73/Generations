@@ -20,7 +20,7 @@ import javax.swing.SpinnerNumberModel;
  * @author jhwang73
  * @param <Species> The species
  */
-public class View<Species> extends JFrame {
+public class View<Species, Ecosystem> extends JFrame {
 	
 	/**
 	 * The serial version UID
@@ -50,7 +50,7 @@ public class View<Species> extends JFrame {
 	/**
 	 * The list of species.
 	 */
-	private final JComboBox<Species> comboBoxThings = new JComboBox<Species>();
+	private final JComboBox<Species> comboBoxSpecies = new JComboBox<Species>();
 	/**
 	 * Begin a new generation.
 	 */
@@ -79,6 +79,14 @@ public class View<Species> extends JFrame {
 	 * The size of the generation.
 	 */
 	private final JSpinner spinnerGenerationSize = new JSpinner(new SpinnerNumberModel(2, 2, 10, 1));
+	/**
+	 * Labels the list of available ecosystems.
+	 */
+	private final JLabel lblEcosystem = new JLabel("Ecosystem:");
+	/**
+	 * The list of ecosystems for a selected species.
+	 */
+	private final JComboBox<Ecosystem> comboBoxEcosystems = new JComboBox<Ecosystem>();
 
 	/**
 	 * Initializes the GUI
@@ -93,7 +101,7 @@ public class View<Species> extends JFrame {
 	 */
 	public View(IViewToModelAdapter v2mAdapter) {
 		this._v2mAdapter = v2mAdapter;
-		setSize(new Dimension(500, 500));
+		setSize(new Dimension(600, 600));
 		initGUI();
 	}
 
@@ -102,7 +110,7 @@ public class View<Species> extends JFrame {
 	 */
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(0, 0, 500, 500);
+		setBounds(0, 0, 600, 600);
 
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 204, 0));
@@ -123,12 +131,18 @@ public class View<Species> extends JFrame {
 		
 		btnQuit.setToolTipText("Quit the application");
 		panelNorth.add(btnQuit);
+		
 		lblSpecies.setToolTipText("The available species are:");
-		
 		panelNorth.add(lblSpecies);
-		comboBoxThings.setToolTipText("The list of species");
 		
-		panelNorth.add(comboBoxThings);
+		comboBoxSpecies.setToolTipText("The list of species");
+		panelNorth.add(comboBoxSpecies);
+		
+		lblEcosystem.setToolTipText("The ecosystem to place the selected species in");
+		panelNorth.add(lblEcosystem);
+		
+		comboBoxEcosystems.setToolTipText("The list of available ecosystems for the selected species");
+		panelNorth.add(comboBoxEcosystems);
 		
 		lblGenerationSize.setToolTipText("The size of the generation (The number of organisms in each generation)");
 		panelNorth.add(lblGenerationSize);

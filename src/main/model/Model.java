@@ -27,6 +27,8 @@ public class Model {
 		// TODO: Anything?
 	}
 	
+	// TODO: use instanceOf() when determining which ecosystems are available for which species
+	
 	public void initialGeneration(String species) {
 //		ecosystem = new SurvivalEcosystem(species);
 //		GenInfo = ecosystem.initialGeneration();

@@ -3,11 +3,11 @@ package main.model.generation.concreteEcosystems;
 import main.model.generation.IEcosystem;
 
 /**
- * The base class of standard ecosystems. All standard ecosystems extend this.
+ * The base class of dynamic ecosystems, where interaction is not fixed. All dynamic ecosystems extend this.
  * 
  * @author jhwang73
  */
-public abstract class AStandardEcosystem implements IEcosystem {
+public abstract class ADynamicEcosystem implements IEcosystem {
 
 	@Override
 	public String getEcosystemInfo() {
