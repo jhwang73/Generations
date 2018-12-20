@@ -1,2 +1,2 @@
 # Generations
-Simulate generations of various species in their ecosystems. Application is scalable in what usable "species" and "ecosystems" are.
+Place a species in an ecosystem. Watch the intra-species interactions across generations. Scalable in what usable "species" and "ecosystems" are, as well as which ecosystems a species can live in.
