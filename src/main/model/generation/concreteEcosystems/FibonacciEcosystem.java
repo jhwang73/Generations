@@ -89,7 +89,7 @@ public class FibonacciEcosystem implements IEcosystem<FibonacciOrganism> {
 		this._currentGeneration.add(new FibonacciOrganism(this._generationNumber + this._generationSize - 1, this.computeAddition()));
 		this._currentGeneration.remove(0);
 		
-		return new GenerationInfo<FibonacciOrganism>(this._generationNumber, "The next number has been generated",
+		return new GenerationInfo<FibonacciOrganism>(this._generationNumber, "The next number has been generated.",
 				this._currentGeneration);
 	}
 	
@@ -97,7 +97,7 @@ public class FibonacciEcosystem implements IEcosystem<FibonacciOrganism> {
 	 * Compute f(n - 1) + f(n - 2)
 	 * @return The value
 	 */
-	protected int computeAddition() {
+	private int computeAddition() {
 		int currentSize = this._currentGeneration.size();
 		return this._currentGeneration.get(currentSize - 1).getValue() + this._currentGeneration.get(currentSize - 2).getValue();
 	}
