@@ -12,12 +12,11 @@ public class FibonacciOrganism implements IOrganism {
 	/**
 	 * The index in the sequence.
 	 */
-	private int _index;
-	
+	private final int _index;
 	/**
 	 * The integer value.
 	 */
-	private int _value;
+	private final int _value;
 	
 	/**
 	 * The constructor of the Fibonacci organism. Starts at 0, 1. 0 is the 0th number, 1 is the 1st number.
@@ -32,6 +31,22 @@ public class FibonacciOrganism implements IOrganism {
 	@Override
 	public String displayAsString() {
 		return "Index: " + this._index + "\nValue: " + this._value;
+	}
+	
+	/**
+	 * Get the index
+	 * @return The index
+	 */
+	public int getIndex() {
+		return _index;
+	}
+	
+	/**
+	 * Get the value
+	 * @return The value
+	 */
+	public int getValue() {
+		return _value;
 	}
 	
 }

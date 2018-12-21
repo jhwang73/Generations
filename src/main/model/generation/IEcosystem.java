@@ -15,7 +15,7 @@ public interface IEcosystem<Species extends IOrganism> {
 	 * @return The ecosystem info
 	 */
 	public String getEcosystemInfo();
-
+	
 	/**
 	 * Initialize and return the 0th generation and info regarding the construction of that generation.
 	 * @return The 0th generation
