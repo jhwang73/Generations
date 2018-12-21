@@ -76,7 +76,7 @@ public class View<Species, Ecosystem> extends JFrame {
 	 */
 	private final JLabel lblGenerationSize = new JLabel("Generation Size");
 	/**
-	 * The size of the generation.
+	 * The size of the generation. Must be at least 2.
 	 */
 	private final JSpinner spinnerGenerationSize = new JSpinner(new SpinnerNumberModel(2, 2, 10, 1));
 	/**

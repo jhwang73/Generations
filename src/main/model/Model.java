@@ -29,6 +29,8 @@ public class Model {
 	
 	// TODO: use instanceOf() when determining which ecosystems are available for which species
 	
+	// TODO: generation size will be at least 2.
+	
 	public void initialGeneration(String species) {
 //		ecosystem = new SurvivalEcosystem(species);
 //		GenInfo = ecosystem.initialGeneration();

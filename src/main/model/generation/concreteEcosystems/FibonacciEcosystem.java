@@ -1,10 +1,12 @@
 package main.model.generation.concreteEcosystems;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import main.model.generation.AOrganismFactory;
 import main.model.generation.GenerationInfo;
 import main.model.generation.IEcosystem;
+import main.model.generation.IOrganism;
 import main.model.generation.concreteOrganisms.FibonacciOrganism;
 
 /**
@@ -12,7 +14,7 @@ import main.model.generation.concreteOrganisms.FibonacciOrganism;
  * 
  * @author jhwang73
  */
-public class FibonacciEcosystem<Fibonacci> implements IEcosystem {
+public class FibonacciEcosystem implements IEcosystem<FibonacciOrganism> {
 	
 	/**
 	 * The iteration of the current generation.
@@ -27,27 +29,30 @@ public class FibonacciEcosystem<Fibonacci> implements IEcosystem {
 	/**
 	 * The current generation.
 	 */
-	private List<Fibonacci> _currentGeneration;
+	private List<FibonacciOrganism> _currentGeneration;
 	
 	/**
 	 * The Constructor for the fibonacci ecosystem.
 	 * @param generationSize The size of the generation
+	 * @param fibonacciFactory The factory for a Fibonacci organism
 	 */
-	public FibonacciEcosystem(int generationSize, AOrganismFactory<Fibonacci> fibonacciFactory) {
+	public FibonacciEcosystem(int generationSize, AOrganismFactory<FibonacciOrganism> fibonacciFactory) {
 		this._generationSize = generationSize;
 		this._generationNumber = 0;
 	}
-
+	
 	@Override
 	public String getEcosystemInfo() {
 		return "This Ecosystem generates a fibonacci number sequence. Simply watch the sequence advance!";
 	}
 
 	@Override
-	public GenerationInfo initialGeneration() {
+	public GenerationInfo<FibonacciOrganism> initialGeneration() {
+		this._currentGeneration = new ArrayList<FibonacciOrganism>();
 		
-		return new GenerationInfo(this._generationNumber, "The first " + this._generationSize + 
-				"numbers have been generated.", null);
+		
+		return new GenerationInfo<FibonacciOrganism>(this._generationNumber, "The first " + this._generationSize + 
+				"numbers have been generated.", this._currentGeneration);
 	}
 
 	@Override

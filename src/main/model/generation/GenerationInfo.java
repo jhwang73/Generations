@@ -6,8 +6,9 @@ import java.util.List;
  * Holds a generation number, a generation of a species, and the info regarding that generation.
  * 
  * @author jhwang73
+ * @param <Species> The species
  */
-public class GenerationInfo {
+public class GenerationInfo<Species extends IOrganism> {
 	
 	/**
 	 * The iteration of the generation. Zero-indexed.
@@ -24,7 +25,7 @@ public class GenerationInfo {
 	/**
 	 * The generation, or equivalently, a list of organisms in that generation.
 	 */
-	private List<IOrganism> generation;
+	private List<Species> generation;
 	
 	/**
 	 * The Constructor for the Generation Info.
@@ -32,7 +33,7 @@ public class GenerationInfo {
 	 * @param info The information regarding this generation
 	 * @param generation The generation
 	 */
-	public GenerationInfo(int generationNumber, String info, List<IOrganism> generation) {
+	public GenerationInfo(int generationNumber, String info, List<Species> generation) {
 		this.generationNumber = generationNumber;
 		this.info = info;
 		this.generation = generation;
@@ -58,7 +59,7 @@ public class GenerationInfo {
 	 * Get the generation.
 	 * @return the generation
 	 */
-	public List<IOrganism> getGeneration() {
+	public List<Species> getGeneration() {
 		return generation;
 	}
 

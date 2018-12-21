@@ -1,13 +1,15 @@
 package main.model.generation.concreteEcosystems;
 
 import main.model.generation.IEcosystem;
+import main.model.generation.IOrganism;
 
 /**
  * The base class of dynamic ecosystems, where interaction is not fixed. All dynamic ecosystems extend this.
  * 
  * @author jhwang73
+ * @param <Species> The species in the ecosystem
  */
-public abstract class ADynamicEcosystem implements IEcosystem {
+public abstract class ADynamicEcosystem<Species extends IOrganism> implements IEcosystem<Species> {
 
 	@Override
 	public String getEcosystemInfo() {
