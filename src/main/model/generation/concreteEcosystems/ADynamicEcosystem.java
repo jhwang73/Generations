@@ -1,5 +1,9 @@
 package main.model.generation.concreteEcosystems;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import main.model.generation.AOrganismFactory;
 import main.model.generation.IEcosystem;
 import main.model.generation.IOrganism;
 
@@ -10,30 +14,63 @@ import main.model.generation.IOrganism;
  * @param <Species> The species in the ecosystem
  */
 public abstract class ADynamicEcosystem<Species extends IOrganism> implements IEcosystem<Species> {
-
-	@Override
-	public String getEcosystemInfo() {
-		return "Ecosystem Name: " + getEcosystemName() +
-			   "\nRules: " + getEcosystemRules() +
-			   "\nOther Info" + getEcosystemOtherInfo();
+	
+	/**
+	 * The name of the ecosystem.
+	 */
+	protected String _ecosystemName;
+	
+	/**
+	 * The rules of the ecosystem.
+	 */
+	protected String _ecosystemRules;
+	
+	/**
+	 * Other information about the ecosystem.
+	 */
+	protected String _ecosystemOtherInfo;
+	
+	/**
+	 * The iteration of the current generation.
+	 */
+	protected int _generationNumber = 0;
+	
+	/**
+	 * The size of the generation.
+	 */
+	protected final int _generationSize;
+	
+	/**
+	 * The current generation.
+	 */
+	protected List<Species> _currentGeneration;
+	
+	/**
+	 * The factory for an organism of the species.
+	 */
+	protected final AOrganismFactory<Species> _organismFactory;
+	
+	/**
+	 * The name of the species in the ecosystem.
+	 */
+	protected final String _speciesName;
+	
+	/**
+	 * The constructor for dynamic ecosystems.
+	 * @param generationSize The size of the generation. Must be at least 2
+	 * @param organismFactory The factory for an organism of species Species
+	 */
+	public ADynamicEcosystem(int generationSize, AOrganismFactory<Species> organismFactory) {
+		this._generationSize = generationSize;
+		this._organismFactory = organismFactory;
+		this._speciesName = organismFactory.getSpeciesName();
 	}
 	
-	/**
-	 * Get the name of the ecosystem.
-	 * @return The name of the ecosystem
-	 */
-	protected abstract String getEcosystemName();
+	@Override
+	public final String getEcosystemInfo() {
+		return "Ecosystem Name: " + this._ecosystemName +
+			   "\nRules: " + this._ecosystemRules +
+			   "\nOther Info" + this._ecosystemOtherInfo;
+	}
 	
-	/**
-	 * Get the rules of how generations are initialized & advanced in this ecosystem.
-	 * @return The rules of the ecosystem
-	 */
-	protected abstract String getEcosystemRules();
-	
-	/**
-	 * Get any other relevant info in the ecosystem.
-	 * @return Other info
-	 */
-	protected abstract String getEcosystemOtherInfo();
-
 }

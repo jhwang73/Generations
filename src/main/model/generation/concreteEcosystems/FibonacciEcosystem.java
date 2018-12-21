@@ -18,17 +18,17 @@ public class FibonacciEcosystem implements IEcosystem<FibonacciOrganism> {
 	/**
 	 * Information about this ecosystem.
 	 */
-	private String _ecosystemInfo = "This Ecosystem generates a fibonacci number sequence. Simply watch the sequence advance!";
+	private final String _ecosystemInfo = "This Ecosystem generates a fibonacci number sequence. Simply watch the sequence advance!";
 	
 	/**
 	 * The iteration of the current generation.
 	 */
-	private int _generationNumber;
+	private int _generationNumber = 0;
 	
 	/**
 	 * The size of the generation.
 	 */
-	private int _generationSize;
+	private final int _generationSize;
 	
 	/**
 	 * The current generation.
@@ -38,12 +38,12 @@ public class FibonacciEcosystem implements IEcosystem<FibonacciOrganism> {
 	/**
 	 * The factory for an organism of the species.
 	 */
-	private AOrganismFactory<FibonacciOrganism> _foFactory;
+	private final AOrganismFactory<FibonacciOrganism> _foFactory;
 	
 	/**
 	 * The name of the species in the ecosystem.
 	 */
-	private String _speciesName;
+	private final String _speciesName;
 	
 	/**
 	 * The Constructor for the fibonacci ecosystem.
@@ -54,17 +54,16 @@ public class FibonacciEcosystem implements IEcosystem<FibonacciOrganism> {
 		this._generationSize = generationSize;
 		this._foFactory = foFactory;
 		this._speciesName = foFactory.getSpeciesName();
-		this._generationNumber = 0;
 	}
 	
 	@Override
 	public String getEcosystemInfo() {
 		return this._ecosystemInfo;
 	}
-
+	
 	@Override
 	public GenerationInfo<FibonacciOrganism> initialGeneration() {
-		
+		this._generationNumber = 0;
 		this._currentGeneration = new ArrayList<FibonacciOrganism>();
 		
 		for (int i = 0; i < this._generationSize; i++) {

@@ -13,19 +13,19 @@ public class GenerationInfo<Species extends IOrganism> {
 	/**
 	 * The iteration of the generation. Zero-indexed.
 	 */
-	private int generationNumber;
+	private final int generationNumber;
 
 	/**
 	 * The information regarding this generation.
 	 * This info will describe what happened to get to this current generation from the previous generation,
 	 * and any relevant information about this generation.
 	 */
-	private String info;
+	private final String info;
 	
 	/**
 	 * The generation, or equivalently, a list of organisms in that generation.
 	 */
-	private List<Species> generation;
+	private final List<Species> generation;
 	
 	/**
 	 * The Constructor for the Generation Info.
@@ -43,7 +43,7 @@ public class GenerationInfo<Species extends IOrganism> {
 	 * Get the generation number.
 	 * @return the generationNumber.
 	 */
-	public int getGenerationNumber() {
+	public final int getGenerationNumber() {
 		return generationNumber;
 	}
 	
@@ -51,7 +51,7 @@ public class GenerationInfo<Species extends IOrganism> {
 	 * Get the info.
 	 * @return the info
 	 */
-	public String getInfo() {
+	public final String getInfo() {
 		return info;
 	}
 
@@ -59,7 +59,7 @@ public class GenerationInfo<Species extends IOrganism> {
 	 * Get the generation.
 	 * @return the generation
 	 */
-	public List<Species> getGeneration() {
+	public final List<Species> getGeneration() {
 		return generation;
 	}
 
