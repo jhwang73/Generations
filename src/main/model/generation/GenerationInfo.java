@@ -1,5 +1,6 @@
 package main.model.generation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,6 +10,12 @@ import java.util.List;
  * @param <Species> The species
  */
 public class GenerationInfo<Species extends IOrganism> {
+	
+	/**
+	 * The error GI. Return when there is an error during the processing of making generations.
+	 */
+	@SuppressWarnings("rawtypes")
+	public static final GenerationInfo errorGI = new GenerationInfo<>(-1, "ERROR", new ArrayList<>());
 	
 	/**
 	 * The iteration of the generation. Zero-indexed.

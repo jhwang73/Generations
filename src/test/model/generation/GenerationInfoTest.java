@@ -20,6 +20,16 @@ class GenerationInfoTest {
 	 * The test Generation Info
 	 */
 	private final GenerationInfo<IOrganism> gi = new GenerationInfo<IOrganism>(1, "GenerationInfo Test", new ArrayList<IOrganism>());
+	
+	/**
+	 * Test the error GI.
+	 */
+	@Test
+	void testErrorGI() {
+		assertEquals(-1, GenerationInfo.errorGI.getGenerationNumber());
+		assertEquals("ERROR", GenerationInfo.errorGI.getInfo());
+		assertEquals(new ArrayList<>(), GenerationInfo.errorGI.getGeneration());
+	}
 
 	/**
 	 * Test for getGenerationNumber
@@ -42,7 +52,7 @@ class GenerationInfoTest {
 	 */
 	@Test
 	void testGetGeneration() {
-		assertEquals(0, gi.getGeneration().size());
+		assertEquals(new ArrayList<>(), gi.getGeneration());
 	}
 
 }

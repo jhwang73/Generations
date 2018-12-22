@@ -28,7 +28,7 @@ public class FibonacciEcosystem implements IEcosystem<FibonacciOrganism> {
 	/**
 	 * The iteration of the current generation.
 	 */
-	private int _generationNumber = 0;
+	private int _generationNumber = -1;
 	
 	/**
 	 * The size of the generation.
@@ -56,6 +56,8 @@ public class FibonacciEcosystem implements IEcosystem<FibonacciOrganism> {
 	 * @param foFactory The factory for a fibonacci organism
 	 */
 	public FibonacciEcosystem(int generationSize, AOrganismFactory<FibonacciOrganism> foFactory) {
+		if (generationSize < 2)
+			System.out.println("generation size must be at least 2!");
 		this._generationSize = generationSize;
 		this._foFactory = foFactory;
 		this._speciesName = foFactory.getSpeciesName();
@@ -73,6 +75,7 @@ public class FibonacciEcosystem implements IEcosystem<FibonacciOrganism> {
 	
 	@Override
 	public GenerationInfo<FibonacciOrganism> initialGeneration() {
+		// Reset the variables
 		this._generationNumber = 0;
 		this._currentGeneration = new ArrayList<FibonacciOrganism>();
 		
@@ -91,8 +94,13 @@ public class FibonacciEcosystem implements IEcosystem<FibonacciOrganism> {
 				" " + this._speciesName + "(s) have been generated.", this._currentGeneration);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public GenerationInfo<FibonacciOrganism> nextGeneration() {
+		if (this._generationNumber < 0) {
+			System.out.println("initialGeneration must be called before calling this method!");
+			return GenerationInfo.errorGI;
+		}
 		this._generationNumber++;
 		
 		this._currentGeneration.add(new FibonacciOrganism(this._generationNumber + this._generationSize - 1, this.computeAddition()));

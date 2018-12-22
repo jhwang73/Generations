@@ -27,7 +27,7 @@ class FibonacciEcosystemTest {
 			}
 
 			@Override
-			public FibonacciOrganism makeOrganism() {
+			public FibonacciOrganism makeRandomOrganism() {
 				return new FibonacciOrganism(0, 0);
 			}
 		});
@@ -57,7 +57,7 @@ class FibonacciEcosystemTest {
 			}
 
 			@Override
-			public FibonacciOrganism makeOrganism() {
+			public FibonacciOrganism makeRandomOrganism() {
 				return new FibonacciOrganism(0, 0);
 			}
 		});

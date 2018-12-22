@@ -19,6 +19,7 @@ import javax.swing.SpinnerNumberModel;
  * 
  * @author jhwang73
  * @param <Species> The species
+ * @param <Ecosystem> The ecosystem
  */
 public class View<Species, Ecosystem> extends JFrame {
 	
@@ -101,6 +102,7 @@ public class View<Species, Ecosystem> extends JFrame {
 	 */
 	public View(IViewToModelAdapter v2mAdapter) {
 		this._v2mAdapter = v2mAdapter;
+		setMinimumSize(new Dimension(300, 300));
 		setSize(new Dimension(600, 600));
 		initGUI();
 	}

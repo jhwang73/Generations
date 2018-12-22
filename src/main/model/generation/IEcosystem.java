@@ -28,6 +28,7 @@ public interface IEcosystem<Species extends IOrganism> {
 	
 	/**
 	 * Simulate and return the next generation and info regarding the construction of that generation.
+	 * initialGeneration() must be called before this is called.
 	 * @return The next generation.
 	 */
 	public GenerationInfo<Species> nextGeneration();
