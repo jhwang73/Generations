@@ -37,7 +37,7 @@ public class FibonacciOrganism implements IOrganism {
 	 * Get the index
 	 * @return The index
 	 */
-	public int getIndex() {
+	public final int getIndex() {
 		return _index;
 	}
 	
@@ -45,7 +45,7 @@ public class FibonacciOrganism implements IOrganism {
 	 * Get the value
 	 * @return The value
 	 */
-	public int getValue() {
+	public final int getValue() {
 		return _value;
 	}
 	

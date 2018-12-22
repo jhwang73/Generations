@@ -18,12 +18,12 @@ public class FibonacciEcosystem implements IEcosystem<FibonacciOrganism> {
 	/**
 	 * The name of this ecosystem.
 	 */
-	private static final String _ecosystemName = "FibonacciEcosystem";
+	private static String _ecosystemName = "FibonacciEcosystem";
 	
 	/**
 	 * The rules of this ecosystem.
 	 */
-	private static final String _ecosystemRules = "This Ecosystem generates a fibonacci number sequence. Simply watch the sequence advance!";
+	private static String _ecosystemRules = "This Ecosystem generates a fibonacci number sequence. Simply watch the sequence advance!";
 	
 	/**
 	 * The iteration of the current generation.
