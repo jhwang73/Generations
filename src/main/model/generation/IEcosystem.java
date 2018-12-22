@@ -9,12 +9,16 @@ package main.model.generation;
 public interface IEcosystem<Species extends IOrganism> {
 	
 	/**
-	 * Get information about this ecosystem.
-	 * This should return the name, the rules on how generations are made & advance in this ecosystem,
-	 * and any other relevant information.
-	 * @return The ecosystem info
+	 * Get the name of this ecosystem.
+	 * @return The name
 	 */
-	public String getEcosystemInfo();
+	public String getEcosystemName();
+	
+	/**
+	 * Get the rules on how generations are made & advanced in this ecosystem.
+	 * @return The rules 
+	 */
+	public String getEcosystemRules();
 	
 	/**
 	 * Initialize and return the 0th generation and info regarding the construction of that generation.

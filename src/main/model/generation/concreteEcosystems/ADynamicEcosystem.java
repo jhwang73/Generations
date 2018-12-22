@@ -1,6 +1,5 @@
 package main.model.generation.concreteEcosystems;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import main.model.generation.AOrganismFactory;
@@ -66,11 +65,6 @@ public abstract class ADynamicEcosystem<Species extends IOrganism> implements IE
 		this._speciesName = organismFactory.getSpeciesName();
 	}
 	
-	@Override
-	public final String getEcosystemInfo() {
-		return "Ecosystem Name: " + this._ecosystemName +
-			   "\nRules: " + this._ecosystemRules +
-			   "\nOther Info" + this._ecosystemOtherInfo;
-	}
+	
 	
 }

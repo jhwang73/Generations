@@ -14,26 +14,7 @@ import main.model.generation.*;
  * @author jhwang73
  */
 class FibonacciEcosystemTest {
-
-	/**
-	 * Test getEcosystemInfo
-	 */
-	@Test
-	void testGetEcosystemInfo() {
-		FibonacciEcosystem fe = new FibonacciEcosystem(2, new AOrganismFactory<FibonacciOrganism>() {
-			@Override
-			public String getSpeciesName() {
-				return "Fibonacci Organism";
-			}
-
-			@Override
-			public FibonacciOrganism makeOrganism() {
-				return new FibonacciOrganism(0, 0);
-			}
-		});
-		assertEquals("This Ecosystem generates a fibonacci number sequence. Simply watch the sequence advance!", fe.getEcosystemInfo());
-	}
-
+	
 	/**
 	 * Test initialGeneration
 	 */
