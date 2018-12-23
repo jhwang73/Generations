@@ -20,10 +20,6 @@ public abstract class AOrganismFactory<Species> {
 	 */
 	public abstract Species makeRandomOrganism();
 	
-	public Species makeSpecificOrganism() {
-		return makeRandomOrganism();
-	}
-	
 	// TODO: this will be created as anon inner class in the model. the view picks a species factory & an ecosystem
 	// construct the ecosystem with factory as argument. DONE.
 	

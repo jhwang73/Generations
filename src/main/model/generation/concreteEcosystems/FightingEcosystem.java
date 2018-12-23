@@ -1,7 +1,7 @@
 package main.model.generation.concreteEcosystems;
 
 import main.model.generation.AOrganismFactory;
-import main.model.generation.concreteOrganisms.AFightingOrganism;
+import main.model.generation.concreteOrganisms.IFighter;
 
 /**
  * The fighting ecosystem. In this ecosystem, organisms battle and the strongest organisms determine
@@ -10,12 +10,22 @@ import main.model.generation.concreteOrganisms.AFightingOrganism;
  * @author jhwang73
  * @param <Fighter> The species of the fighting type organism
  */
-public class FightingEcosystem<Fighter extends AFightingOrganism<Fighter>> extends ADynamicEcosystem<Fighter> {
+public class FightingEcosystem<Fighter extends IFighter<Fighter>> extends ADynamicEcosystem<Fighter> {
 
 	/**
+	 * The name of this ecosystem.
+	 */
+	private static String _ecosystemName = "FightingEcosystem";
+	
+	/**
+	 * The rules of this ecosystem.
+	 */
+	private static String _ecosystemRules = "This Ecosystem simulates fights. The strongest organisms advance and breed to make the new generation.";
+	
+	/**
 	 * The constructor for the fighting ecosystem.
-	 * @param generationSize
-	 * @param organismFactory
+	 * @param generationSize The size of the generation. Must be at least 2.
+	 * @param organismFactory The factory for a fighter type organism
 	 */
 	public FightingEcosystem(int generationSize, AOrganismFactory<Fighter> organismFactory) {
 		super(generationSize, organismFactory);
@@ -24,14 +34,12 @@ public class FightingEcosystem<Fighter extends AFightingOrganism<Fighter>> exten
 	
 	@Override
 	public String getEcosystemName() {
-		// TODO Auto-generated method stub
-		return null;
+		return _ecosystemName;
 	}
 
 	@Override
 	public String getEcosystemRules() {
-		// TODO Auto-generated method stub
-		return null;
+		return _ecosystemRules;
 	}
 	
 	@Override
