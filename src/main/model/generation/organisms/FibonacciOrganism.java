@@ -1,4 +1,4 @@
-package main.model.generation.concreteOrganisms;
+package main.model.generation.organisms;
 
 import main.model.generation.IOrganism;
 

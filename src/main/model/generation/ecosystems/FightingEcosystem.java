@@ -1,7 +1,7 @@
-package main.model.generation.concreteEcosystems;
+package main.model.generation.ecosystems;
 
 import main.model.generation.AOrganismFactory;
-import main.model.generation.concreteOrganisms.IFighter;
+import main.model.generation.organisms.IFighting;
 
 /**
  * The fighting ecosystem. In this ecosystem, organisms battle and the strongest organisms determine
@@ -10,8 +10,8 @@ import main.model.generation.concreteOrganisms.IFighter;
  * @author jhwang73
  * @param <Fighter> The species of the fighting type organism
  */
-public class FightingEcosystem<Fighter extends IFighter<Fighter>> extends ADynamicEcosystem<Fighter> {
-
+public class FightingEcosystem<Fighter extends IFighting<Fighter>> extends ANaturalEcosystem<Fighter> {
+	
 	/**
 	 * The name of this ecosystem.
 	 */
@@ -36,7 +36,7 @@ public class FightingEcosystem<Fighter extends IFighter<Fighter>> extends ADynam
 	public String getEcosystemName() {
 		return _ecosystemName;
 	}
-
+	
 	@Override
 	public String getEcosystemRules() {
 		return _ecosystemRules;
@@ -49,9 +49,9 @@ public class FightingEcosystem<Fighter extends IFighter<Fighter>> extends ADynam
 	}
 
 	@Override
-	public String productNextGeneration() {
+	public String produceNextGeneration() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 }

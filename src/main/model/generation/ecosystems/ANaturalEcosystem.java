@@ -1,4 +1,4 @@
-package main.model.generation.concreteEcosystems;
+package main.model.generation.ecosystems;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,16 +6,17 @@ import java.util.List;
 import main.model.generation.AOrganismFactory;
 import main.model.generation.GenerationInfo;
 import main.model.generation.IEcosystem;
-import main.model.generation.IOrganism;
+import main.model.generation.organisms.INatural;
 
 /**
- * The base class of dynamic ecosystems, where interaction is not fixed. All dynamic ecosystems extend this.
+ * The base class of natural ecosystems, where organisms dynamically interact, or in other words generations are not static.
+ * This is meant to mimic natural generations, where the best-suited organisms survive and reproduce.
  * 
  * @author jhwang73
  * @param <Species> The species in the ecosystem
  */
-public abstract class ADynamicEcosystem<Species extends IOrganism> implements IEcosystem<Species> {
-		
+public abstract class ANaturalEcosystem<Species extends INatural> implements IEcosystem<Species> {
+	
 	/**
 	 * The iteration of the current generation.
 	 */
@@ -42,11 +43,11 @@ public abstract class ADynamicEcosystem<Species extends IOrganism> implements IE
 	protected final String _speciesName;
 	
 	/**
-	 * The constructor for dynamic ecosystems.
+	 * The constructor for natural ecosystems.
 	 * @param generationSize The size of the generation. Must be at least 2
 	 * @param organismFactory The factory for an organism of species Species
 	 */
-	public ADynamicEcosystem(int generationSize, AOrganismFactory<Species> organismFactory) {
+	public ANaturalEcosystem(int generationSize, AOrganismFactory<Species> organismFactory) {
 		if (generationSize < 2)
 			System.out.println("generation size must be at least 2!");
 		this._generationSize = generationSize;
@@ -72,7 +73,7 @@ public abstract class ADynamicEcosystem<Species extends IOrganism> implements IE
 	@SuppressWarnings("unchecked")
 	@Override
 	public final GenerationInfo<Species> nextGeneration() {
-		// Template Design. All concrete dynamic ecosystems will follow this template.
+		// Template Design. All concrete natural ecosystems will follow this template.
 		if (this._generationNumber < 0) {
 			System.out.println("initialGeneration must be called before calling this method!");
 			return GenerationInfo.errorGI;
@@ -82,25 +83,39 @@ public abstract class ADynamicEcosystem<Species extends IOrganism> implements IE
 		
 		String analysis = analyzeCurrentGeneration();
 		
-		String newGenerationInfo = productNextGeneration();
+		String newGenerationInfo = produceNextGeneration();
+		
+		String mutationInfo = mutateGeneration();
 		
 		String info = "Information about the old generation: " + analysis +
-				"\nInformation about the new generation: " + newGenerationInfo;
+				"\nInformation about the new generation: " + newGenerationInfo +
+				"\nInformation about the mutation: " + mutationInfo;
 		
 		return new GenerationInfo<Species>(this._generationNumber, info, this._currentGeneration);
 	}
 	
 	/**
 	 * Analyze the current generation and get any information needed to produce the next generation
-	 * @return A report of the analysis
+	 * @return Info about the analysis
 	 */
-	public abstract String analyzeCurrentGeneration();
+	protected abstract String analyzeCurrentGeneration();
 	
 	/**
 	 * Produce the next generation. This should update the new generation to the current generation of this ecosystem.
-	 * @return A report of the generation
+	 * @return Info about the generation
 	 */
-	public abstract String productNextGeneration();
+	protected abstract String produceNextGeneration();
 	
+	/**
+	 * Mutate the generation before returning it.
+	 * @return Info about the mutation
+	 */
+	private final String mutateGeneration() {
+		String mutationInfo = "";
+		for (int i = 0; i < this._currentGeneration.size(); i++) {
+			mutationInfo += this._currentGeneration.get(i).mutate() + "\n";
+		}
+		return mutationInfo;
+	}
 	
 }

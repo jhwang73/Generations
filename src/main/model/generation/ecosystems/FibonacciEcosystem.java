@@ -1,4 +1,4 @@
-package main.model.generation.concreteEcosystems;
+package main.model.generation.ecosystems;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import main.model.generation.AOrganismFactory;
 import main.model.generation.GenerationInfo;
 import main.model.generation.IEcosystem;
-import main.model.generation.concreteOrganisms.FibonacciOrganism;
+import main.model.generation.organisms.FibonacciOrganism;
 
 /**
  * An ecosystem which simulates a generation of the fibonacci sequence. This ecosystem does not need a factory.

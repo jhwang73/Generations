@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import main.model.generation.concreteOrganisms.FibonacciOrganism;
+import main.model.generation.organisms.FibonacciOrganism;
 
 /**
  * Unit tests for FibonacciOrganism
