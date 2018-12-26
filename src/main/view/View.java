@@ -13,6 +13,9 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.JSplitPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 
 /**
  * The view. The user interacts with this.
@@ -30,16 +33,12 @@ public class View<Species, Ecosystem> extends JFrame {
 	/**
 	 * The adapter from the view to the model. Initialized to the no-op adapter.
 	 */
-	private IViewToModelAdapter _v2mAdapter = IViewToModelAdapter.NULL_ADAPTER;
+	private IViewToModelAdapter<Species, Ecosystem> _v2mAdapter = IViewToModelAdapter.NULL_ADAPTER;
 	
 	/**
 	 * The pane that holds all the components.
 	 */
 	private JPanel contentPane;
-	/**
-	 * The panel which holds on the generation panel.
-	 */
-	private final JPanel panelCenter = new JPanel();
 	/**
 	 * The panel which holds the application actions.
 	 */
@@ -63,7 +62,7 @@ public class View<Species, Ecosystem> extends JFrame {
 	/**
 	 * Which generation you are currently at.
 	 */
-	private final JLabel lblGenerationNumber = new JLabel("Generation:#");
+	private final JLabel lblGenerationNumber = new JLabel("Generation ?");
 	/**
 	 * Go to the next generation.
 	 */
@@ -88,19 +87,32 @@ public class View<Species, Ecosystem> extends JFrame {
 	 * The list of ecosystems for a selected species.
 	 */
 	private final JComboBox<Ecosystem> comboBoxEcosystems = new JComboBox<Ecosystem>();
+	/**
+	 * The split pane where the information is displayed.
+	 */
+	private final JSplitPane splitPane = new JSplitPane();
+	/**
+	 * Information about the ecosystem & the generations are displayed here.
+	 */
+	private final JTextArea textAreaInfo = new JTextArea();
+	/**
+	 * The generation is displayed here.
+	 */
+	private final JTextPane textPaneGeneration = new JTextPane();
 
 	/**
 	 * Initializes the GUI
 	 */
 	public void start() {
 		setVisible(true);
+		btnNextGeneration.setEnabled(false);
 	}
 
 	/**
 	 * Constructor for the view.
 	 * @param v2mAdapter The adapter from the view to the model.
 	 */
-	public View(IViewToModelAdapter v2mAdapter) {
+	public View(IViewToModelAdapter<Species, Ecosystem> v2mAdapter) {
 		this._v2mAdapter = v2mAdapter;
 		setMinimumSize(new Dimension(300, 300));
 		setSize(new Dimension(600, 600));
@@ -119,9 +131,6 @@ public class View<Species, Ecosystem> extends JFrame {
 		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		contentPane.setLayout(new BorderLayout(10, 10));
 		setContentPane(contentPane);
-		
-		panelCenter.setToolTipText("The main panel where generations are shown");
-		contentPane.add(panelCenter, BorderLayout.CENTER);
 		
 		panelNorth.setBackground(new Color(0, 255, 153));
 		panelNorth.setToolTipText("The action buttons are here.");
@@ -153,7 +162,7 @@ public class View<Species, Ecosystem> extends JFrame {
 		spinnerGenerationSize.setToolTipText("Input the size of the generation");
 		panelNorth.add(spinnerGenerationSize);
 		
-		btnBegin.setToolTipText("Start a new generation of the selected species.");
+		btnBegin.setToolTipText("Start a new generation of the selected species in the selected ecosystem.");
 		panelNorth.add(btnBegin);
 
 		lblGenerationNumber.setToolTipText("The #th generation");
@@ -161,6 +170,33 @@ public class View<Species, Ecosystem> extends JFrame {
 		
 		btnNextGeneration.setToolTipText("Simulate an advancement to the next generation.");
 		panelSouth.add(btnNextGeneration);
+		splitPane.setToolTipText("Contains the text information and the generation display");
+		
+		contentPane.add(splitPane, BorderLayout.CENTER);
+		textAreaInfo.setLineWrap(true);
+		textAreaInfo.setEditable(false);
+		textAreaInfo.setToolTipText("The text area where information regarding the ecosystem and generations are displayed");
+		textAreaInfo.setSize(new Dimension(200, 600));
+		splitPane.setLeftComponent(textAreaInfo);
+		textPaneGeneration.setEditable(false);
+		textPaneGeneration.setToolTipText("Displays the generations");
+		splitPane.setRightComponent(textPaneGeneration);
+	}
+	
+	/**
+	 * Display text on the view
+	 * @param text The text to display
+	 */
+	public void displayText(String text) {
+		textAreaInfo.append(text);
+	}
+	
+	/**
+	 * Set the generation iteration number
+	 * @param generationNumber The generation number
+	 */
+	public void setGeneration(int generationNumber) {
+		lblGenerationNumber.setText("Generation " + generationNumber);
 	}
 
 }

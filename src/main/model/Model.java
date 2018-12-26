@@ -1,5 +1,7 @@
 package main.model;
 
+import java.util.List;
+
 /**
  * The model. The system does the backend operations here.
  * 
@@ -25,6 +27,17 @@ public class Model {
 	 */
 	public void start() {
 		// TODO: Anything?
+	}
+	
+	/**
+	 * Quit the model.
+	 */
+	public void quit() {
+		System.exit(0);
+	}
+	
+	public List<Object> getAvailableSpecies() {
+		return null;
 	}
 	
 	// TODO: use instanceOf() when determining which ecosystems are available for which species

@@ -1,8 +1,10 @@
 package main.controller;
 
 import java.awt.EventQueue;
+import java.util.List;
 
 import main.model.*;
+import main.model.generation.IOrganism;
 import main.view.*;
 
 /**
@@ -27,10 +29,53 @@ public class Controller {
 	 */
 	public Controller() {
 		_model = new Model(new IModelToViewAdapter() {
+
+			@Override
+			public void displayText(String text) {
+				_view.displayText(text);
+			}
+
+			@Override
+			public void setGeneration(int generationNumber) {
+				_view.setGeneration(generationNumber);
+			}
+
+			@Override
+			public void displayGeneration(List<? extends IOrganism> generation) {
+				// TODO Auto-generated method stub
+			}
 			
 		});
 		
 		_view = new View(new IViewToModelAdapter() {
+
+			@Override
+			public void quit() {
+				_model.quit();
+			}
+
+			@Override
+			public void begin(Object species, Object ecosystem) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void nextGeneration() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public List getAvailableSpecies() {
+				return _model.getAvailableSpecies();
+			}
+
+			@Override
+			public List getAvailableEcosystems(Object species) {
+				// TODO Auto-generated method stub
+				return null;
+			}
 			
 		});
 	}
