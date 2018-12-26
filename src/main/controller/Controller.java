@@ -56,8 +56,7 @@ public class Controller {
 
 			@Override
 			public void begin(Object species, Object ecosystem) {
-				// TODO Auto-generated method stub
-				
+				_model.beginNewEcosystem(species, ecosystem);
 			}
 
 			@Override
@@ -79,7 +78,7 @@ public class Controller {
 			
 		});
 	}
-
+	
 	/**
 	 * Start the system.
 	 */
