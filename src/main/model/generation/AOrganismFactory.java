@@ -8,6 +8,11 @@ package main.model.generation;
  */
 public abstract class AOrganismFactory<Species> {
 	
+	@Override
+	public String toString() {
+		return getSpeciesName();
+	}
+	
 	/**
 	 * Get the name of the species of the organism.
 	 * @return The name

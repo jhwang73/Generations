@@ -1,5 +1,6 @@
 package main.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,15 +24,11 @@ public class Model {
 	/**
 	 * The map of available species' names to their classes.
 	 */
-	private final Map<String, Class<? extends IOrganism>> _species = new HashMap<>();
+	private final List<AOrganismFactory<? extends IOrganism>> _species = new ArrayList<>();
 	/**
 	 * The map of available species' to their valid ecosystems.
 	 */
-	private final Map<String, List<String>> _speciesToEcosystems = new HashMap<>();
-	/**
-	 * The map of available ecosystems to their classes.
-	 */
-	private final Map<String, Class<? extends IEcosystem<? extends IOrganism>>> _ecosystems = new HashMap<>();
+	private final Map<AOrganismFactory<? extends IOrganism>, List<EcosystemFactory>> _speciesToEcosystems = new HashMap<>();
 	
 	/**
 	 * The Constructor for the model.
@@ -41,15 +38,35 @@ public class Model {
 		this._m2vAdapter = m2vAdapter;
 	}
 	
+	/**
+	 * Populate the available species.
+	 */
 	private void populateSpecies() { 
-		this._species.put("FibonacciOrganism", FibonacciOrganism.class);
-	}
-	
-	private void populateEcosystems() {
+		this._species.add(new AOrganismFactory<FibonacciOrganism>() {
+
+			@Override
+			public String getSpeciesName() {
+				return FibonacciOrganism._name;
+			}
+
+			@Override
+			public FibonacciOrganism makeRandomOrganism() {
+				return new FibonacciOrganism(-1, -1);
+			}
 		
+		});
+		System.out.println(this._species.size());
 	}
 	
+	/**
+	 * Populate the available ecosystems for each available species.
+	 */
 	private void populateSpeciesToEcosystems() {
+		this._species.forEach((s) -> {
+			this._speciesToEcosystems.put(s, new ArrayList<>());
+		});
+		
+		// Now, iterate thru each species, iterate thru each ecosystem (or other way around, figure it out
 		
 	}
 	
@@ -58,7 +75,6 @@ public class Model {
 	 */
 	public void start() {
 		this.populateSpecies();
-		this.populateEcosystems();
 		this.populateSpeciesToEcosystems();
 	}
 	
@@ -69,8 +85,12 @@ public class Model {
 		System.exit(0);
 	}
 	
-	public List<Object> getAvailableSpecies() {
-		return null;
+	/**
+	 * Get the list of available species.
+	 * @return The list of available species.
+	 */
+	public List<AOrganismFactory<? extends IOrganism>> getAvailableSpecies() {
+		return this._species;
 	}
 	
 	// TODO: use instanceOf() when determining which ecosystems are available for which species

@@ -106,6 +106,9 @@ public class View<Species, Ecosystem> extends JFrame {
 	public void start() {
 		setVisible(true);
 		btnNextGeneration.setEnabled(false);
+		
+		// Populate the list of available species
+		_v2mAdapter.getAvailableSpecies().forEach((s) -> comboBoxSpecies.addItem(s));
 	}
 
 	/**
@@ -181,6 +184,7 @@ public class View<Species, Ecosystem> extends JFrame {
 		textPaneGeneration.setEditable(false);
 		textPaneGeneration.setToolTipText("Displays the generations");
 		splitPane.setRightComponent(textPaneGeneration);
+		
 	}
 	
 	/**

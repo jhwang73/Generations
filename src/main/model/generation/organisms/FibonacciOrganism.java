@@ -17,6 +17,10 @@ public class FibonacciOrganism implements IOrganism {
 	 * The integer value.
 	 */
 	private final int _value;
+	/**
+	 * The species of this organism.
+	 */
+	public final static String _name = "Fibonacci Organism";
 	
 	/**
 	 * The constructor of the Fibonacci organism. Starts at 0, 1. 0 is the 0th number, 1 is the 1st number.

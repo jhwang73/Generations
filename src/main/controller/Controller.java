@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 import java.util.List;
 
 import main.model.*;
+import main.model.generation.AOrganismFactory;
+import main.model.generation.EcosystemFactory;
 import main.model.generation.IOrganism;
 import main.view.*;
 
@@ -22,7 +24,7 @@ public class Controller {
 	/**
 	 * The view. The user interacts with this.
 	 */
-	private View _view;
+	private View<AOrganismFactory<? extends IOrganism>, EcosystemFactory> _view;
 
 	/**
 	 * The constructor of the Controller.
@@ -47,7 +49,7 @@ public class Controller {
 			
 		});
 		
-		_view = new View(new IViewToModelAdapter() {
+		_view = new View<AOrganismFactory<? extends IOrganism>, EcosystemFactory>(new IViewToModelAdapter<AOrganismFactory<? extends IOrganism>, EcosystemFactory>() {
 
 			@Override
 			public void quit() {
@@ -55,7 +57,7 @@ public class Controller {
 			}
 
 			@Override
-			public void begin(Object species, Object ecosystem) {
+			public void begin(AOrganismFactory<? extends IOrganism> species, EcosystemFactory ecosystem) {
 				_model.beginNewEcosystem(species, ecosystem);
 			}
 
@@ -66,12 +68,12 @@ public class Controller {
 			}
 
 			@Override
-			public List getAvailableSpecies() {
+			public List<AOrganismFactory<? extends IOrganism>> getAvailableSpecies() {
 				return _model.getAvailableSpecies();
 			}
 
 			@Override
-			public List getAvailableEcosystems(Object species) {
+			public List<EcosystemFactory> getAvailableEcosystems(AOrganismFactory<? extends IOrganism> species) {
 				// TODO Auto-generated method stub
 				return null;
 			}
