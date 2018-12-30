@@ -24,7 +24,7 @@ public class Controller {
 	/**
 	 * The view. The user interacts with this.
 	 */
-	private View<AOrganismFactory<? extends IOrganism>, EcosystemFactory> _view;
+	private View<IOrganism, AOrganismFactory<? extends IOrganism>, EcosystemFactory> _view;
 
 	/**
 	 * The constructor of the Controller.
@@ -43,13 +43,13 @@ public class Controller {
 			}
 
 			@Override
-			public void displayGeneration(List<? extends IOrganism> generation) {
-				// TODO Auto-generated method stub
+			public void displayGeneration(List<IOrganism> generation) {
+				_view.displayGeneration(generation);
 			}
 			
 		});
 		
-		_view = new View<AOrganismFactory<? extends IOrganism>, EcosystemFactory>(new IViewToModelAdapter<AOrganismFactory<? extends IOrganism>, EcosystemFactory>() {
+		_view = new View<IOrganism, AOrganismFactory<? extends IOrganism>, EcosystemFactory>(new IViewToModelAdapter<AOrganismFactory<? extends IOrganism>, EcosystemFactory>() {
 
 			@Override
 			public void quit() {
@@ -57,8 +57,8 @@ public class Controller {
 			}
 
 			@Override
-			public void begin(AOrganismFactory<? extends IOrganism> species, EcosystemFactory ecosystem) {
-				_model.beginNewEcosystem(species, ecosystem);
+			public void begin(AOrganismFactory<? extends IOrganism> species, EcosystemFactory ecosystem, int generationSize) {
+				_model.beginNewEcosystem(species, ecosystem, generationSize);
 			}
 
 			@Override
@@ -74,8 +74,7 @@ public class Controller {
 
 			@Override
 			public List<EcosystemFactory> getAvailableEcosystems(AOrganismFactory<? extends IOrganism> species) {
-				// TODO Auto-generated method stub
-				return null;
+				return _model.getAvailableEcosystems(species);
 			}
 			
 		});

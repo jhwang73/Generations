@@ -18,28 +18,23 @@ public interface IViewToModelAdapter<Species, Ecosystem> {
 
 		@Override
 		public void quit() {
-			// TODO Auto-generated method stub
 		}
 
 		@Override
-		public void begin(Object species, Object ecosystem) {
-			// TODO Auto-generated method stub
+		public void begin(Object species, Object ecosystem, int generationSize) {
 		}
 
 		@Override
 		public void nextGeneration() {
-			// TODO Auto-generated method stub
 		}
 
 		@Override
 		public List getAvailableSpecies() {
-			// TODO Auto-generated method stub
 			return null;
 		}
 
 		@Override
 		public List getAvailableEcosystems(Object species) {
-			// TODO Auto-generated method stub
 			return null;
 		}
 		
@@ -54,8 +49,9 @@ public interface IViewToModelAdapter<Species, Ecosystem> {
 	 * Begin the selected ecosystem with the selected species.
 	 * @param species The species
 	 * @param ecosystem The ecosystem
+	 * @param generationSize The size of the generations
 	 */
-	public void begin(Species species, Ecosystem ecosystem);
+	public void begin(Species species, Ecosystem ecosystem, int generationSize);
 	
 	/**
 	 * Advance to the next generation.

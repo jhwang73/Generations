@@ -55,7 +55,6 @@ public class Model {
 			}
 		
 		});
-		System.out.println(this._species.size());
 	}
 	
 	/**
@@ -66,7 +65,14 @@ public class Model {
 			this._speciesToEcosystems.put(s, new ArrayList<>());
 		});
 		
+		
+		//TODO:
 		// Now, iterate thru each species, iterate thru each ecosystem (or other way around, figure it out
+		List<IEcosystem> ecosystems = new ArrayList<>();
+//		ecosystems.add()
+		
+//		System.out.println(IEcosystem.class.isAssignableFrom(FibonacciEcosystem.class));
+
 		
 	}
 	
@@ -93,12 +99,25 @@ public class Model {
 		return this._species;
 	}
 	
-	// TODO: use instanceOf() when determining which ecosystems are available for which species
+	/**
+	 * Get all the available ecosystems for the selected species.
+	 * @param species The selected species
+	 * @return The list of available ecosystems for the selected species
+	 */
+	public List<EcosystemFactory> getAvailableEcosystems(AOrganismFactory<? extends IOrganism> species) {
+		return this._speciesToEcosystems.get(species);
+	}
 	
+	// TODO: use instanceOf() when determining which ecosystems are available for which species
 	// TODO: generation size will be at least 2.
 	
-	public void beginNewEcosystem(Object species, Object ecosystem) {
-//		System.out.println(IEcosystem.class.isAssignableFrom(FibonacciEcosystem.class));
+	/**
+	 * Begin a new ecosystem with the species.
+	 * @param species The species
+	 * @param ecosystem The ecosystem
+	 * @param generationSize The size of the generations
+	 */
+	public void beginNewEcosystem(AOrganismFactory<? extends IOrganism> species, EcosystemFactory ecosystem, int generationSize) {
 //		IEcosystem test = new FibonacciEcosystem();
 //		ecosystem = new SurvivalEcosystem(species);
 //		GenInfo = ecosystem.initialGeneration();

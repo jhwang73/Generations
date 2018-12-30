@@ -27,7 +27,7 @@ public interface IModelToViewAdapter {
 		}
 
 		@Override
-		public void displayGeneration(List<? extends IOrganism> generation) {
+		public void displayGeneration(List<IOrganism> generation) {
 			// TODO Auto-generated method stub
 		}
 		
@@ -49,6 +49,6 @@ public interface IModelToViewAdapter {
 	 * Display a generation
 	 * @param generation The generation
 	 */
-	public void displayGeneration(List<? extends IOrganism> generation);
+	public void displayGeneration(List<IOrganism> generation);
 
 }

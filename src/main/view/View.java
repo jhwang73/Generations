@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.Dimension;
+import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import java.awt.Color;
@@ -21,10 +23,11 @@ import javax.swing.JTextPane;
  * The view. The user interacts with this.
  * 
  * @author jhwang73
+ * @param <Organism> The organism
  * @param <Species> The species
  * @param <Ecosystem> The ecosystem
  */
-public class View<Species, Ecosystem> extends JFrame {
+public class View<Organism, Species, Ecosystem> extends JFrame {
 	
 	/**
 	 * The serial version UID
@@ -126,6 +129,9 @@ public class View<Species, Ecosystem> extends JFrame {
 	 * Initializes the components of the GUI
 	 */
 	private void initGUI() {
+		
+		// TODO: do button synchronization? disable on view, in controller, undisable
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 600, 600);
 
@@ -201,6 +207,14 @@ public class View<Species, Ecosystem> extends JFrame {
 	 */
 	public void setGeneration(int generationNumber) {
 		lblGenerationNumber.setText("Generation " + generationNumber);
+	}
+	
+	/**
+	 * Display the generation
+	 * @param generation The generation
+	 */
+	public void displayGeneration(List<Organism> generation) {
+		//TODO
 	}
 
 }
