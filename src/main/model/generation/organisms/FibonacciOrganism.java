@@ -18,9 +18,13 @@ public class FibonacciOrganism implements IOrganism {
 	 */
 	private final int _value;
 	/**
-	 * The species of this organism.
+	 * The name of the species of this organism.
 	 */
-	public final static String _name = "Fibonacci Organism";
+	public final static String _speciesName = "Fibonacci Organism";
+	/**
+	 * The name of the organism
+	 */
+	private String _name;
 	
 	/**
 	 * The constructor of the Fibonacci organism. Starts at 0, 1. 0 is the 0th number, 1 is the 1st number.
@@ -30,11 +34,22 @@ public class FibonacciOrganism implements IOrganism {
 	public FibonacciOrganism(int index, int value) {
 		this._index = index;
 		this._value = value;
+		this._name = index + "th Fibonacci Number";
+	}
+	
+	@Override
+	public String getSpeciesName() {
+		return _speciesName;
+	}
+
+	@Override
+	public String getName() {
+		return this._name;
 	}
 	
 	@Override
 	public String displayAsString() {
-		return "Index: " + this._index + "\nValue: " + this._value;
+		return this.getName() + "\nIndex: " + this._index + "\nValue: " + this._value;
 	}
 	
 	/**

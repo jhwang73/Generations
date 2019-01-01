@@ -8,6 +8,18 @@ package main.model.generation;
 public interface IOrganism {
 	
 	/**
+	 * Get the name of the species.
+	 * @return The name of the species
+	 */
+	public String getSpeciesName();
+	
+	/**
+	 * Get the name of the organism.
+	 * @return The name of the organism
+	 */
+	public String getName();
+	
+	/**
 	 * Display the organism as a String.
 	 * Organisms can choose to display however much information.
 	 * @return The String representation

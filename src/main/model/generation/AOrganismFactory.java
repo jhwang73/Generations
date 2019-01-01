@@ -6,7 +6,7 @@ package main.model.generation;
  * @author jhwang73
  * @param <Species> The species of the organism
  */
-public abstract class AOrganismFactory<Species> {
+public abstract class AOrganismFactory<Species extends IOrganism> {
 	
 	@Override
 	public String toString() {
@@ -20,12 +20,15 @@ public abstract class AOrganismFactory<Species> {
 	public abstract String getSpeciesName();
 	
 	/**
-	 * Generate a random organism of the type Species
-	 * @return A random Organism
+	 * Generate an organism of the type Species
+	 * @return An Organism
 	 */
-	public abstract Species makeRandomOrganism();
+	public abstract Species makeOrganism();
 	
-	// TODO: this will be created as anon inner class in the model. the view picks a species factory & an ecosystem
-	// construct the ecosystem with factory as argument. DONE.
+	/**
+	 * Get the class of the organism
+	 * @return The class
+	 */
+	public abstract Class<Species> getOrganismClass();
 	
 }

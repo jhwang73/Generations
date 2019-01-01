@@ -35,7 +35,7 @@ public abstract class ANaturalEcosystem<Species extends INatural> implements IEc
 	/**
 	 * The factory for an organism of the species.
 	 */
-	protected final AOrganismFactory<Species> _organismFactory;
+	protected final AOrganismFactory _organismFactory;
 	
 	/**
 	 * The name of the species in the ecosystem.
@@ -47,7 +47,7 @@ public abstract class ANaturalEcosystem<Species extends INatural> implements IEc
 	 * @param generationSize The size of the generation. Must be at least 2
 	 * @param organismFactory The factory for an organism of species Species
 	 */
-	public ANaturalEcosystem(int generationSize, AOrganismFactory<Species> organismFactory) {
+	public ANaturalEcosystem(int generationSize, AOrganismFactory organismFactory) {
 		if (generationSize < 2)
 			System.out.println("generation size must be at least 2!");
 		this._generationSize = generationSize;
@@ -64,7 +64,7 @@ public abstract class ANaturalEcosystem<Species extends INatural> implements IEc
 		String info = this._generationSize + " " + this._speciesName + "(s) have been randomly generated to make the initial generation!";
 		
 		for (int i = 0; i < this._generationSize; i++) {
-			this._currentGeneration.add(this._organismFactory.makeRandomOrganism());
+			this._currentGeneration.add((Species)this._organismFactory.makeOrganism());
 		}
 		
 		return new GenerationInfo<Species>(this._generationNumber, info, this._currentGeneration);
