@@ -15,7 +15,7 @@ import main.model.generation.organisms.INaturalOrganism;
  * @author jhwang73
  * @param <Species> The species in the ecosystem
  */
-public abstract class ANaturalEcosystem<Species extends INaturalOrganism> implements IEcosystem<Species> {
+public abstract class ANaturalEcosystem<Species extends INaturalOrganism> implements IEcosystem {
 	
 	/**
 	 * The iteration of the current generation.
@@ -35,7 +35,7 @@ public abstract class ANaturalEcosystem<Species extends INaturalOrganism> implem
 	/**
 	 * The factory for an organism of the species.
 	 */
-	protected final AOrganismFactory _organismFactory;
+	protected final AOrganismFactory<Species> _organismFactory;
 	
 	/**
 	 * The name of the species in the ecosystem.
@@ -47,7 +47,7 @@ public abstract class ANaturalEcosystem<Species extends INaturalOrganism> implem
 	 * @param generationSize The size of the generation. Must be at least 2
 	 * @param organismFactory The factory for an organism of species Species
 	 */
-	public ANaturalEcosystem(int generationSize, AOrganismFactory organismFactory) {
+	public ANaturalEcosystem(int generationSize, AOrganismFactory<Species> organismFactory) {
 		if (generationSize < 2)
 			System.out.println("generation size must be at least 2!");
 		this._generationSize = generationSize;
@@ -56,7 +56,7 @@ public abstract class ANaturalEcosystem<Species extends INaturalOrganism> implem
 	}
 	
 	@Override
-	public final GenerationInfo<Species> initialGeneration() {
+	public final GenerationInfo initialGeneration() {
 		// Reset the variables
 		this._generationNumber = 0;
 		this._currentGeneration = new ArrayList<Species>();
@@ -64,15 +64,14 @@ public abstract class ANaturalEcosystem<Species extends INaturalOrganism> implem
 		String info = this._generationSize + " " + this._speciesName + "(s) have been randomly generated to make the initial generation!";
 		
 		for (int i = 0; i < this._generationSize; i++) {
-			this._currentGeneration.add((Species)this._organismFactory.makeOrganism());
+			this._currentGeneration.add(this._organismFactory.makeOrganism());
 		}
 		
-		return new GenerationInfo<Species>(this._generationNumber, info, this._currentGeneration);
+		return new GenerationInfo(this._generationNumber, info, this._currentGeneration);
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
-	public final GenerationInfo<Species> nextGeneration() {
+	public final GenerationInfo nextGeneration() {
 		// Template Design. All concrete natural ecosystems will follow this template.
 		if (this._generationNumber < 0) {
 			System.out.println("initialGeneration must be called before calling this method!");
@@ -91,7 +90,7 @@ public abstract class ANaturalEcosystem<Species extends INaturalOrganism> implem
 				"\nInformation about the new generation: " + newGenerationInfo +
 				"\nInformation about the mutation: " + mutationInfo;
 		
-		return new GenerationInfo<Species>(this._generationNumber, info, this._currentGeneration);
+		return new GenerationInfo(this._generationNumber, info, this._currentGeneration);
 	}
 	
 	/**

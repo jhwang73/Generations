@@ -1,12 +1,11 @@
 package main.model.generation;
 
 /**
- * The abstract class for an organism factory. Specify the type when you are constructing the factory
+ * The abstract class for an organism factory.
  * 
  * @author jhwang73
- * @param <Species> The species of the organism
  */
-public abstract class AOrganismFactory<Species extends IOrganism> {
+public abstract class AOrganismFactory {
 	
 	@Override
 	public String toString() {
@@ -23,12 +22,12 @@ public abstract class AOrganismFactory<Species extends IOrganism> {
 	 * Generate an organism of the type Species
 	 * @return An Organism
 	 */
-	public abstract Species makeOrganism();
+	public abstract IOrganism makeOrganism();
 	
 	/**
 	 * Get the class of the organism
 	 * @return The class
 	 */
-	public abstract Class<Species> getOrganismClass();
+	public abstract Class<? extends IOrganism> getOrganismClass();
 	
 }

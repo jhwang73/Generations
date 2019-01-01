@@ -20,7 +20,7 @@ public class FibonacciOrganism implements IOrganism {
 	/**
 	 * The name of the species of this organism.
 	 */
-	public final static String _speciesName = "Fibonacci Organism";
+	public final static String _speciesName = "FibonacciOrganism";
 	/**
 	 * The name of the organism
 	 */

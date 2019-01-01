@@ -10,7 +10,7 @@ import main.model.generation.organisms.IFightingOrganism;
  * @author jhwang73
  * @param <Fighter> The species of the fighting type organism
  */
-public class FightingEcosystem<Fighter extends IFightingOrganism<Fighter>> extends ANaturalEcosystem<Fighter> {
+public class FightingEcosystem<Fighter extends IFightingOrganism> extends ANaturalEcosystem<Fighter> {
 	
 	/**
 	 * The name of this ecosystem.

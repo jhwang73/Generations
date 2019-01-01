@@ -4,9 +4,8 @@ package main.model.generation;
  * The factory for an ecosystem.
  * 
  * @author jhwang73
- * @param <RequiredSpecies> The species required by the ecosystem
  */
-public abstract class AEcosystemFactory<RequiredSpecies extends IOrganism> {
+public abstract class AEcosystemFactory {
 	
 	@Override
 	public String toString() {
@@ -25,11 +24,11 @@ public abstract class AEcosystemFactory<RequiredSpecies extends IOrganism> {
 	 * @param organismFactory The organism factory
 	 * @return The ecosystem
 	 */
-	public abstract IEcosystem<RequiredSpecies> makeEcosystem(int generationSize, AOrganismFactory<RequiredSpecies> organismFactory);
+	public abstract IEcosystem makeEcosystem(int generationSize, AOrganismFactory organismFactory);
 	
 	/**
 	 * Get the class of the type of organism required by the ecosystem
 	 * @return The class
 	 */
-	public abstract Class<RequiredSpecies> getRequiredOrganismClass();
+	public abstract Class<? extends IOrganism> getRequiredOrganismClass();
 }

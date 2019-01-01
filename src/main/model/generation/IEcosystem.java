@@ -4,9 +4,8 @@ package main.model.generation;
  * The interface that describes ecosystems.
  * 
  * @author jhwang73
- * @param <Species> The species in the ecosystem
  */
-public interface IEcosystem<Species extends IOrganism> {
+public interface IEcosystem {
 	
 	/**
 	 * Get the name of this ecosystem.
@@ -24,13 +23,13 @@ public interface IEcosystem<Species extends IOrganism> {
 	 * Initialize and return the 0th generation and info regarding the construction of that generation.
 	 * @return The 0th generation
 	 */
-	public GenerationInfo<Species> initialGeneration();
+	public GenerationInfo initialGeneration();
 	
 	/**
 	 * Simulate and return the next generation and info regarding the construction of that generation.
 	 * initialGeneration() must be called before this is called.
 	 * @return The next generation.
 	 */
-	public GenerationInfo<Species> nextGeneration();
+	public GenerationInfo nextGeneration();
 
 }

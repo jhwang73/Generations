@@ -7,15 +7,13 @@ import java.util.List;
  * Holds a generation number, a generation of a species, and the info regarding that generation.
  * 
  * @author jhwang73
- * @param <Species> The species
  */
-public class GenerationInfo<Species extends IOrganism> {
+public class GenerationInfo {
 	
 	/**
 	 * The error GI. Return when there is an error during the processing of making generations.
 	 */
-	@SuppressWarnings("rawtypes")
-	public static final GenerationInfo errorGI = new GenerationInfo<>(-1, "ERROR", new ArrayList<>());
+	public static final GenerationInfo errorGI = new GenerationInfo(-1, "ERROR", new ArrayList<>());
 	
 	/**
 	 * The iteration of the generation. Zero-indexed.
@@ -32,7 +30,7 @@ public class GenerationInfo<Species extends IOrganism> {
 	/**
 	 * The generation, or equivalently, a list of organisms in that generation.
 	 */
-	private final List<Species> generation;
+	private final List<? extends IOrganism> generation;
 	
 	/**
 	 * The Constructor for the Generation Info.
@@ -40,7 +38,7 @@ public class GenerationInfo<Species extends IOrganism> {
 	 * @param info The information regarding this generation
 	 * @param generation The generation
 	 */
-	public GenerationInfo(int generationNumber, String info, List<Species> generation) {
+	public GenerationInfo(int generationNumber, String info, List<? extends IOrganism> generation) {
 		this.generationNumber = generationNumber;
 		this.info = info;
 		this.generation = generation;
@@ -66,7 +64,7 @@ public class GenerationInfo<Species extends IOrganism> {
 	 * Get the generation.
 	 * @return the generation
 	 */
-	public final List<Species> getGeneration() {
+	public final List<? extends IOrganism> getGeneration() {
 		return generation;
 	}
 
