@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -121,7 +123,6 @@ public class View<Organism, Species, Ecosystem> extends JFrame {
 	public View(IViewToModelAdapter<Species, Ecosystem> v2mAdapter) {
 		this._v2mAdapter = v2mAdapter;
 		setMinimumSize(new Dimension(300, 300));
-		setSize(new Dimension(600, 600));
 		initGUI();
 	}
 
@@ -133,7 +134,7 @@ public class View<Organism, Species, Ecosystem> extends JFrame {
 		// TODO: do button synchronization? disable on view, in controller, undisable
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(0, 0, 600, 600);
+		setBounds(0, 0, 1000, 600);
 
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 204, 0));
@@ -150,12 +151,26 @@ public class View<Organism, Species, Ecosystem> extends JFrame {
 		contentPane.add(panelSouth, BorderLayout.SOUTH);
 		
 		btnQuit.setToolTipText("Quit the application");
+		btnQuit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				_v2mAdapter.quit();
+				System.exit(0);
+			}
+		});
 		panelNorth.add(btnQuit);
 		
 		lblSpecies.setToolTipText("The available species are:");
 		panelNorth.add(lblSpecies);
 		
 		comboBoxSpecies.setToolTipText("The list of species");
+		comboBoxSpecies.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				comboBoxEcosystems.removeAllItems();
+				_v2mAdapter.getAvailableEcosystems(comboBoxSpecies.getItemAt(comboBoxSpecies.getSelectedIndex())).forEach((eco) -> {
+					comboBoxEcosystems.addItem(eco);
+				});
+			}
+		});
 		panelNorth.add(comboBoxSpecies);
 		
 		lblEcosystem.setToolTipText("The ecosystem to place the selected species in");

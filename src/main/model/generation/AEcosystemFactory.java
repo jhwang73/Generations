@@ -8,6 +8,17 @@ package main.model.generation;
  */
 public abstract class AEcosystemFactory<RequiredSpecies extends IOrganism> {
 	
+	@Override
+	public String toString() {
+		return getEcosystemName();
+	}
+	
+	/**
+	 * Get the name of the ecosystem.
+	 * @return The name
+	 */
+	protected abstract String getEcosystemName();
+	
 	/**
 	 * Make an organism with the given generation size and organism factory.
 	 * @param generationSize The size of the generation

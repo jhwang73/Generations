@@ -6,7 +6,7 @@ package main.model.generation.organisms;
  * @author jhwang73
  * @param <Species> The species of this organism, which can only fight other organisms of the same type.
  */
-public interface IFighting<Species extends IFighting<Species>> extends IAsexual<Species> {
+public interface IFightingOrganism<Species extends IFightingOrganism<Species>> extends IAsexualOrganism<Species> {
 	
 	/**
 	 * Fight the opponent.

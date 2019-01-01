@@ -8,7 +8,7 @@ import main.model.generation.IOrganism;
  * 
  * @author jhwang73
  */
-public interface INatural extends IOrganism {
+public interface INaturalOrganism extends IOrganism {
 	
 	/**
 	 * Mutate the natural organism

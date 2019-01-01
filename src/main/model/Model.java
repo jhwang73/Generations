@@ -22,9 +22,13 @@ public class Model {
 	private IModelToViewAdapter _m2vAdapter = IModelToViewAdapter.NULL_ADAPTER;
 	
 	/**
-	 * The map of available species' names to their classes.
+	 * The list of available species.
 	 */
 	private final List<AOrganismFactory<?>> _species = new ArrayList<>();
+	/**
+	 * The list of available ecosystems.
+	 */
+	private final List<AEcosystemFactory<?>> ecosystems = new ArrayList<>();
 	/**
 	 * The map of available species' to their valid ecosystems.
 	 */
@@ -42,7 +46,7 @@ public class Model {
 	 * Populate the available species.
 	 */
 	private void populateSpecies() { 
-		this._species.add(new AOrganismFactory<FibonacciOrganism>() {
+		_species.add(new AOrganismFactory<FibonacciOrganism>() {
 
 			@Override
 			public String getSpeciesName() {
@@ -64,19 +68,15 @@ public class Model {
 	}
 	
 	/**
-	 * Populate the available ecosystems for each available species.
+	 * Populate the available ecosystems.
 	 */
-	private void populateSpeciesToEcosystems() {
-		this._species.forEach((s) -> {
-			this._speciesToEcosystems.put(s, new ArrayList<>());
-		});
-		
-		
-		// Now, iterate thru each species, iterate thru each ecosystem (or other way around, figure it out
-		
-		
-		List<AEcosystemFactory<?>> ecosystems = new ArrayList<>();
+	private void populateEcosystems() {
 		ecosystems.add(new AEcosystemFactory<FibonacciOrganism>() {
+			
+			@Override
+			protected String getEcosystemName() {
+				return FibonacciEcosystem._ecosystemName;
+			}
 
 			@Override
 			public IEcosystem<FibonacciOrganism> makeEcosystem(int generationSize,
@@ -88,23 +88,26 @@ public class Model {
 			public Class<FibonacciOrganism> getRequiredOrganismClass() {
 				return FibonacciOrganism.class;
 			}
-
-			
-
-
 			
 		});
-		
-//		this._species.forEach((s) -> {
-//			ecosystems.forEach((e) -> {
-//				if (s.getOrganismClass().isAssignableFrom(ORGANISM ALLOWED)) {
-//					THEN ADD TO THE LIST THAT THIS IS AN ALLOWABLE ECOSYSTEM
-//				}
-//			});
-//		});
-		
-//		System.out.println(IEcosystem.class.isAssignableFrom(FibonacciEcosystem.class));
+	}
+	
+	/**
+	 * Populate the available ecosystems for each available species.
+	 */
+	private void populateSpeciesToEcosystems() {
+		this._species.forEach((s) -> {
+			this._speciesToEcosystems.put(s, new ArrayList<>());
+		});
 
+		this._species.forEach((s) -> {
+			ecosystems.forEach((e) -> {
+				System.out.println(s.getOrganismClass().isAssignableFrom(e.getRequiredOrganismClass()));
+				if (s.getOrganismClass().isAssignableFrom(e.getRequiredOrganismClass())) {
+					this._speciesToEcosystems.get(s).add(e);
+				}
+			});
+		});
 		
 	}
 	
@@ -113,6 +116,7 @@ public class Model {
 	 */
 	public void start() {
 		this.populateSpecies();
+		this.populateEcosystems();
 		this.populateSpeciesToEcosystems();
 	}
 	
@@ -139,17 +143,16 @@ public class Model {
 	public List<AEcosystemFactory<?>> getAvailableEcosystems(AOrganismFactory<? extends IOrganism> species) {
 		return this._speciesToEcosystems.get(species);
 	}
-	
-	// TODO: use instanceOf() when determining which ecosystems are available for which species
-	// TODO: generation size will be at least 2.
-	
+		
 	/**
 	 * Begin a new ecosystem with the species.
 	 * @param species The species
 	 * @param ecosystem The ecosystem
-	 * @param generationSize The size of the generations
+	 * @param generationSize The size of the generations. At least 2
 	 */
 	public void beginNewEcosystem(AOrganismFactory<?> species, AEcosystemFactory<?> ecosystem, int generationSize) {
+		if (generationSize < 2)
+			return;
 //		IEcosystem test = new FibonacciEcosystem();
 //		ecosystem = new SurvivalEcosystem(species);
 //		GenInfo = ecosystem.initialGeneration();

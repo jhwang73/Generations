@@ -1,7 +1,7 @@
 package main.model.generation.ecosystems;
 
 import main.model.generation.AOrganismFactory;
-import main.model.generation.organisms.IFighting;
+import main.model.generation.organisms.IFightingOrganism;
 
 /**
  * The fighting ecosystem. In this ecosystem, organisms battle and the strongest organisms determine
@@ -10,7 +10,7 @@ import main.model.generation.organisms.IFighting;
  * @author jhwang73
  * @param <Fighter> The species of the fighting type organism
  */
-public class FightingEcosystem<Fighter extends IFighting<Fighter>> extends ANaturalEcosystem<Fighter> {
+public class FightingEcosystem<Fighter extends IFightingOrganism<Fighter>> extends ANaturalEcosystem<Fighter> {
 	
 	/**
 	 * The name of this ecosystem.

@@ -6,7 +6,7 @@ import java.util.List;
 import main.model.generation.AOrganismFactory;
 import main.model.generation.GenerationInfo;
 import main.model.generation.IEcosystem;
-import main.model.generation.organisms.INatural;
+import main.model.generation.organisms.INaturalOrganism;
 
 /**
  * The base class of natural ecosystems, where organisms dynamically interact, or in other words generations are not static.
@@ -15,7 +15,7 @@ import main.model.generation.organisms.INatural;
  * @author jhwang73
  * @param <Species> The species in the ecosystem
  */
-public abstract class ANaturalEcosystem<Species extends INatural> implements IEcosystem<Species> {
+public abstract class ANaturalEcosystem<Species extends INaturalOrganism> implements IEcosystem<Species> {
 	
 	/**
 	 * The iteration of the current generation.

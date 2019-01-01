@@ -6,7 +6,7 @@ package main.model.generation.organisms;
  * @author jhwang73
  * @param <Species> The species of this organism and its mate, which can only produce other organisms of the same type.
  */
-public interface ISexual<Species extends ISexual<Species>> extends INatural {
+public interface ISexualOrganism<Species extends ISexualOrganism<Species>> extends INaturalOrganism {
 
 	/**
 	 * Reproduce sexually
