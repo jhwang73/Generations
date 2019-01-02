@@ -22,7 +22,7 @@ public class Controller {
 	/**
 	 * The view. The user interacts with this.
 	 */
-	private View<IOrganism, AOrganismFactory<?>, AEcosystemFactory<?>> _view;
+	private View<IOrganism, AOrganismFactory, AEcosystemFactory> _view;
 
 	/**
 	 * The constructor of the Controller.
@@ -41,13 +41,13 @@ public class Controller {
 			}
 
 			@Override
-			public void displayGeneration(List<IOrganism> generation) {
+			public void displayGeneration(List<? extends IOrganism> generation) {
 				_view.displayGeneration(generation);
 			}
-			
+
 		});
 		
-		_view = new View<IOrganism, AOrganismFactory<?>, AEcosystemFactory<?>>(new IViewToModelAdapter<AOrganismFactory<?>, AEcosystemFactory<?>>() {
+		_view = new View<IOrganism, AOrganismFactory, AEcosystemFactory>(new IViewToModelAdapter<AOrganismFactory, AEcosystemFactory>() {
 
 			@Override
 			public void quit() {
@@ -55,7 +55,7 @@ public class Controller {
 			}
 
 			@Override
-			public void begin(AOrganismFactory<?> species, AEcosystemFactory<?> ecosystem, int generationSize) {
+			public void begin(AOrganismFactory species, AEcosystemFactory ecosystem, int generationSize) {
 				_model.beginNewEcosystem(species, ecosystem, generationSize);
 			}
 
@@ -66,12 +66,12 @@ public class Controller {
 			}
 
 			@Override
-			public List<AOrganismFactory<? extends IOrganism>> getAvailableSpecies() {
+			public List<AOrganismFactory> getAvailableSpecies() {
 				return _model.getAvailableSpecies();
 			}
 
 			@Override
-			public List<AEcosystemFactory<?>> getAvailableEcosystems(AOrganismFactory<?> species) {
+			public List<AEcosystemFactory> getAvailableEcosystems(AOrganismFactory species) {
 				return _model.getAvailableEcosystems(species);
 			}
 			

@@ -76,22 +76,22 @@ public class Model {
 	 */
 	private void populateEcosystems() {
 		ecosystems.add(new AEcosystemFactory() {
-			
+
 			@Override
 			protected String getEcosystemName() {
 				return FibonacciEcosystem._ecosystemName;
 			}
 
 			@Override
-			public IEcosystem makeEcosystem(int generationSize,
-					AOrganismFactory organismFactory) {
+			public IEcosystem makeEcosystem(int generationSize, AOrganismFactory organismFactory) {
 				return new FibonacciEcosystem(generationSize, organismFactory);
 			}
 
 			@Override
-			public Class<FibonacciOrganism> getRequiredOrganismClass() {
+			public Class<? extends IOrganism> getRequiredOrganismClass() {
 				return FibonacciOrganism.class;
 			}
+
 		});
 
 	}
@@ -159,6 +159,12 @@ public class Model {
 			return;
 		
 		this._ecosystem = ecosystem.makeEcosystem(generationSize, species);
+		
+		GenerationInfo initialGI = this._ecosystem.initialGeneration();
+		
+		this._m2vAdapter.displayText(initialGI.getInfo());
+		this._m2vAdapter.displayGeneration(initialGI.getGeneration());
+		this._m2vAdapter.setGeneration(initialGI.getGenerationNumber());
 		
 //		IEcosystem test = new FibonacciEcosystem();
 //		ecosystem = new SurvivalEcosystem(species);

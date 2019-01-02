@@ -56,10 +56,10 @@ public abstract class ANaturalEcosystem<Species extends INaturalOrganism> implem
 	}
 	
 	@Override
-	public final GenerationInfo initialGeneration() {
+	public final GenerationInfo<Species> initialGeneration() {
 		// Reset the variables
 		this._generationNumber = 0;
-		this._currentGeneration = new ArrayList<Species>();
+		this._currentGeneration = new ArrayList<>();
 		
 		String info = this._generationSize + " " + this._speciesName + "(s) have been randomly generated to make the initial generation!";
 		
@@ -67,11 +67,11 @@ public abstract class ANaturalEcosystem<Species extends INaturalOrganism> implem
 			this._currentGeneration.add(this._organismFactory.makeOrganism());
 		}
 		
-		return new GenerationInfo(this._generationNumber, info, this._currentGeneration);
+		return new GenerationInfo<Species>(this._generationNumber, info, this._currentGeneration);
 	}
 	
 	@Override
-	public final GenerationInfo nextGeneration() {
+	public final GenerationInfo<Species> nextGeneration() {
 		// Template Design. All concrete natural ecosystems will follow this template.
 		if (this._generationNumber < 0) {
 			System.out.println("initialGeneration must be called before calling this method!");
@@ -90,7 +90,7 @@ public abstract class ANaturalEcosystem<Species extends INaturalOrganism> implem
 				"\nInformation about the new generation: " + newGenerationInfo +
 				"\nInformation about the mutation: " + mutationInfo;
 		
-		return new GenerationInfo(this._generationNumber, info, this._currentGeneration);
+		return new GenerationInfo<Species>(this._generationNumber, info, this._currentGeneration);
 	}
 	
 	/**

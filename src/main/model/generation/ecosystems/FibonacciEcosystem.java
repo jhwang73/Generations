@@ -6,6 +6,7 @@ import java.util.List;
 import main.model.generation.AOrganismFactory;
 import main.model.generation.GenerationInfo;
 import main.model.generation.IEcosystem;
+import main.model.generation.IOrganism;
 import main.model.generation.organisms.FibonacciOrganism;
 
 /**

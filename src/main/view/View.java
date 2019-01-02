@@ -228,7 +228,7 @@ public class View<Organism, Species, Ecosystem> extends JFrame {
 	 * Display the generation
 	 * @param generation The generation
 	 */
-	public void displayGeneration(List<Organism> generation) {
+	public <O extends Organism> void displayGeneration(List<O> generation) {
 		//TODO
 	}
 
