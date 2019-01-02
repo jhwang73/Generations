@@ -48,7 +48,7 @@ public class FibonacciOrganism implements IOrganism {
 	}
 	
 	@Override
-	public String displayAsString() {
+	public String toString() {
 		return this.getName() + "\nIndex: " + this._index + "\nValue: " + this._value;
 	}
 	

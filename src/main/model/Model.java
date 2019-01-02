@@ -106,13 +106,11 @@ public class Model {
 
 		this._species.forEach((s) -> {
 			ecosystems.forEach((e) -> {
-				System.out.println(s.getOrganismClass().isAssignableFrom(e.getRequiredOrganismClass()));
 				if (s.getOrganismClass().isAssignableFrom(e.getRequiredOrganismClass())) {
 					this._speciesToEcosystems.get(s).add(e);
 				}
 			});
 		});
-		
 	}
 	
 	/**
@@ -163,11 +161,17 @@ public class Model {
 		GenerationInfo initialGI = this._ecosystem.initialGeneration();
 		
 		this._m2vAdapter.displayText(initialGI.getInfo());
-		this._m2vAdapter.displayGeneration(initialGI.getGeneration());
 		this._m2vAdapter.setGeneration(initialGI.getGenerationNumber());
-		
-//		IEcosystem test = new FibonacciEcosystem();
-//		ecosystem = new SurvivalEcosystem(species);
-//		GenInfo = ecosystem.initialGeneration();
+		this._m2vAdapter.displayGeneration(initialGI.getGeneration());
+	}
+	
+	/**
+	 * Advance to the next generation in the current ecosystem.
+	 */
+	public void nextGeneration() {
+		GenerationInfo nextGI = this._ecosystem.nextGeneration();
+		this._m2vAdapter.displayText(nextGI.getInfo());
+		this._m2vAdapter.setGeneration(nextGI.getGenerationNumber());
+		this._m2vAdapter.displayGeneration(nextGI.getGeneration());
 	}
 }

@@ -61,8 +61,7 @@ public class Controller {
 
 			@Override
 			public void nextGeneration() {
-				// TODO Auto-generated method stub
-				
+				_model.nextGeneration();
 			}
 
 			@Override

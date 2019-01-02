@@ -19,11 +19,4 @@ public interface IOrganism {
 	 */
 	public String getName();
 	
-	/**
-	 * Display the organism as a String.
-	 * Organisms can choose to display however much information.
-	 * @return The String representation
-	 */
-	public String displayAsString();
-	
 }

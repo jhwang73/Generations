@@ -20,6 +20,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
+import javax.swing.JScrollPane;
 
 /**
  * The view. The user interacts with this.
@@ -93,17 +94,21 @@ public class View<Organism, Species, Ecosystem> extends JFrame {
 	 */
 	private final JComboBox<Ecosystem> comboBoxEcosystems = new JComboBox<Ecosystem>();
 	/**
-	 * The split pane where the information is displayed.
+	 * The scroll pane where info is displayed.
 	 */
-	private final JSplitPane splitPane = new JSplitPane();
+	private final JScrollPane scrollPaneInfo = new JScrollPane();
 	/**
-	 * Information about the ecosystem & the generations are displayed here.
+	 * The scroll pane where generations are displayed.
+	 */
+	private final JScrollPane scrollPaneGeneration = new JScrollPane();
+	/**
+	 * The text area where information is displayed.
 	 */
 	private final JTextArea textAreaInfo = new JTextArea();
 	/**
-	 * The generation is displayed here.
+	 * The text area where generations are displayed.
 	 */
-	private final JTextPane textPaneGeneration = new JTextPane();
+	private final JTextArea textAreaGeneration = new JTextArea();
 
 	/**
 	 * Initializes the GUI
@@ -187,24 +192,47 @@ public class View<Organism, Species, Ecosystem> extends JFrame {
 		panelNorth.add(spinnerGenerationSize);
 		
 		btnBegin.setToolTipText("Start a new generation of the selected species in the selected ecosystem.");
+		btnBegin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnBegin.setEnabled(false);
+				btnNextGeneration.setEnabled(false);
+				textAreaInfo.setText("");
+				textAreaGeneration.setText("");
+				_v2mAdapter.begin(comboBoxSpecies.getItemAt(comboBoxSpecies.getSelectedIndex()), comboBoxEcosystems.getItemAt(comboBoxEcosystems.getSelectedIndex()), (Integer)spinnerGenerationSize.getValue());
+			}
+		});
 		panelNorth.add(btnBegin);
 
 		lblGenerationNumber.setToolTipText("The #th generation");
 		panelSouth.add(lblGenerationNumber);
 		
 		btnNextGeneration.setToolTipText("Simulate an advancement to the next generation.");
+		btnNextGeneration.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnBegin.setEnabled(false);
+				btnNextGeneration.setEnabled(false);
+				textAreaGeneration.setText("");
+				_v2mAdapter.nextGeneration();
+			}
+		});
 		panelSouth.add(btnNextGeneration);
-		splitPane.setToolTipText("Contains the text information and the generation display");
 		
-		contentPane.add(splitPane, BorderLayout.CENTER);
+		scrollPaneInfo.setToolTipText("The scroll pane which will hold the info text pane");
+		contentPane.add(scrollPaneInfo, BorderLayout.WEST);
+		
 		textAreaInfo.setLineWrap(true);
-		textAreaInfo.setEditable(false);
-		textAreaInfo.setToolTipText("The text area where information regarding the ecosystem and generations are displayed");
-		textAreaInfo.setSize(new Dimension(200, 600));
-		splitPane.setLeftComponent(textAreaInfo);
-		textPaneGeneration.setEditable(false);
-		textPaneGeneration.setToolTipText("Displays the generations");
-		splitPane.setRightComponent(textPaneGeneration);
+		textAreaInfo.setToolTipText("The text area for information");
+		textAreaInfo.setSize(new Dimension(300, 300));
+		textAreaInfo.setText("Click a species, an ecosystem, press begin, and observe the generations advance!");
+		scrollPaneInfo.setViewportView(textAreaInfo);
+		
+		textAreaGeneration.setLineWrap(true);
+		scrollPaneGeneration.setViewportView(textAreaGeneration);
+		
+		scrollPaneGeneration.setToolTipText("The scroll pane which holds the generations");
+		contentPane.add(scrollPaneGeneration, BorderLayout.CENTER);
+		textAreaGeneration.setToolTipText("The text area for the generation");
+		
 		
 	}
 	
@@ -213,7 +241,7 @@ public class View<Organism, Species, Ecosystem> extends JFrame {
 	 * @param text The text to display
 	 */
 	public void displayText(String text) {
-		textAreaInfo.append(text);
+		textAreaInfo.append(text + "\n");
 	}
 	
 	/**
@@ -228,8 +256,10 @@ public class View<Organism, Species, Ecosystem> extends JFrame {
 	 * Display the generation
 	 * @param generation The generation
 	 */
-	public <O extends Organism> void displayGeneration(List<O> generation) {
-		//TODO
+	public void displayGeneration(List<? extends Organism> generation) {
+		generation.forEach((o) -> textAreaGeneration.append(o.toString() + "\n\n"));
+		btnBegin.setEnabled(true);
+		btnNextGeneration.setEnabled(true);
 	}
 
 }
