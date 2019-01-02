@@ -19,7 +19,7 @@ class GenerationInfoTest {
 	/**
 	 * The test Generation Info
 	 */
-	private final GenerationInfo<IOrganism> gi = new GenerationInfo<IOrganism>(1, "GenerationInfo Test", new ArrayList<IOrganism>());
+	private final GenerationInfo gi = new GenerationInfo(1, "GenerationInfo Test", new ArrayList<IOrganism>());
 	
 	/**
 	 * Test the error GI.

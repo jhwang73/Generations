@@ -23,6 +23,6 @@ class FibonacciOrganismTest {
 	 */
 	@Test
 	void testDisplayAsString() {
-		assertEquals("Index: 1\nValue: 1", fo1_1.displayAsString());
+		assertEquals("1th Fibonacci Number\nIndex: 1\nValue: 1", fo1_1.toString());
 	}
 }
