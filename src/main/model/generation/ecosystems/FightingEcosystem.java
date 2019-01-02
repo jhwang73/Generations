@@ -46,7 +46,7 @@ public class FightingEcosystem<Fighter extends IFightingOrganism> extends ANatur
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	@Override
 	public String produceNextGeneration() {
 		// TODO Auto-generated method stub
