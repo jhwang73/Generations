@@ -15,12 +15,12 @@ import main.model.generation.organisms.IFightingOrganism;
  * @author jhwang73
  * @param <Fighter> The species of the fighting type organism
  */
-public class FightingEcosystem<Fighter extends IFightingOrganism> extends ANaturalEcosystem<Fighter> {
+public class FightingEcosystem extends ANaturalEcosystem {
 	
 	/**
 	 * The name of this ecosystem.
 	 */
-	private final static String _ecosystemName = "FightingEcosystem";
+	public final static String _ecosystemName = "FightingEcosystem";
 	
 	/**
 	 * The rules of this ecosystem.
@@ -36,7 +36,7 @@ public class FightingEcosystem<Fighter extends IFightingOrganism> extends ANatur
 	 * A list of Fighter organisms. Every time an organism wins a battle, the organism is added to this list.
 	 * The list determines the how likely an organism is reproduced.
 	 */
-	private List<Fighter> _battleResults;
+	private List<IFightingOrganism> _battleResults;
 	
 	/**
 	 * The random which selects the organisms that will reproduce.
@@ -82,8 +82,8 @@ public class FightingEcosystem<Fighter extends IFightingOrganism> extends ANatur
 			Collections.shuffle(this._range);
 			int idx1 = this._range.get(0);
 			int idx2 = this._range.get(1);
-			Fighter fighter1 = this._currentGeneration.get(idx1);
-			Fighter fighter2 = this._currentGeneration.get(idx2);
+			IFightingOrganism fighter1 = (IFightingOrganism)this._currentGeneration.get(idx1);
+			IFightingOrganism fighter2 = (IFightingOrganism)this._currentGeneration.get(idx2);
 			
 			if (fighter1.fight(fighter2)) {
 				this._battleResults.add(fighter1);
@@ -96,18 +96,20 @@ public class FightingEcosystem<Fighter extends IFightingOrganism> extends ANatur
 		return results;
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public String produceNextGeneration() {
-		List<Fighter> newGeneration = new ArrayList<>();
+		List<IFightingOrganism> newGeneration = new ArrayList<>();
 		String results = this._generationSize + " new " + this._speciesName + "s have been produced.";
 		int size = this._battleResults.size();
 		
 		for (int i = 0; i < this._generationSize; i++) {
-			Fighter newOrganism = (Fighter)this._battleResults.get(this._reproducer.nextInt(size)).reproduce();
+			IFightingOrganism newOrganism = (IFightingOrganism)this._battleResults.get(this._reproducer.nextInt(size)).reproduce();
 			results += newOrganism.getName() + " has been produced!\n";
 			newGeneration.add(newOrganism);
 		}
+		
+		this._currentGeneration = new ArrayList<>();
+		this._currentGeneration.addAll(newGeneration);
 		
 		return results;
 	}

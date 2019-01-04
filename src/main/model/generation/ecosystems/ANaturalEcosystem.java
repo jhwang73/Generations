@@ -15,7 +15,7 @@ import main.model.generation.organisms.INaturalOrganism;
  * @author jhwang73
  * @param <Species> The species in the ecosystem
  */
-public abstract class ANaturalEcosystem<Species extends INaturalOrganism> implements IEcosystem {
+public abstract class ANaturalEcosystem implements IEcosystem {
 	
 	/**
 	 * The iteration of the current generation.
@@ -35,7 +35,7 @@ public abstract class ANaturalEcosystem<Species extends INaturalOrganism> implem
 	/**
 	 * The current generation.
 	 */
-	protected List<Species> _currentGeneration;
+	protected List<INaturalOrganism> _currentGeneration;
 	
 	/**
 	 * The factory for an organism of the species.
@@ -66,7 +66,6 @@ public abstract class ANaturalEcosystem<Species extends INaturalOrganism> implem
 	 */
 	protected abstract void setUp();
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public final GenerationInfo initialGeneration() {
 		// Reset the variables
@@ -76,7 +75,7 @@ public abstract class ANaturalEcosystem<Species extends INaturalOrganism> implem
 		String info = this._generationSize + " " + this._speciesName + "(s) have been randomly generated to make the initial generation!";
 		
 		for (int i = 0; i < this._generationSize; i++) {
-			this._currentGeneration.add((Species)this._organismFactory.makeRandomOrganism());
+			this._currentGeneration.add((INaturalOrganism)this._organismFactory.makeRandomOrganism());
 		}
 		
 		return new GenerationInfo(this._generationNumber, info, this._currentGeneration);

@@ -93,6 +93,25 @@ public class Model {
 			}
 
 		});
+		
+		ecosystems.add(new AEcosystemFactory() {
+
+			@Override
+			protected String getEcosystemName() {
+				return FightingEcosystem._ecosystemName;
+			}
+
+			@Override
+			public IEcosystem makeEcosystem(int generationSize, AOrganismFactory organismFactory) {
+				return new FightingEcosystem(generationSize, organismFactory);
+			}
+
+			@Override
+			public Class<? extends IOrganism> getRequiredOrganismClass() {
+				return IFightingOrganism.class;
+			}
+
+		});
 
 	}
 	
