@@ -19,10 +19,10 @@ public abstract class AOrganismFactory {
 	public abstract String getSpeciesName();
 	
 	/**
-	 * Generate an organism of the type Species
+	 * Generate a random organism of the type Species
 	 * @return An Organism
 	 */
-	public abstract IOrganism makeOrganism();
+	public abstract IOrganism makeRandomOrganism();
 	
 	/**
 	 * Get the class of the organism

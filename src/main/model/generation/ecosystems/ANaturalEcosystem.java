@@ -28,6 +28,11 @@ public abstract class ANaturalEcosystem<Species extends INaturalOrganism> implem
 	protected final int _generationSize;
 	
 	/**
+	 * The probability of an organism mutating.
+	 */
+	private static double ORGANISM_MUTATION_RATE = 0.3;
+	
+	/**
 	 * The current generation.
 	 */
 	protected List<Species> _currentGeneration;
@@ -53,7 +58,13 @@ public abstract class ANaturalEcosystem<Species extends INaturalOrganism> implem
 		this._generationSize = generationSize;
 		this._organismFactory = organismFactory;
 		this._speciesName = organismFactory.getSpeciesName();
+		this.setUp();
 	}
+	
+	/**
+	 * Set up the natural ecosystem with any necessary setups.
+	 */
+	protected abstract void setUp();
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -65,10 +76,10 @@ public abstract class ANaturalEcosystem<Species extends INaturalOrganism> implem
 		String info = this._generationSize + " " + this._speciesName + "(s) have been randomly generated to make the initial generation!";
 		
 		for (int i = 0; i < this._generationSize; i++) {
-			this._currentGeneration.add((Species)this._organismFactory.makeOrganism());
+			this._currentGeneration.add((Species)this._organismFactory.makeRandomOrganism());
 		}
 		
-		return new GenerationInfo (this._generationNumber, info, this._currentGeneration);
+		return new GenerationInfo(this._generationNumber, info, this._currentGeneration);
 	}
 	
 	@Override
@@ -113,7 +124,9 @@ public abstract class ANaturalEcosystem<Species extends INaturalOrganism> implem
 	private final String mutateGeneration() {
 		String mutationInfo = "";
 		for (int i = 0; i < this._currentGeneration.size(); i++) {
-			mutationInfo += this._currentGeneration.get(i).mutate() + "\n";
+			if (Math.random() < ORGANISM_MUTATION_RATE) {
+				mutationInfo += this._speciesName + i + ": " + this._currentGeneration.get(i).mutate() + "\n";
+			}
 		}
 		return mutationInfo;
 	}

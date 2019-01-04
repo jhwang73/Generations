@@ -7,12 +7,12 @@ import main.model.generation.IOrganism;
  * 
  * @author jhwang73
  */
-public interface IFightingOrganism extends INaturalOrganism {
+public interface IFightingOrganism extends IAsexualOrganism {
 	
 	/**
 	 * Fight the opponent.
 	 * @param opponent The opponent to fight
 	 */
-	public void fight(IOrganism opponent);
+	public boolean fight(IOrganism opponent);
 	
 }

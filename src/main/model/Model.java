@@ -58,7 +58,7 @@ public class Model {
 			}
 
 			@Override
-			public IOrganism makeOrganism() {
+			public IOrganism makeRandomOrganism() {
 				return new FibonacciOrganism(-1, -1);
 			}
 
