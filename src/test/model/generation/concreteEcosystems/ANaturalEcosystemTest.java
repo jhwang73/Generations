@@ -21,11 +21,6 @@ class ANaturalEcosystemTest {
 			return new IOrganism() {
 
 				@Override
-				public String getSpeciesName() {
-					return "Test Species";
-				}
-
-				@Override
 				public String getName() {
 					return "Test Organism";
 				}

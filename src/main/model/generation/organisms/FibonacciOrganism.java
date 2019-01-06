@@ -36,11 +36,6 @@ public class FibonacciOrganism implements IOrganism {
 		this._value = value;
 		this._name = index + "th Fibonacci Number";
 	}
-	
-	@Override
-	public String getSpeciesName() {
-		return _speciesName;
-	}
 
 	@Override
 	public String getName() {

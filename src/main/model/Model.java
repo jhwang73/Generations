@@ -69,6 +69,25 @@ public class Model {
 			
 		});
 		
+		_species.add(new AOrganismFactory() {
+
+			@Override
+			public String getSpeciesName() {
+				return RockPaperScissorsOrganism._speciesName;
+			}
+
+			@Override
+			public IOrganism makeRandomOrganism() {
+				return RockPaperScissorsOrganism.getRandomRPSOrganism();
+			}
+
+			@Override
+			public Class<? extends IOrganism> getOrganismClass() {
+				return RockPaperScissorsOrganism.class;
+			}
+			
+		});
+		
 	}
 	
 	/**
@@ -125,7 +144,7 @@ public class Model {
 
 		this._species.forEach((s) -> {
 			ecosystems.forEach((e) -> {
-				if (s.getOrganismClass().isAssignableFrom(e.getRequiredOrganismClass())) {
+				if (e.getRequiredOrganismClass().isAssignableFrom(s.getOrganismClass())) {
 					this._speciesToEcosystems.get(s).add(e);
 				}
 			});

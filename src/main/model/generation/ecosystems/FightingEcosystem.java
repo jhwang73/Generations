@@ -75,7 +75,7 @@ public class FightingEcosystem extends ANaturalEcosystem {
 	@Override
 	public String analyzeCurrentGeneration() {
 		this._battleResults = new ArrayList<>();
-		int numBattles = (int)(2 * Math.random() * this._generationSize) + 1;
+		int numBattles = (int)(2 * Math.random() * this._generationSize) + 8;
 		String results = numBattles + " battles were fought.";
 		
 		for (int i = 0; i < numBattles; i++) {
@@ -88,8 +88,6 @@ public class FightingEcosystem extends ANaturalEcosystem {
 			if (fighter1.fight(fighter2)) {
 				this._battleResults.add(fighter1);
 				results += this._speciesName + " " + idx1 + ": " + fighter1.getName() + " defeated " + this._speciesName + " " + idx2 + ": " + fighter2.getName() + ".\n";
-			} else {
-				results += this._speciesName + " " + idx2 + ": " + fighter2.getName() + " defeated " + this._speciesName + " " + idx1 + ": " + fighter1.getName() + ".\n";
 			}
 		}
 		
