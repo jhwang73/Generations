@@ -23,7 +23,7 @@ class FibonacciEcosystemTest {
 		FibonacciEcosystem fe = new FibonacciEcosystem(2, new AOrganismFactory() {
 			@Override
 			public String getSpeciesName() {
-				return "Fibonacci Organism";
+				return "Fibonacci";
 			}
 
 			@Override
@@ -40,7 +40,7 @@ class FibonacciEcosystemTest {
 		GenerationInfo gi = fe.initialGeneration();
 		
 		assertEquals(0, gi.getGenerationNumber());
-		assertEquals("2 Fibonacci Organism(s) have been generated.", gi.getInfo());
+		assertEquals("2 Fibonacci(s) have been generated.", gi.getInfo());
 		assertEquals(2, gi.getGeneration().size());
 		
 		FibonacciOrganism fo0 = (FibonacciOrganism) gi.getGeneration().get(0);
@@ -60,7 +60,7 @@ class FibonacciEcosystemTest {
 		FibonacciEcosystem fe = new FibonacciEcosystem(4, new AOrganismFactory() {
 			@Override
 			public String getSpeciesName() {
-				return "Fibonacci Organism";
+				return "Fibonacci";
 			}
 
 			@Override

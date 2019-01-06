@@ -91,6 +91,10 @@ public class FightingEcosystem extends ANaturalEcosystem {
 			}
 		}
 		
+		if (this._battleResults.size() == 0) {
+			this._currentGeneration.forEach((current) -> this._battleResults.add((IFightingOrganism)current));
+		}
+		
 		return results;
 	}
 	

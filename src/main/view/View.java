@@ -137,7 +137,7 @@ public class View<Organism, Species, Ecosystem> extends JFrame {
 		// TODO: do button synchronization? disable on view, in controller, undisable
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(0, 0, 1000, 600);
+		setBounds(0, 0, 1300, 600);
 
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 204, 0));
@@ -216,11 +216,11 @@ public class View<Organism, Species, Ecosystem> extends JFrame {
 		panelSouth.add(btnNextGeneration);
 		
 		scrollPaneInfo.setToolTipText("The scroll pane which will hold the info text pane");
+		scrollPaneInfo.setPreferredSize(new Dimension(400, 600));
 		contentPane.add(scrollPaneInfo, BorderLayout.WEST);
 		
 		textAreaInfo.setLineWrap(true);
 		textAreaInfo.setToolTipText("The text area for information");
-		textAreaInfo.setSize(new Dimension(300, 300));
 		textAreaInfo.setText("Click a species, an ecosystem, press begin, and observe the generations advance!");
 		scrollPaneInfo.setViewportView(textAreaInfo);
 		

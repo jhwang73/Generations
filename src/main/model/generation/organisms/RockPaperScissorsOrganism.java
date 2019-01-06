@@ -47,7 +47,7 @@ public class RockPaperScissorsOrganism implements IFightingOrganism {
 	/**
 	 * The name of the species of this organism.
 	 */
-	public final static String _speciesName = "RockPaperScissorsOrganism";
+	public final static String _speciesName = "RPS";
 	
 	/**
 	 * Determines whether this RPS Organism is a Rock, Paper, or Scissors.
@@ -74,6 +74,11 @@ public class RockPaperScissorsOrganism implements IFightingOrganism {
 		
 		return new RockPaperScissorsOrganism(rps);
 	}
+	
+	@Override
+	public String toString() {
+		return this.getName();
+	}
 
 	@Override
 	public IOrganism reproduce() {
@@ -82,19 +87,28 @@ public class RockPaperScissorsOrganism implements IFightingOrganism {
 
 	@Override
 	public String mutate() {
-		double mutation = Math.random();
-		int oldRPSValueInt = this._RPSValue.getValue();
-		if (mutation < 0.33)
-			this._RPSValue = RockPaperScissorsValue.ROCK;
-		else if (mutation < 0.66)
-			this._RPSValue = RockPaperScissorsValue.PAPER;
-		else
-			this._RPSValue = RockPaperScissorsValue.SCISSORS;
+		int newInt = this.getRockPaperScissorsValueInt();
 		
-		if (this._RPSValue.getValue() == oldRPSValueInt)
-			return "No mutation.";
-		else
+		double mutation = Math.random();
+		if (mutation < 0.5) {
+			newInt = (newInt + 1) % 3;
+		} else {
+			newInt = (newInt + 2) % 3;
+		}
+		
+		if (newInt == 0) {
+			this._RPSValue = RockPaperScissorsValue.ROCK;
+			return "The RPSOrganism changed to " + this._RPSValue.name();
+		}
+		else if (newInt == 1) {
+			this._RPSValue = RockPaperScissorsValue.PAPER;
 			return "The RPSOrganism changed to " + this._RPSValue.name();	
+		}
+		else {
+			this._RPSValue = RockPaperScissorsValue.SCISSORS;
+			return "The RPSOrganism changed to " + this._RPSValue.name();	
+		}
+			
 	}
 
 	@Override
