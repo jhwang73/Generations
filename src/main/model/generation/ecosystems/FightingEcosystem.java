@@ -13,7 +13,6 @@ import main.model.generation.organisms.IFightingOrganism;
  * the makeup of the following generation.
  * 
  * @author jhwang73
- * @param <Fighter> The species of the fighting type organism
  */
 public class FightingEcosystem extends ANaturalEcosystem {
 	
@@ -45,21 +44,11 @@ public class FightingEcosystem extends ANaturalEcosystem {
 	
 	/**
 	 * The constructor for the fighting ecosystem.
-	 * @param generationSize The size of the generation. Must be at least 2.
+	 * @param generationSize The size of the generation. Must be at least 2
 	 * @param organismFactory The factory for a fighter type organism
 	 */
 	public FightingEcosystem(int generationSize, AOrganismFactory organismFactory) {
 		super(generationSize, organismFactory);
-	}
-	
-	@Override
-	protected void setUp() {
-		this._range = new ArrayList<>();
-		for (int i = 0; i < this._generationSize; i++) {
-			this._range.add(i);
-		}
-		
-		this._reproducer = new Random();
 	}
 	
 	@Override
@@ -70,6 +59,16 @@ public class FightingEcosystem extends ANaturalEcosystem {
 	@Override
 	public String getEcosystemRules() {
 		return _ecosystemRules;
+	}
+	
+	@Override
+	protected void setUp() {
+		this._range = new ArrayList<>();
+		for (int i = 0; i < this._generationSize; i++) {
+			this._range.add(i);
+		}
+		
+		this._reproducer = new Random();
 	}
 	
 	@Override

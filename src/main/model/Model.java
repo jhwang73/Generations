@@ -196,6 +196,9 @@ public class Model {
 		
 		this._ecosystem = ecosystem.makeEcosystem(generationSize, species);
 		
+		String ecosystemInfo = this._ecosystem.getEcosystemName() + ": " + this._ecosystem.getEcosystemRules() + "\n";
+		this._m2vAdapter.displayText(ecosystemInfo);
+		
 		GenerationInfo initialGI = this._ecosystem.initialGeneration();
 		
 		this._m2vAdapter.displayText(initialGI.getInfo());
