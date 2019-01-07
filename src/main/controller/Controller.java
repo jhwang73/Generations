@@ -65,13 +65,13 @@ public class Controller {
 			}
 
 			@Override
-			public List<AOrganismFactory> getAvailableSpecies() {
-				return _model.getAvailableSpecies();
+			public List<AOrganismFactory> getAvailableSpecies(AEcosystemFactory ecosystem) {
+				return _model.getAvailableSpecies(ecosystem);
 			}
 
 			@Override
-			public List<AEcosystemFactory> getAvailableEcosystems(AOrganismFactory species) {
-				return _model.getAvailableEcosystems(species);
+			public List<AEcosystemFactory> getAvailableEcosystems() {
+				return _model.getAvailableEcosystems();
 			}
 			
 		});

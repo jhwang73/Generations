@@ -29,12 +29,12 @@ public interface IViewToModelAdapter<Species, Ecosystem> {
 		}
 
 		@Override
-		public List getAvailableSpecies() {
+		public List getAvailableSpecies(Object ecosystem) {
 			return null;
 		}
 
 		@Override
-		public List getAvailableEcosystems(Object species) {
+		public List getAvailableEcosystems() {
 			return null;
 		}
 		
@@ -59,16 +59,16 @@ public interface IViewToModelAdapter<Species, Ecosystem> {
 	public void nextGeneration();
 	
 	/**
-	 * Get all the available species.
-	 * @return The list of available species
+	 * Get all the available species for the selected ecosystem.
+	 * @param ecosystem The selected ecosystem
+	 * @return The list of available species for the selected ecosystem
 	 */
-	public List<Species> getAvailableSpecies();
+	public List<Species> getAvailableSpecies(Ecosystem ecosystem);
 	
 	/**
-	 * Get all the available ecosystems for the selected species.
-	 * @param species The selected species
-	 * @return The list of available ecosystems for the selected species
+	 * Get all the available ecosystems.
+	 * @return The list of available ecosystems
 	 */
-	public List<Ecosystem> getAvailableEcosystems(Species species);
+	public List<Ecosystem> getAvailableEcosystems();
 	
 }

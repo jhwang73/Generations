@@ -3,7 +3,7 @@ package main.model.generation.ecosystems;
 import main.model.generation.AOrganismFactory;
 
 /**
- * The matchmaking ecosystem. In this ecosystem, organisms are graded in their fairness and
+ * The matchmaking ecosystem. In this ecosystem, matchup organisms are graded in their fairness and
  * the fairest matchups will breed and advance the generations.
  * 
  * @author jasonhwang
@@ -18,12 +18,17 @@ public class MatchmakingEcosystem extends ANaturalEcosystem {
 	/**
 	 * The rules of this ecosystem.
 	 */
-	private final static String _ecosystemRules = "This Ecosystem generates matches. The best matches advance and breed to make the new set of matches.";
+	private final static String _ecosystemRules = "This Ecosystem generates matches. The best matchups advance and breed to make the new set of matchups.";
+	
+	/**
+	 * The class of the species required by this ecosystem.
+	 */
+//	public final static Class<> _requiredOrganismClass = null;
 	
 	/**
 	 * The constructor for the matchmaking ecosystem.
 	 * @param generationSize The size of the generation. Must be at least 2
-	 * @param organismFactory The factory for a match type organism
+	 * @param organismFactory The factory for a matchup type organism
 	 */
 	public MatchmakingEcosystem(int generationSize, AOrganismFactory organismFactory) {
 		super(generationSize, organismFactory);

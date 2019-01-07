@@ -116,7 +116,7 @@ public class View<Organism, Species, Ecosystem> extends JFrame {
 		btnNextGeneration.setEnabled(false);
 		
 		// Populate the list of available species
-		_v2mAdapter.getAvailableSpecies().forEach((s) -> comboBoxSpecies.addItem(s));
+		_v2mAdapter.getAvailableEcosystems().forEach((eco) -> comboBoxEcosystems.addItem(eco));
 	}
 
 	/**
@@ -132,10 +132,7 @@ public class View<Organism, Species, Ecosystem> extends JFrame {
 	/**
 	 * Initializes the components of the GUI
 	 */
-	private void initGUI() {
-		
-		// TODO: do button synchronization? disable on view, in controller, undisable
-		
+	private void initGUI() {		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1300, 600);
 
@@ -162,25 +159,25 @@ public class View<Organism, Species, Ecosystem> extends JFrame {
 		});
 		panelNorth.add(btnQuit);
 		
-		lblSpecies.setToolTipText("The available species are:");
-		panelNorth.add(lblSpecies);
-		
-		comboBoxSpecies.setToolTipText("The list of species");
-		comboBoxSpecies.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				comboBoxEcosystems.removeAllItems();
-				_v2mAdapter.getAvailableEcosystems(comboBoxSpecies.getItemAt(comboBoxSpecies.getSelectedIndex())).forEach((eco) -> {
-					comboBoxEcosystems.addItem(eco);
-				});
-			}
-		});
-		panelNorth.add(comboBoxSpecies);
-		
 		lblEcosystem.setToolTipText("The ecosystem to place the selected species in");
 		panelNorth.add(lblEcosystem);
 		
 		comboBoxEcosystems.setToolTipText("The list of available ecosystems for the selected species");
+		comboBoxEcosystems.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				comboBoxSpecies.removeAllItems();
+				_v2mAdapter.getAvailableSpecies(comboBoxEcosystems.getItemAt(comboBoxEcosystems.getSelectedIndex())).forEach((s) -> {
+					comboBoxSpecies.addItem(s);
+				});
+			}
+		});
 		panelNorth.add(comboBoxEcosystems);
+		
+		lblSpecies.setToolTipText("The available species are:");
+		panelNorth.add(lblSpecies);
+		
+		comboBoxSpecies.setToolTipText("The list of species");
+		panelNorth.add(comboBoxSpecies);
 		
 		lblGenerationSize.setToolTipText("The size of the generation (The number of organisms in each generation)");
 		panelNorth.add(lblGenerationSize);
@@ -221,7 +218,7 @@ public class View<Organism, Species, Ecosystem> extends JFrame {
 		
 		textAreaInfo.setLineWrap(true);
 		textAreaInfo.setToolTipText("The text area for information");
-		textAreaInfo.setText("Click a species, an ecosystem, press begin, and observe the generations advance!");
+		textAreaInfo.setText("Click an ecosystem, a species, press begin, and observe the generations advance!");
 		scrollPaneInfo.setViewportView(textAreaInfo);
 		
 		textAreaGeneration.setLineWrap(true);

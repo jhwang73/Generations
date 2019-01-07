@@ -27,6 +27,11 @@ public class FightingEcosystem extends ANaturalEcosystem {
 	private final static String _ecosystemRules = "This Ecosystem simulates fights. The strongest organisms advance and breed to make the new generation.";
 	
 	/**
+	 * The class of the species required by this ecosystem.
+	 */
+	public final static Class<IFightingOrganism> _requiredOrganismClass = IFightingOrganism.class;
+	
+	/**
 	 * The range of indicies. Used to select unique, random indicies from a list.
 	 */
 	private List<Integer> _range;

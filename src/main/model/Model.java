@@ -26,17 +26,17 @@ public class Model {
 	 */
 	private IEcosystem _ecosystem;
 	/**
+	 * The list of available ecosystems.
+	 */
+	private final List<AEcosystemFactory> _ecosystems = new ArrayList<>();
+	/**
 	 * The list of available species.
 	 */
 	private final List<AOrganismFactory> _species = new ArrayList<>();
 	/**
-	 * The list of available ecosystems.
+	 * The map of available ecosystems to their valid species.
 	 */
-	private final List<AEcosystemFactory> ecosystems = new ArrayList<>();
-	/**
-	 * The map of available species' to their valid ecosystems.
-	 */
-	private final Map<AOrganismFactory, List<AEcosystemFactory>> _speciesToEcosystems = new HashMap<>();
+	private final Map<AEcosystemFactory, List<AOrganismFactory>> _ecosystemsToSpecies = new HashMap<>();
 	
 	/**
 	 * The Constructor for the model.
@@ -44,6 +44,50 @@ public class Model {
 	 */
 	public Model(IModelToViewAdapter m2vAdapter) {
 		this._m2vAdapter = m2vAdapter;
+	}
+	
+	/**
+	 * Populate the available ecosystems.
+	 */
+	private void populateEcosystems() {
+		_ecosystems.add(new AEcosystemFactory() {
+
+			@Override
+			protected String getEcosystemName() {
+				return FibonacciEcosystem._ecosystemName;
+			}
+
+			@Override
+			public IEcosystem makeEcosystem(int generationSize, AOrganismFactory organismFactory) {
+				return new FibonacciEcosystem(generationSize, organismFactory);
+			}
+
+			@Override
+			public Class<? extends IOrganism> getRequiredOrganismClass() {
+				return FibonacciEcosystem._requiredOrganismClass;
+			}
+
+		});
+		
+		_ecosystems.add(new AEcosystemFactory() {
+
+			@Override
+			protected String getEcosystemName() {
+				return FightingEcosystem._ecosystemName;
+			}
+
+			@Override
+			public IEcosystem makeEcosystem(int generationSize, AOrganismFactory organismFactory) {
+				return new FightingEcosystem(generationSize, organismFactory);
+			}
+
+			@Override
+			public Class<? extends IOrganism> getRequiredOrganismClass() {
+				return FightingEcosystem._requiredOrganismClass;
+			}
+
+		});
+
 	}
 	
 	/**
@@ -91,61 +135,17 @@ public class Model {
 	}
 	
 	/**
-	 * Populate the available ecosystems.
+	 * Populate the available species for each available ecosystem.
 	 */
-	private void populateEcosystems() {
-		ecosystems.add(new AEcosystemFactory() {
-
-			@Override
-			protected String getEcosystemName() {
-				return FibonacciEcosystem._ecosystemName;
-			}
-
-			@Override
-			public IEcosystem makeEcosystem(int generationSize, AOrganismFactory organismFactory) {
-				return new FibonacciEcosystem(generationSize, organismFactory);
-			}
-
-			@Override
-			public Class<? extends IOrganism> getRequiredOrganismClass() {
-				return FibonacciOrganism.class;
-			}
-
-		});
-		
-		ecosystems.add(new AEcosystemFactory() {
-
-			@Override
-			protected String getEcosystemName() {
-				return FightingEcosystem._ecosystemName;
-			}
-
-			@Override
-			public IEcosystem makeEcosystem(int generationSize, AOrganismFactory organismFactory) {
-				return new FightingEcosystem(generationSize, organismFactory);
-			}
-
-			@Override
-			public Class<? extends IOrganism> getRequiredOrganismClass() {
-				return IFightingOrganism.class;
-			}
-
+	private void populateEcosystemsToSpecies() {
+		this._ecosystems.forEach((s) -> {
+			this._ecosystemsToSpecies.put(s, new ArrayList<>());
 		});
 
-	}
-	
-	/**
-	 * Populate the available ecosystems for each available species.
-	 */
-	private void populateSpeciesToEcosystems() {
-		this._species.forEach((s) -> {
-			this._speciesToEcosystems.put(s, new ArrayList<>());
-		});
-
-		this._species.forEach((s) -> {
-			ecosystems.forEach((e) -> {
-				if (e.getRequiredOrganismClass().isAssignableFrom(s.getOrganismClass())) {
-					this._speciesToEcosystems.get(s).add(e);
+		this._ecosystems.forEach((eco) -> {
+			this._species.forEach((s) -> {
+				if (eco.getRequiredOrganismClass().isAssignableFrom(s.getOrganismClass())) {
+					this._ecosystemsToSpecies.get(eco).add(s);
 				}
 			});
 		});
@@ -155,9 +155,9 @@ public class Model {
 	 * Start the model
 	 */
 	public void start() {
-		this.populateSpecies();
 		this.populateEcosystems();
-		this.populateSpeciesToEcosystems();
+		this.populateSpecies();
+		this.populateEcosystemsToSpecies();
 	}
 	
 	/**
@@ -168,20 +168,20 @@ public class Model {
 	}
 	
 	/**
-	 * Get the list of available species.
-	 * @return The list of available species.
+	 * Get the list of available species for the selected ecosystem.
+	 * @param The selected ecosystem
+	 * @return The list of available species for the selected ecosystem
 	 */
-	public List<AOrganismFactory> getAvailableSpecies() {
-		return this._species;
+	public List<AOrganismFactory> getAvailableSpecies(AEcosystemFactory ecosystem) {
+		return this._ecosystemsToSpecies.get(ecosystem);
 	}
 	
 	/**
-	 * Get all the available ecosystems for the selected species.
-	 * @param species The selected species
-	 * @return The list of available ecosystems for the selected species
+	 * Get all the available ecosystems.
+	 * @return The list of available ecosystems
 	 */
-	public List<AEcosystemFactory> getAvailableEcosystems(AOrganismFactory species) {
-		return this._speciesToEcosystems.get(species);
+	public List<AEcosystemFactory> getAvailableEcosystems() {
+		return this._ecosystems;
 	}
 		
 	/**

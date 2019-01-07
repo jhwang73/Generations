@@ -23,7 +23,12 @@ public class FibonacciEcosystem implements IEcosystem {
 	/**
 	 * The rules of this ecosystem.
 	 */
-	private static String _ecosystemRules = "This Ecosystem generates a fibonacci number sequence. Simply watch the sequence advance!";
+	private final static String _ecosystemRules = "This Ecosystem generates a fibonacci number sequence. Simply watch the sequence advance!";
+	
+	/**
+	 * The class of the species required by this ecosystem.
+	 */
+	public final static Class<FibonacciOrganism> _requiredOrganismClass = FibonacciOrganism.class;
 	
 	/**
 	 * The iteration of the current generation.
