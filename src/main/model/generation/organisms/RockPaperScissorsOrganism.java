@@ -98,17 +98,15 @@ public class RockPaperScissorsOrganism implements IFightingOrganism {
 		
 		if (newInt == 0) {
 			this._RPSValue = RockPaperScissorsValue.ROCK;
-			return "The RPSOrganism changed to " + this._RPSValue.name();
 		}
 		else if (newInt == 1) {
 			this._RPSValue = RockPaperScissorsValue.PAPER;
-			return "The RPSOrganism changed to " + this._RPSValue.name();	
 		}
 		else {
 			this._RPSValue = RockPaperScissorsValue.SCISSORS;
-			return "The RPSOrganism changed to " + this._RPSValue.name();	
 		}
-			
+		
+		return "The RPSOrganism changed to " + this._RPSValue.name();	
 	}
 
 	@Override
@@ -128,7 +126,7 @@ public class RockPaperScissorsOrganism implements IFightingOrganism {
 	 * Get the int that represents this RPSOrganism's RPSValue
 	 * @return The int representing the RPSOrganism's RPSValue
 	 */
-	public int getRockPaperScissorsValueInt() {
+	private int getRockPaperScissorsValueInt() {
 		return this._RPSValue.getValue();
 	}
 
