@@ -41,7 +41,7 @@ public class FightingEcosystem extends ANaturalEcosystem {
 	 * The list determines the how likely an organism is reproduced.
 	 */
 	private List<IFightingOrganism> _battleResults;
-	
+		
 	/**
 	 * The random which selects the organisms that will reproduce.
 	 */
@@ -79,8 +79,8 @@ public class FightingEcosystem extends ANaturalEcosystem {
 	@Override
 	public String analyzeCurrentGeneration() {
 		this._battleResults = new ArrayList<>();
-		int numBattles = (int)(2 * Math.random() * this._generationSize) + 8;
-		String results = numBattles + " battles were fought.";
+		int numBattles = this._generationSize + (int)(Math.random() * this._generationSize);
+		String results = numBattles + " battles were fought.\n";
 		
 		for (int i = 0; i < numBattles; i++) {
 			Collections.shuffle(this._range);
@@ -89,15 +89,20 @@ public class FightingEcosystem extends ANaturalEcosystem {
 			IFightingOrganism fighter1 = (IFightingOrganism)this._currentGeneration.get(idx1);
 			IFightingOrganism fighter2 = (IFightingOrganism)this._currentGeneration.get(idx2);
 			
-			if (fighter1.fight(fighter2)) {
+			int battleResult = fighter1.fight(fighter2); 
+			if (battleResult == 1) {
 				this._battleResults.add(fighter1);
 				results += this._speciesName + " " + idx1 + ": " + fighter1.getName() + " defeated " + this._speciesName + " " + idx2 + ": " + fighter2.getName() + ".\n";
+			} else if (battleResult == 0) {
+				results += this._speciesName + " " + idx1 + ": " + fighter1.getName() + " tied with " + this._speciesName + " " + idx2 + ": " + fighter2.getName() + ".\n";
+			} else {
+				this._battleResults.add(fighter2);
+				results += this._speciesName + " " + idx1 + ": " + fighter1.getName() + " was defeated by " + this._speciesName + " " + idx2 + ": " + fighter2.getName() + ".\n";
 			}
 		}
 		
-		if (this._battleResults.size() == 0) {
-			this._currentGeneration.forEach((current) -> this._battleResults.add((IFightingOrganism)current));
-		}
+		if (this._battleResults.size() == 0)
+			this._currentGeneration.forEach(co -> this._battleResults.add((IFightingOrganism)co));
 		
 		return results;
 	}
@@ -105,13 +110,25 @@ public class FightingEcosystem extends ANaturalEcosystem {
 	@Override
 	public String produceNextGeneration() {
 		List<IFightingOrganism> newGeneration = new ArrayList<>();
-		String results = this._generationSize + " new " + this._speciesName + "s have been produced.";
-		int size = this._battleResults.size();
+		String results = "";
 		
 		for (int i = 0; i < this._generationSize; i++) {
-			IFightingOrganism newOrganism = (IFightingOrganism)this._battleResults.get(this._reproducer.nextInt(size)).reproduce();
-			results += newOrganism.getName() + " has been produced!\n";
-			newGeneration.add(newOrganism);
+			double change = Math.random();
+			if (change < 0.1) {
+				IFightingOrganism randomOrganism = (IFightingOrganism)this._organismFactory.makeRandomOrganism();
+				results += randomOrganism.getName() + "has been randomly produced.\n";
+				newGeneration.add(randomOrganism);
+			} else if (change < 0.7 && !this._battleResults.isEmpty()) {
+				IFightingOrganism oldOrganism = (IFightingOrganism)this._battleResults.get(this._reproducer.nextInt(this._battleResults.size()));
+				results += oldOrganism.getName() + " has survived to the next generation.\n";
+				newGeneration.add(oldOrganism);
+				while (this._battleResults.remove(oldOrganism));
+			} else {
+				IFightingOrganism oldOrganism = (IFightingOrganism)this._currentGeneration.get(this._reproducer.nextInt(this._generationSize));
+				IFightingOrganism childOrganism = (IFightingOrganism)oldOrganism.reproduce();
+				results += childOrganism.getName() + " has been reproduced from " + oldOrganism.getName() + "\n";
+				newGeneration.add(childOrganism);
+			}
 		}
 		
 		this._currentGeneration = new ArrayList<>();

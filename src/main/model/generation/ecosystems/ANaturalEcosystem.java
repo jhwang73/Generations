@@ -30,7 +30,7 @@ public abstract class ANaturalEcosystem implements IEcosystem {
 	/**
 	 * The probability of an organism mutating.
 	 */
-	private static double ORGANISM_MUTATION_RATE = 0.2;
+	private static double ORGANISM_MUTATION_RATE = 0.1;
 	
 	/**
 	 * The current generation.
@@ -72,7 +72,7 @@ public abstract class ANaturalEcosystem implements IEcosystem {
 		this._generationNumber = 0;
 		this._currentGeneration = new ArrayList<>();
 		
-		String info = this._generationSize + " " + this._speciesName + "(s) have been randomly generated to make the initial generation!\n";
+		String info = "INITIAL GENERATION\n" + this._generationSize + " " + this._speciesName + "(s) have been randomly generated to make the initial generation!\n";
 		
 		for (int i = 0; i < this._generationSize; i++) {
 			this._currentGeneration.add((INaturalOrganism)this._organismFactory.makeRandomOrganism());
@@ -97,9 +97,10 @@ public abstract class ANaturalEcosystem implements IEcosystem {
 		
 		String mutationInfo = mutateGeneration();
 		
-		String info = "Information about the old generation:\n" + analysis + "\n"+
+		String info = "GENERATION " + this._generationNumber + "\n" +
+				"Information about the old generation:\n" + analysis + "\n"+
 				"Information about the new generation:\n" + newGenerationInfo + "\n" +
-				"Information about the mutation:\n" + mutationInfo + "\n";
+				"Information about the mutations (if any):\n" + mutationInfo + "\n";
 		
 		return new GenerationInfo(this._generationNumber, info, this._currentGeneration);
 	}

@@ -1,5 +1,9 @@
 package main.model.generation.organisms;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import main.model.generation.IOrganism;
 
 /**
@@ -55,6 +59,11 @@ public class RockPaperScissorsOrganism implements IFightingOrganism {
 	private RockPaperScissorsValue _RPSValue;
 	
 	/**
+	 * The list of available RPS.
+	 */
+	private final static List<RockPaperScissorsValue> _availableRPS = new ArrayList<>(Arrays.asList(RockPaperScissorsValue.values()));
+				
+	/**
 	 * The Constructor for the Rock Paper Scissors Organism
 	 * @param rps The identity of the RPSOrganism. Either Rock, Paper, or Scissors.
 	 */
@@ -62,17 +71,13 @@ public class RockPaperScissorsOrganism implements IFightingOrganism {
 		this._RPSValue = rps;
 	}
 	
+	/**
+	 * Get a random RPS Organism.
+	 * @return A RPS Organism
+	 */
 	public static RockPaperScissorsOrganism getRandomRPSOrganism() {
-		double value = Math.random();
-		RockPaperScissorsValue rps;
-		if (value < 0.33)
-			rps = RockPaperScissorsValue.ROCK;
-		else if (value < 0.66)
-			rps = RockPaperScissorsValue.PAPER;
-		else
-			rps = RockPaperScissorsValue.SCISSORS;
-		
-		return new RockPaperScissorsOrganism(rps);
+		int value = (int) (Math.random() * _availableRPS.size());
+		return new RockPaperScissorsOrganism(_availableRPS.get(value));
 	}
 	
 	@Override
@@ -88,25 +93,17 @@ public class RockPaperScissorsOrganism implements IFightingOrganism {
 	@Override
 	public String mutate() {
 		int newInt = this.getRockPaperScissorsValueInt();
+		String old = this._RPSValue.name();
 		
-		double mutation = Math.random();
-		if (mutation < 0.5) {
+		if (Math.random() < 0.5) {
 			newInt = (newInt + 1) % 3;
 		} else {
 			newInt = (newInt + 2) % 3;
 		}
 		
-		if (newInt == 0) {
-			this._RPSValue = RockPaperScissorsValue.ROCK;
-		}
-		else if (newInt == 1) {
-			this._RPSValue = RockPaperScissorsValue.PAPER;
-		}
-		else {
-			this._RPSValue = RockPaperScissorsValue.SCISSORS;
-		}
+		this._RPSValue = _availableRPS.get(newInt);
 		
-		return "The RPSOrganism changed to " + this._RPSValue.name();	
+		return old + " changed to " + this._RPSValue.name();	
 	}
 
 	@Override
@@ -115,11 +112,17 @@ public class RockPaperScissorsOrganism implements IFightingOrganism {
 	}
 
 	@Override
-	public boolean fight(IOrganism opponent) {
+	public int fight(IOrganism opponent) {
 		int myInt = this.getRockPaperScissorsValueInt();
 		int opponentInt = ((RockPaperScissorsOrganism)opponent).getRockPaperScissorsValueInt();
 		
-		return (myInt == 0 && opponentInt == 2) || (myInt == 1 && opponentInt == 0) || (myInt == 2 && opponentInt == 1);
+		if (myInt == opponentInt) {
+			return 0;
+		} else if ((myInt == 0 && opponentInt == 2) || (myInt == 1 && opponentInt == 0) || (myInt == 2 && opponentInt == 1)) {
+			return 1;
+		} else {
+			return -1;
+		}
 	}
 	
 	/**

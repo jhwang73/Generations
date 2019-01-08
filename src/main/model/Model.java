@@ -132,6 +132,25 @@ public class Model {
 			
 		});
 		
+		_species.add(new AOrganismFactory() {
+
+			@Override
+			public String getSpeciesName() {
+				return NinjaOrganism._speciesName;
+			}
+
+			@Override
+			public IOrganism makeRandomOrganism() {
+				return NinjaOrganism.getRandomNinjaOrganism();
+			}
+
+			@Override
+			public Class<? extends IOrganism> getOrganismClass() {
+				return NinjaOrganism.class;
+			}
+			
+		});
+		
 	}
 	
 	/**

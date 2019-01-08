@@ -82,7 +82,7 @@ public class View<Organism, Species, Ecosystem> extends JFrame {
 	/**
 	 * The size of the generation. Must be at least 2.
 	 */
-	private final JSpinner spinnerGenerationSize = new JSpinner(new SpinnerNumberModel(2, 2, 10, 1));
+	private final JSpinner spinnerGenerationSize = new JSpinner(new SpinnerNumberModel(2, 2, 16, 1));
 	/**
 	 * Labels the list of available ecosystems.
 	 */

@@ -1,5 +1,9 @@
 package main.model.generation.organisms;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import main.model.generation.IOrganism;
 
 /**
@@ -14,40 +18,46 @@ public class NinjaOrganism implements IFightingOrganism {
 	 * @author jasonhwang
 	 *
 	 */
-	public enum NinjaProperties {
+	public enum Ninja {
 		
-		NARUTO(50);
+		NARUTO(50),
+		SASUKE(50),
+		HASHIRAMA(80),
+		MADARA(75),
+		ROCKLEE(50);
 		
 		/**
-		 * The chakra level of the ninja
+		 * The base chakra level of the ninja
 		 */
-		private int _chakraLevel;
+		private int _baseChakraLevel;
 		
 		/**
-		 * The constructor for the Ninja properties
+		 * The constructor for the Ninja
 		 * @param chakraLevel The chakra level of the ninja
 		 */
-		private NinjaProperties(int chakraLevel) {
-			this._chakraLevel = chakraLevel;
+		private Ninja(int baseChakraLevel) {
+			this._baseChakraLevel = baseChakraLevel;
 		}
 		
 		/**
-		 * Get the chakra level of the ninja
-		 * @return The int of the chakra level
+		 * Get the base chakra level of the ninja
+		 * @return The int of the base chakra
 		 */
-		public int getChakraLevel() {
-			return this._chakraLevel;
-		}
-		
-		/**
-		 * Update the chakra level of the ninja
-		 * @param chakraLevel The new chakra level
-		 */
-		public void setChakraLevel(int chakraLevel) {
-			this._chakraLevel = chakraLevel;
+		public int getBaseChakra() {
+			return this._baseChakraLevel;
 		}
 		
 	}
+	
+	/**
+	 * The name of the species of this organism.
+	 */
+	public final static String _speciesName = "Ninja";
+	
+	/**
+	 * The list of available ninja.
+	 */
+	private final static List<Ninja> _availableNinjas = new ArrayList<>(Arrays.asList(Ninja.values()));
 	
 	/**
 	 * The probability activating/deactivating sage mode.
@@ -60,23 +70,42 @@ public class NinjaOrganism implements IFightingOrganism {
 	private boolean _sageMode;
 	
 	/**
-	 * The properties of the ninja.
+	 * The ninja.
 	 */
-	private NinjaProperties _properties;
+	private Ninja _ninja;
+	
+	/**
+	 * Additional chakra the ninja has.
+	 */
+	private int _additionalChakra;
 		
-	public NinjaOrganism(NinjaProperties properties) {
-		this._properties = properties;
+	/**
+	 * The Constructor for the Ninja Organism
+	 * @param ninja The identity of the ninja organism.
+	 */
+	public NinjaOrganism(Ninja ninja) {
+		this._ninja = ninja;
 		this._sageMode = false;
+		this._additionalChakra = 0;
+	}
+	
+	/**
+	 * Get a random ninja Organism.
+	 * @return A Ninja Organism
+	 */
+	public static NinjaOrganism getRandomNinjaOrganism() {
+		int ninja = (int) (Math.random() * _availableNinjas.size());
+		return new NinjaOrganism(_availableNinjas.get(ninja));
 	}
 	
 	@Override
 	public String toString() {
-		return this.getName() + "\n" + this.getChakraLevel();
+		return this.getName() + "\n" + (this.getChakraLevel());
 	}
 	
 	@Override
 	public IOrganism reproduce() {
-		return new NinjaOrganism(this._properties);
+		return new NinjaOrganism(this._ninja);
 	}
 
 	@Override
@@ -84,71 +113,58 @@ public class NinjaOrganism implements IFightingOrganism {
 		double sageMode = Math.random();
 		String mutationInfo;
 		
-		if (sageMode < SAGE_MODE_PROBABILITY) {
-			this._sageMode = !this._sageMode;
-			int sageModeDelta = 30;
-			if (this._sageMode) {
-				mutationInfo = "SAGE MODE!!!" + this.changeChakraLevel(true, sageModeDelta);
-			}
-			else {
-				mutationInfo = "Sage mode ran out!" + this.changeChakraLevel(false, sageModeDelta);
-			}
+		if (!this._sageMode && sageMode < SAGE_MODE_PROBABILITY) {
+			int sageModeDelta = 100;
+			mutationInfo = this.getName() + " activated SAGE MODE!!! " + this.changeChakraLevel(true, sageModeDelta);
+			this._sageMode = true;
 		} else {
-			int maxDelta = 15;
-			int delta = (int)Math.random() * maxDelta + 1;
-			double increase = Math.random();
-			if (increase < 0.5) {
-				mutationInfo = this.changeChakraLevel(true, delta);
-			} else {
-				mutationInfo = this.changeChakraLevel(false, delta);
-			}
+			int maxDelta = 50;
+			int delta = (int)(Math.random() * maxDelta) + 1;
+			mutationInfo = this.changeChakraLevel(true, delta);
 		}
-		
 		return mutationInfo;
 	}
 
 	@Override
 	public String getName() {
-		return this._properties.name();
+		if (this._sageMode)
+			return "Sage " + this._ninja.name();
+		else
+			return this._ninja.name();
 	}
 
 	@Override
-	public boolean fight(IOrganism opponent) {
-		// TODO Auto-generated method stub
-		return false;
+	public int fight(IOrganism opponent) {
+		if (this.getChakraLevel() > ((NinjaOrganism)opponent).getChakraLevel())
+			return 1;
+		else if (this.getChakraLevel() < ((NinjaOrganism)opponent).getChakraLevel())
+			return -1;
+		else
+			return 0;
 	}
 	
 	/**
-	 * Get the chakra level of the ninja organism.
-	 * @return The int value of the chakra level
+	 * Get the current chakra level of the ninja organism.
+	 * @return The int value of the current chakra
 	 */
 	public int getChakraLevel() {
-		return this._properties.getChakraLevel();
+		return this._ninja.getBaseChakra() + this._additionalChakra;
 	}
 	
 	/**
-	 * Set the chakra level of the ninja
-	 * @param chakraLevel The new chakra level
-	 */
-	private void setChakraLevel(int chakraLevel) {
-		this._properties.setChakraLevel(chakraLevel);
-	}
-	
-	/**
-	 * Change the chakra level of the ninja. Set to 1 if it would go below 1.
+	 * Change the additional chakra level of the ninja.
 	 * @param increase Whether to increase the chakra or decrease it
 	 * @param delta The amount to change
 	 * @return A description of the change that took place.
 	 */
 	private String changeChakraLevel(boolean increase, int delta) {
 		if (increase) {
-			this.setChakraLevel(this.getChakraLevel() + delta);
+			this._additionalChakra += delta;
 			return "Chakra increased by " + delta;
 		}
 		else {
-			int originalChakra = this.getChakraLevel();
-			this.setChakraLevel(Math.min(1, this.getChakraLevel() - delta));
-			return "Chakra decreased by " + (this.getChakraLevel() - originalChakra);
+			this._additionalChakra -= delta;
+			return "Chakra decreased by " + delta;
 		}
 	}
 
