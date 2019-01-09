@@ -8,8 +8,8 @@ import main.model.generation.IOrganism;
 
 /**
  * The Rock Paper Scissors Organism. For this species, organisms are either rock, paper, or scissors.
+ * 
  * @author jasonhwang
- *
  */
 public class RockPaperScissorsOrganism implements IFightingOrganism {
 	

@@ -8,15 +8,14 @@ import main.model.generation.IOrganism;
 
 /**
  * The ninja organism. Based off Masashi Kishimoto's series, Naruto.
+ * 
  * @author jasonhwang
- *
  */
 public class NinjaOrganism implements IFightingOrganism {
 
 	/**
 	 * The Ninja enmeration. Defines the database of available ninjas and their traits.
 	 * @author jasonhwang
-	 *
 	 */
 	public enum Ninja {
 		
