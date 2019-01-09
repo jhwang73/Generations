@@ -87,6 +87,25 @@ public class Model {
 			}
 
 		});
+		
+		_ecosystems.add(new AEcosystemFactory() {
+
+			@Override
+			protected String getEcosystemName() {
+				return MatchmakingEcosystem._ecosystemName;
+			}
+
+			@Override
+			public IEcosystem makeEcosystem(int generationSize, AOrganismFactory organismFactory) {
+				return new MatchmakingEcosystem(generationSize, organismFactory);
+			}
+
+			@Override
+			public Class<? extends IOrganism> getRequiredOrganismClass() {
+				return MatchmakingEcosystem._requiredOrganismClass;
+			}
+
+		});
 
 	}
 	
@@ -147,6 +166,25 @@ public class Model {
 			@Override
 			public Class<? extends IOrganism> getOrganismClass() {
 				return NinjaOrganism.class;
+			}
+			
+		});
+
+		_species.add(new AOrganismFactory() {
+
+			@Override
+			public String getSpeciesName() {
+				return NBAOrganism._speciesName;
+			}
+
+			@Override
+			public IOrganism makeRandomOrganism() {
+				return NBAOrganism.getRandomNBAOrganism();
+			}
+
+			@Override
+			public Class<? extends IOrganism> getOrganismClass() {
+				return NBAOrganism.class;
 			}
 			
 		});

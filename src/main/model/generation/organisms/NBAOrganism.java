@@ -14,10 +14,36 @@ public class NBAOrganism extends AMatchupOrganism<NBAOrganism.NBAPlayer> {
 	
 	public enum NBAPlayer {
 		
-		JOHN_WALL(80);
+		LEBRON_JAMES(98),
+		STEPHEN_CURRY(96),
+		PAUL_GEORGE(90),
+		JOHN_WALL(89),
+		VICTOR_OLADIPO(88),
+		BRADLEY_BEAL(87),
+		DEVIN_BOOKER(86),
+		STEVEN_ADAMS(85),
+		KYLE_KUZMA(84),
+		BRANDON_INGRAM(81);
 		
+		/**
+		 * The skill rating of the player. Based off NBA 2K.
+		 */
+		private int _skillLevel;
+		
+		/**
+		 * The constructor for the NBA Player
+		 * @param skillLevel The skill level of the player
+		 */
 		private NBAPlayer(int skillLevel) {
-			
+			this._skillLevel = skillLevel;
+		}
+		
+		/**
+		 * Get the skill level of the player
+		 * @return The int of the skill level
+		 */
+		public int getSkillLevel() {
+			return this._skillLevel;
 		}
 	}
 	
@@ -63,7 +89,5 @@ public class NBAOrganism extends AMatchupOrganism<NBAOrganism.NBAPlayer> {
 		addPlayersToTeam(5, team2);
 		return new NBAOrganism(team1, team2);	
 	}
-	
-	
 	
 }
