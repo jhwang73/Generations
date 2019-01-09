@@ -89,13 +89,23 @@ public class NinjaOrganism implements IFightingOrganism {
 	}
 	
 	/**
-	 * Get a random ninja Organism.
-	 * @return A Ninja Organism
+	 * The Constructor for a random Ninja Organism.
 	 */
-	public static NinjaOrganism getRandomNinjaOrganism() {
+	public NinjaOrganism() {
 		int ninja = (int) (Math.random() * _availableNinjas.size());
-		return new NinjaOrganism(_availableNinjas.get(ninja));
+		this._ninja = _availableNinjas.get(ninja);
+		this._sageMode = false;
+		this._additionalChakra = 0;
 	}
+	
+//	/**
+//	 * Get a random ninja Organism.
+//	 * @return A Ninja Organism
+//	 */
+//	public static NinjaOrganism getRandomNinjaOrganism() {
+//		int ninja = (int) (Math.random() * _availableNinjas.size());
+//		return new NinjaOrganism(_availableNinjas.get(ninja));
+//	}
 	
 	@Override
 	public String toString() {

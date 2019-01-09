@@ -138,10 +138,11 @@ public class Model {
 			public String getSpeciesName() {
 				return RockPaperScissorsOrganism._speciesName;
 			}
-
+			
 			@Override
 			public IOrganism makeRandomOrganism() {
-				return RockPaperScissorsOrganism.getRandomRPSOrganism();
+				return new RockPaperScissorsOrganism();
+//				return RockPaperScissorsOrganism.getRandomRPSOrganism();
 			}
 
 			@Override
@@ -160,7 +161,8 @@ public class Model {
 
 			@Override
 			public IOrganism makeRandomOrganism() {
-				return NinjaOrganism.getRandomNinjaOrganism();
+				return new NinjaOrganism();
+//				return NinjaOrganism.getRandomNinjaOrganism();
 			}
 
 			@Override

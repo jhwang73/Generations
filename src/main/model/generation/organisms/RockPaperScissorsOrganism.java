@@ -72,13 +72,21 @@ public class RockPaperScissorsOrganism implements IFightingOrganism {
 	}
 	
 	/**
-	 * Get a random RPS Organism.
-	 * @return A RPS Organism
+	 * The Constructor for a random Rock Paper Scissors Organism.
 	 */
-	public static RockPaperScissorsOrganism getRandomRPSOrganism() {
+	public RockPaperScissorsOrganism() {
 		int value = (int) (Math.random() * _availableRPS.size());
-		return new RockPaperScissorsOrganism(_availableRPS.get(value));
+		this._RPSValue = _availableRPS.get(value);
 	}
+	
+//	/**
+//	 * Get a random RPS Organism.
+//	 * @return A RPS Organism
+//	 */
+//	public static RockPaperScissorsOrganism getRandomRPSOrganism() {
+//		int value = (int) (Math.random() * _availableRPS.size());
+//		return new RockPaperScissorsOrganism(_availableRPS.get(value));
+//	}
 	
 	@Override
 	public String toString() {

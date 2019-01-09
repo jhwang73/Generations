@@ -72,7 +72,7 @@ public class NBAOrganism extends AMatchupOrganism<NBAOrganism.NBAPlayer> {
 	 * @param team The team
 	 */
 	private static void addPlayersToTeam(int startingIdx, List<NBAOrganism.NBAPlayer> team) {
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < _teamSize; i++) {
 			team.add(_availableNBAPlayers.get(startingIdx + i));
 		}
 	}
