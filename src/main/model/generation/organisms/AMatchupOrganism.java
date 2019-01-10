@@ -120,13 +120,13 @@ public abstract class AMatchupOrganism<Player> implements ISexualOrganism {
 
 	@Override
 	public String getName() {
-		return "Team " + this._team1.get(0) + " VS Team" + this._team2.get(0);
+		return "Team " + this._team1.get(0) + " VS Team " + this._team2.get(0);
 	}
 
 	@Override
 	public IOrganism reproduce(IOrganism mate) {
-//		Map<Player, Map<Player, Integer> 
-		return null;
+		// TODO: implement
+		return this;
 	}
 	
 	/**

@@ -37,6 +37,7 @@ public class View<Organism, Species, Ecosystem> extends JFrame {
 	/**
 	 * The adapter from the view to the model. Initialized to the no-op adapter.
 	 */
+	@SuppressWarnings("unchecked")
 	private IViewToModelAdapter<Species, Ecosystem> _v2mAdapter = IViewToModelAdapter.NULL_ADAPTER;
 	
 	/**
@@ -215,11 +216,13 @@ public class View<Organism, Species, Ecosystem> extends JFrame {
 		scrollPaneInfo.setToolTipText("The scroll pane which will hold the info text pane");
 		scrollPaneInfo.setPreferredSize(new Dimension(400, 600));
 		contentPane.add(scrollPaneInfo, BorderLayout.WEST);
+		textAreaInfo.setEditable(false);
 		
 		textAreaInfo.setLineWrap(true);
 		textAreaInfo.setToolTipText("The text area for information");
 		textAreaInfo.setText("Click an ecosystem, a species, press begin, and observe the generations advance!");
 		scrollPaneInfo.setViewportView(textAreaInfo);
+		textAreaGeneration.setEditable(false);
 		
 		textAreaGeneration.setLineWrap(true);
 		scrollPaneGeneration.setViewportView(textAreaGeneration);
