@@ -181,7 +181,7 @@ public class Model {
 
 			@Override
 			public IOrganism makeRandomOrganism() {
-				return NBAOrganism.getRandomNBAOrganism();
+				return new NBAOrganism();
 			}
 
 			@Override

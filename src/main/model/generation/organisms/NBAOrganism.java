@@ -51,14 +51,9 @@ public class NBAOrganism extends AMatchupOrganism<NBAOrganism.NBAPlayer> {
 	 * The name of the species of this organism.
 	 */
 	public final static String _speciesName = "NBAPlayers";
-	
+		
 	/**
-	 * The list of available NBA Players.
-	 */
-	private final static List<NBAPlayer> _availableNBAPlayers = new ArrayList<>(Arrays.asList(NBAPlayer.values()));
-	
-	/**
-	 * The Constructor for the NBA Organism
+	 * The Constructor for the NBA Organism.
 	 * @param team1 Team 1
 	 * @param team2 Team 2
 	 */
@@ -67,27 +62,16 @@ public class NBAOrganism extends AMatchupOrganism<NBAOrganism.NBAPlayer> {
 	}
 	
 	/**
-	 * Add five consecutive players to a team from the list of available players.
-	 * @param startingIdx The starting index
-	 * @param team The team
+	 * The Constructor for a random NBA Organism.
 	 */
-	private static void addPlayersToTeam(int startingIdx, List<NBAOrganism.NBAPlayer> team) {
-		for (int i = 0; i < _teamSize; i++) {
-			team.add(_availableNBAPlayers.get(startingIdx + i));
-		}
+	public NBAOrganism() {
+		super(5);
 	}
 	
-	/**
-	 * Get a random team matchup
-	 * @return An NBA Organism.
-	 */
-	public static NBAOrganism getRandomNBAOrganism() {
-		Collections.shuffle(_availableNBAPlayers);
-		List<NBAOrganism.NBAPlayer> team1 = new ArrayList<>();
-		List<NBAOrganism.NBAPlayer> team2 = new ArrayList<>();
-		addPlayersToTeam(0, team1);
-		addPlayersToTeam(5, team2);
-		return new NBAOrganism(team1, team2);	
+	protected List<NBAPlayer> getAvailablePlayers() {
+		return new ArrayList<>(Arrays.asList(NBAPlayer.values()));
 	}
+	
+	
 	
 }

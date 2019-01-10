@@ -45,15 +45,6 @@ public abstract class AMatchupOrganism<Player> implements ISexualOrganism {
 		this._team2 = team2;
 	}
 	
-	public AMatchupOrganism(int teamSize) {
-		this._teamSize = teamSize;
-		Collections.shuffle(this._availablePlayers);
-		this._team1 = new ArrayList<>();
-		this._team2 = new ArrayList<>();
-		this.addPlayersToTeam(0, this._teamSize, this._team1);
-		this.addPlayersToTeam(this._teamSize, this._teamSize, this._team2);
-	}
-	
 	/**
 	 * Add consecutive numAdditions players to the given team, starting at
 	 * startingIdx in the list of players
@@ -67,9 +58,44 @@ public abstract class AMatchupOrganism<Player> implements ISexualOrganism {
 		}
 	}
 	
+	/**
+	 * The constructor for the random matchup organism
+	 * @param teamSize The size of each team
+	 */
+	public AMatchupOrganism(int teamSize) {
+		this._teamSize = teamSize;
+		this._availablePlayers = this.getAvailablePlayers();
+		Collections.shuffle(this._availablePlayers);
+		this._team1 = new ArrayList<>();
+		this._team2 = new ArrayList<>();
+		this.addPlayersToTeam(0, this._teamSize, this._team1);
+		this.addPlayersToTeam(this._teamSize, this._teamSize, this._team2);
+	}
+	
+	protected abstract List<Player> getAvailablePlayers();
+	
+	/**
+	 * A method used to build a space string
+	 * @param length The number of spaces
+	 * @return A string which is a number of spaces
+	 */
+	private String buildSpaces(int length) {
+		String output = "";
+		for (int i = 0; i < length; i++) {
+			output += " ";
+		}
+		return output;
+	}
+	
 	@Override
 	public String toString() {
-		
+		String output = "";
+		int spaceLen = 16;
+		for (int i = 0; i < this._teamSize; i++) {
+			int playerLen = this._team1.get(i).toString().length();
+			output += this._team1.get(i).toString() + this.buildSpaces(spaceLen - playerLen) + this._team2.get(i) + "\n";
+		}
+		return output;
 	}
 	
 	@Override
