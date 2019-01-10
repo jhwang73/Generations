@@ -24,6 +24,7 @@ public class MatchmakingEcosystem extends ANaturalEcosystem {
 	/**
 	 * The class of the species required by this ecosystem.
 	 */
+	@SuppressWarnings("rawtypes")
 	public final static Class<AMatchupOrganism> _requiredOrganismClass = AMatchupOrganism.class;
 	
 	/**
@@ -33,7 +34,6 @@ public class MatchmakingEcosystem extends ANaturalEcosystem {
 	 */
 	public MatchmakingEcosystem(int generationSize, AOrganismFactory organismFactory) {
 		super(generationSize, organismFactory);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -63,5 +63,5 @@ public class MatchmakingEcosystem extends ANaturalEcosystem {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 }

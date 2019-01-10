@@ -2,7 +2,6 @@ package main.model.generation.organisms;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -12,7 +11,7 @@ import java.util.List;
  */
 public class NBAOrganism extends AMatchupOrganism<NBAOrganism.NBAPlayer> {
 	
-	public enum NBAPlayer {
+	public enum NBAPlayer implements AMatchupOrganism.Player{
 		
 		LEBRON_JAMES(98),
 		STEPHEN_CURRY(96),
@@ -38,10 +37,7 @@ public class NBAOrganism extends AMatchupOrganism<NBAOrganism.NBAPlayer> {
 			this._skillLevel = skillLevel;
 		}
 		
-		/**
-		 * Get the skill level of the player
-		 * @return The int of the skill level
-		 */
+		@Override
 		public int getSkillLevel() {
 			return this._skillLevel;
 		}
@@ -67,11 +63,10 @@ public class NBAOrganism extends AMatchupOrganism<NBAOrganism.NBAPlayer> {
 	public NBAOrganism() {
 		super(5);
 	}
-	
+
+	@Override
 	protected List<NBAPlayer> getAvailablePlayers() {
 		return new ArrayList<>(Arrays.asList(NBAPlayer.values()));
 	}
-	
-	
 	
 }

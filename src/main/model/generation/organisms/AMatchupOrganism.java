@@ -12,11 +12,19 @@ import main.model.generation.IOrganism;
  * @author jasonhwang
  */
 public abstract class AMatchupOrganism<Player> implements ISexualOrganism {
+	
+	public interface Player {
+		/**
+		 * Get the skill level of the player
+		 * @return The skill level of the player
+		 */
+		public int getSkillLevel();
+	}
 
 	/**
 	 * The list of available players
 	 */
-	protected List<Player> _availablePlayers;
+	protected List<? extends Player> _availablePlayers;
 	
 	/**
 	 * The size of the teams
@@ -39,10 +47,12 @@ public abstract class AMatchupOrganism<Player> implements ISexualOrganism {
 	 * @param team1 Team 1
 	 * @param team2 Team 2
 	 */
-	public AMatchupOrganism(int teamSize, List<Player> team1, List<Player> team2) {
+	public AMatchupOrganism(int teamSize, List<? extends Player> team1, List<? extends Player> team2) {
 		this._teamSize = teamSize;
-		this._team1 = team1;
-		this._team2 = team2;
+		this._team1 = new ArrayList<>();
+		team1.forEach((player) -> this._team1.add(player));
+		this._team2 = new ArrayList<>();
+		team2.forEach((player) -> this._team2.add(player));
 	}
 	
 	/**
@@ -72,7 +82,11 @@ public abstract class AMatchupOrganism<Player> implements ISexualOrganism {
 		this.addPlayersToTeam(this._teamSize, this._teamSize, this._team2);
 	}
 	
-	protected abstract List<Player> getAvailablePlayers();
+	/**
+	 * Get the list of available players to be placed into teams
+	 * @return The list of available players
+	 */
+	protected abstract List<? extends Player> getAvailablePlayers();
 	
 	/**
 	 * A method used to build a space string
@@ -111,8 +125,31 @@ public abstract class AMatchupOrganism<Player> implements ISexualOrganism {
 
 	@Override
 	public IOrganism reproduce(IOrganism mate) {
-		// TODO Auto-generated method stub
+//		Map<Player, Map<Player, Integer> 
 		return null;
+	}
+	
+	/**
+	 * Get the total score of the team
+	 * @param team The team
+	 * @return The total score of the team
+	 */
+	private int teamScore(List<Player> team) {
+		int res = 0;
+		for (int i = 0; i < team.size(); i ++) {
+			res += team.get(0).getSkillLevel();
+		}
+		return res;
+	}
+	
+	/**
+	 * Score the team matchup in terms of fairness.
+	 * @return
+	 */
+	public int score() {
+		int team1Score = this.teamScore(this._team1);
+		int team2Score = this.teamScore(this._team2);
+		return Math.abs(team1Score - team2Score);
 	}
 
 }
