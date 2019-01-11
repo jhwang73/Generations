@@ -17,6 +17,14 @@ import main.model.generation.organisms.INaturalOrganism;
  * @author jasonhwang
  */
 public class MatchmakingEcosystem extends ANaturalEcosystem {
+	
+	public interface Player {
+		/**
+		 * Get the skill level of the player
+		 * @return The skill level of the player
+		 */
+		public int getSkillLevel();
+	}
 
 	/**
 	 * The name of this ecosystem.
@@ -104,17 +112,21 @@ public class MatchmakingEcosystem extends ANaturalEcosystem {
 		return analysis;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	@Override
 	protected String produceNextGeneration() {
 		this._currentGeneration = new ArrayList<>();
 		int numParents = (this._generationSize / 3) + 1;
+		String production = "";
 		
 		for (int i = 0; i < this._generationSize; i++) {
-			int parent1 = (int)(Math.random() * numParents);
-			int parent2 = (int)(Math.random() * numParents);
-			this._currentGeneration.add((INaturalOrganism)this._rankings.get(parent1).getKey().reproduce(this._rankings.get(parent2).getKey()));
+			AMatchupOrganism parent1 = this._rankings.get((int)(Math.random() * numParents)).getKey();
+			AMatchupOrganism parent2 = this._rankings.get((int)(Math.random() * numParents)).getKey();
+			INaturalOrganism child = (INaturalOrganism)parent1.reproduce(parent2);
+			production += parent1.getName() + " and " + parent2.getName() + " produced " + child.getName() + "\n";
+			this._currentGeneration.add(child);
 		}
 		
-		return "Produce Test";
+		return production;
 	}
 }

@@ -14,6 +14,7 @@ public interface IViewToModelAdapter<Species, Ecosystem> {
 	/**
 	 * The no-op adapter.
 	 */
+	@SuppressWarnings("rawtypes")
 	public static final IViewToModelAdapter NULL_ADAPTER = new IViewToModelAdapter() {
 
 		@Override

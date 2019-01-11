@@ -3,26 +3,22 @@ package main.model.generation.organisms;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import main.model.generation.ecosystems.MatchmakingEcosystem.Player;
+
+import main.model.generation.IOrganism;
 
 /**
  * Matchup organisms. 
  * 
  * @author jasonhwang
+ * @param P The specific type of player
  */
-public abstract class AMatchupOrganism<Player> implements ISexualOrganism {
-	
-	public interface Player {
-		/**
-		 * Get the skill level of the player
-		 * @return The skill level of the player
-		 */
-		public int getSkillLevel();
-	}
+public abstract class AMatchupOrganism<P extends Player> implements ISexualOrganism {
 
 	/**
 	 * The list of available players
 	 */
-	protected List<? extends Player> _availablePlayers;
+	protected List<P> _availablePlayers;
 	
 	/**
 	 * The size of the teams
@@ -32,12 +28,12 @@ public abstract class AMatchupOrganism<Player> implements ISexualOrganism {
 	/**
 	 * The first team
 	 */
-	protected List<Player> _team1;
+	protected List<P> _team1;
 	
 	/**
 	 * The second team
 	 */
-	protected List<Player> _team2;
+	protected List<P> _team2;
 	
 	/**
 	 * The constructor for the matchup organism
@@ -45,12 +41,10 @@ public abstract class AMatchupOrganism<Player> implements ISexualOrganism {
 	 * @param team1 Team 1
 	 * @param team2 Team 2
 	 */
-	public AMatchupOrganism(int teamSize, List<? extends Player> team1, List<? extends Player> team2) {
+	public AMatchupOrganism(int teamSize, List<P> team1, List<P> team2) {
 		this._teamSize = teamSize;
-		this._team1 = new ArrayList<>();
-		team1.forEach((player) -> this._team1.add(player));
-		this._team2 = new ArrayList<>();
-		team2.forEach((player) -> this._team2.add(player));
+		this._team1 = team1;
+		this._team2 = team2;
 	}
 	
 	/**
@@ -60,7 +54,7 @@ public abstract class AMatchupOrganism<Player> implements ISexualOrganism {
 	 * @param numAdditions The number of players to add
 	 * @param team The team to add to
 	 */
-	private void addPlayersToTeam(int startingIdx, int numAdditions, List<Player> team) {
+	private void addPlayersToTeam(int startingIdx, int numAdditions, List<P> team) {
 		for (int i = 0; i < this._teamSize; i++) {
 			team.add(this._availablePlayers.get(startingIdx + i));
 		}
@@ -84,7 +78,7 @@ public abstract class AMatchupOrganism<Player> implements ISexualOrganism {
 	 * Get the list of available players to be placed into teams
 	 * @return The list of available players
 	 */
-	protected abstract List<? extends Player> getAvailablePlayers();
+	protected abstract List<P> getAvailablePlayers();
 	
 	/**
 	 * A method used to build a space string
@@ -114,13 +108,13 @@ public abstract class AMatchupOrganism<Player> implements ISexualOrganism {
 	public String mutate() {
 		int mutationIdx1 = (int) (Math.random() * this._teamSize);
 		int mutationIdx2 = (int) (Math.random() * this._teamSize);
-		Player player1 = this._team1.get(mutationIdx1);
-		Player player2 = this._team2.get(mutationIdx2);
+		P player1 = this._team1.get(mutationIdx1);
+		P player2 = this._team2.get(mutationIdx2);
 		this._team1.add(player2);
 		this._team2.add(player1);
 		this._team1.remove(player1);
 		this._team2.remove(player2);
-		return player1.toString() + " swapped with " + player2.toString();
+		return player1.toString() + " traded with " + player2.toString();
 	}
 
 	@Override
@@ -128,12 +122,20 @@ public abstract class AMatchupOrganism<Player> implements ISexualOrganism {
 		return "Team " + this._team1.get(0) + " VS Team " + this._team2.get(0);
 	}
 	
+	@Override
+	public IOrganism reproduce(IOrganism mate) {
+		
+		return this.produceOrganism();
+	}
+	
+	protected abstract AMatchupOrganism<P> produceOrganism();
+	
 	/**
 	 * Get the total score of the team
 	 * @param team The team
 	 * @return The total score of the team
 	 */
-	private int teamScore(List<Player> team) {
+	private int teamScore(List<P> team) {
 		int res = 0;
 		for (int i = 0; i < team.size(); i ++) {
 			res += team.get(0).getSkillLevel();

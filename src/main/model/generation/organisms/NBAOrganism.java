@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import main.model.generation.ecosystems.MatchmakingEcosystem.Player;
 import main.model.generation.IOrganism;
 
 /**
@@ -13,7 +14,7 @@ import main.model.generation.IOrganism;
  */
 public class NBAOrganism extends AMatchupOrganism<NBAOrganism.NBAPlayer> {
 	
-	public enum NBAPlayer implements AMatchupOrganism.Player{
+	public enum NBAPlayer implements Player{
 		
 		LEBRON_JAMES(98),
 		STEPHEN_CURRY(96),
@@ -71,14 +72,17 @@ public class NBAOrganism extends AMatchupOrganism<NBAOrganism.NBAPlayer> {
 		return new ArrayList<>(Arrays.asList(NBAPlayer.values()));
 	}
 
-	@Override
-	public IOrganism reproduce(IOrganism mate) {
-		// TODO: ACTUAL REPRODUCTION
-		List<NBAOrganism.NBAPlayer> team1 = new ArrayList<>();
-		this._team1.forEach((player) -> team1.add((NBAOrganism.NBAPlayer)player));
-		List<NBAOrganism.NBAPlayer> team2 = new ArrayList<>();
-		this._team2.forEach((player) -> team2.add((NBAOrganism.NBAPlayer)player));
-		return new NBAOrganism(team1, team2);
-	}
+//	@Override
+//	public IOrganism reproduce(IOrganism mate) {
+//		
+//		
+//		// TODO: ACTUAL REPRODUCTION
+////		List<NBAOrganism.NBAPlayer> team1 = new ArrayList<>();
+////		this._team1.forEach((player) -> team1.add((NBAOrganism.NBAPlayer)player));
+////		List<NBAOrganism.NBAPlayer> team2 = new ArrayList<>();
+////		this._team2.forEach((player) -> team2.add((NBAOrganism.NBAPlayer)player));
+////		return new NBAOrganism(team1, team2);
+//		return null;
+//	}
 	
 }
