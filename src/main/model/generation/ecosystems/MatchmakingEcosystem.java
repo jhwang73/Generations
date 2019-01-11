@@ -8,6 +8,7 @@ import java.util.List;
 
 import main.model.generation.AOrganismFactory;
 import main.model.generation.organisms.AMatchupOrganism;
+import main.model.generation.organisms.INaturalOrganism;
 
 /**
  * The matchmaking ecosystem. In this ecosystem, matchup organisms are graded in their fairness and
@@ -106,9 +107,13 @@ public class MatchmakingEcosystem extends ANaturalEcosystem {
 	@Override
 	protected String produceNextGeneration() {
 		this._currentGeneration = new ArrayList<>();
-		this._rankings.forEach((e) -> {
-			this._currentGeneration.add(e.getKey());
-		});
+		int numParents = (this._generationSize / 3) + 1;
+		
+		for (int i = 0; i < this._generationSize; i++) {
+			int parent1 = (int)(Math.random() * numParents);
+			int parent2 = (int)(Math.random() * numParents);
+			this._currentGeneration.add((INaturalOrganism)this._rankings.get(parent1).getKey().reproduce(this._rankings.get(parent2).getKey()));
+		}
 		
 		return "Produce Test";
 	}

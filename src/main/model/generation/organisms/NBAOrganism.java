@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import main.model.generation.IOrganism;
+
 /**
  * The NBA matchup organism. Matches 5 NBA players against 5 more NBA players. 
  * 
@@ -67,6 +69,16 @@ public class NBAOrganism extends AMatchupOrganism<NBAOrganism.NBAPlayer> {
 	@Override
 	protected List<NBAPlayer> getAvailablePlayers() {
 		return new ArrayList<>(Arrays.asList(NBAPlayer.values()));
+	}
+
+	@Override
+	public IOrganism reproduce(IOrganism mate) {
+		// TODO: ACTUAL REPRODUCTION
+		List<NBAOrganism.NBAPlayer> team1 = new ArrayList<>();
+		this._team1.forEach((player) -> team1.add((NBAOrganism.NBAPlayer)player));
+		List<NBAOrganism.NBAPlayer> team2 = new ArrayList<>();
+		this._team2.forEach((player) -> team2.add((NBAOrganism.NBAPlayer)player));
+		return new NBAOrganism(team1, team2);
 	}
 	
 }

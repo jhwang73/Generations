@@ -109,6 +109,7 @@ public class FightingEcosystem extends ANaturalEcosystem {
 	
 	@Override
 	public String produceNextGeneration() {
+		this._currentGeneration = new ArrayList<>();
 		List<IFightingOrganism> newGeneration = new ArrayList<>();
 		String results = "";
 		
@@ -131,7 +132,6 @@ public class FightingEcosystem extends ANaturalEcosystem {
 			}
 		}
 		
-		this._currentGeneration = new ArrayList<>();
 		this._currentGeneration.addAll(newGeneration);
 		
 		return results;

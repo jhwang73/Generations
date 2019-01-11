@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import main.model.generation.IOrganism;
-
 /**
  * Matchup organisms. 
  * 
@@ -34,12 +32,12 @@ public abstract class AMatchupOrganism<Player> implements ISexualOrganism {
 	/**
 	 * The first team
 	 */
-	private List<Player> _team1;
+	protected List<Player> _team1;
 	
 	/**
 	 * The second team
 	 */
-	private List<Player> _team2;
+	protected List<Player> _team2;
 	
 	/**
 	 * The constructor for the matchup organism
@@ -114,19 +112,20 @@ public abstract class AMatchupOrganism<Player> implements ISexualOrganism {
 	
 	@Override
 	public String mutate() {
-		// TODO Auto-generated method stub
-		return null;
+		int mutationIdx1 = (int) (Math.random() * this._teamSize);
+		int mutationIdx2 = (int) (Math.random() * this._teamSize);
+		Player player1 = this._team1.get(mutationIdx1);
+		Player player2 = this._team2.get(mutationIdx2);
+		this._team1.add(player2);
+		this._team2.add(player1);
+		this._team1.remove(player1);
+		this._team2.remove(player2);
+		return player1.toString() + " swapped with " + player2.toString();
 	}
 
 	@Override
 	public String getName() {
 		return "Team " + this._team1.get(0) + " VS Team " + this._team2.get(0);
-	}
-
-	@Override
-	public IOrganism reproduce(IOrganism mate) {
-		// TODO: implement
-		return this;
 	}
 	
 	/**
