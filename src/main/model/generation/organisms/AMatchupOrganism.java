@@ -2,8 +2,10 @@ package main.model.generation.organisms;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import main.model.generation.ecosystems.MatchmakingEcosystem.Player;
 
 import main.model.generation.IOrganism;
@@ -35,6 +37,22 @@ public abstract class AMatchupOrganism<P extends Player> implements ISexualOrgan
 	 * The second team
 	 */
 	protected List<P> _team2;
+	
+	/**
+	 * Get the first team
+	 * @return The list of players on the first team
+	 */
+	public List<P> getTeam1() {
+		return this._team1;
+	}
+	
+	/**
+	 * Get the second team
+	 * @return The list of players on the second team
+	 */
+	public List<P> getTeam2() {
+		return this._team2;
+	}
 	
 	/**
 	 * The constructor for the matchup organism
@@ -82,6 +100,17 @@ public abstract class AMatchupOrganism<P extends Player> implements ISexualOrgan
 	protected abstract List<P> getAvailablePlayers();
 	
 	/**
+	 * Get the list of active players.
+	 * @return The list of active players
+	 */
+	public List<P> getActivePlayers() {
+		List<P> activePlayers = new ArrayList<>();
+		activePlayers.addAll(this._team1);
+		activePlayers.addAll(this._team2);
+		return activePlayers;
+	}
+	
+	/**
 	 * A method used to build a space string
 	 * @param length The number of spaces
 	 * @return A string which is a number of spaces
@@ -124,34 +153,66 @@ public abstract class AMatchupOrganism<P extends Player> implements ISexualOrgan
 	}
 	
 	/**
-	 * Count how many times each player has been on the same team as each other players.
-	 * @return A mapping of the counts
+	 * Get all the active players, and map them to an index.
+	 * @param parent1 The first parent
+	 * @param parent2 The second parent
+	 * @return The mapping from players to their indices
 	 */
-	private Map<P, Map<P, Integer>> makeCounts() {
-//		Map<String, Map<String, Integer>> counts = new IdentityHashMap<>();
-	    // // For every player
-	    // for (String player:players) {
-	    //   Map<String, Integer> map1 = new IdentityHashMap<>();
-	    //   for (String teammate:players) {
-	    //     map1.put(teammate, 0);
-	    //   }
-	    //   counts.put(player, map1);
-	    // }
-	    // for (int parent:parents) {
-	    //   for (String teammate:matchUps.get(parent).getTeam1()) {
-	    //     for (String teammate2:matchUps.get(parent).getTeam1()) {
-	    //       counts.get(teammate).put(teammate2, counts.get(teammate).get(teammate2) + 1);
-	    //       counts.get(teammate2).put(teammate, counts.get(teammate2).get(teammate) + 1);
-	    //     }
-	    //   }
-	    //   for (String teammate:matchUps.get(parent).getTeam2()) {
-	    //     for (String teammate2:matchUps.get(parent).getTeam2()) {
-	    //       counts.get(teammate).put(teammate2, counts.get(teammate).get(teammate2) + 1);
-	    //       counts.get(teammate2).put(teammate, counts.get(teammate2).get(teammate) + 1);
-	    //     }
-	    //   }
-	    // }
-		return null;
+	private Map<P, Integer> indexActivePlayers(AMatchupOrganism<P> parent1, AMatchupOrganism<P> parent2) {
+		List<P> activePlayers = new ArrayList<>();
+		List<P> activePlayersP1 = parent1.getActivePlayers();
+		List<P> activePlayersP2 = parent2.getActivePlayers();
+		activePlayersP1.forEach((ap) -> {
+			if (!activePlayers.contains(ap))
+				activePlayers.add(ap);
+		});
+		activePlayersP2.forEach((ap) -> {
+			if (!activePlayers.contains(ap))
+				activePlayers.add(ap);
+		});
+		
+		Map<P, Integer> playerToIndex = new HashMap<>();
+		for (int i = 0; i< activePlayers.size(); i++) {
+			playerToIndex.put(activePlayers.get(i), i);
+		}
+		
+		return playerToIndex;
+	}
+	
+	/**
+	 * Count how many times each active player has been on the same team as each other players.
+	 * @return A matrix of the counts
+	 */
+	private int[][] makeCounts(Map<P, Integer> playerToIndex, AMatchupOrganism<P> parent1, AMatchupOrganism<P> parent2) {
+		int numActivePlayers = playerToIndex.size();
+		int[][] counts = new int[numActivePlayers][numActivePlayers];
+		
+		for (int i = 0; i < this._teamSize; i++) {
+			int p1t1i = playerToIndex.get(parent1.getTeam1().get(i));
+			int p1t2i = playerToIndex.get(parent1.getTeam2().get(i));
+			int p2t1i = playerToIndex.get(parent2.getTeam1().get(i));
+			int p2t2i = playerToIndex.get(parent2.getTeam2().get(i));
+			for (int j = 0; j < i; j++) {
+				int p1t1j = playerToIndex.get(parent1.getTeam1().get(j));
+				int p1t2j = playerToIndex.get(parent1.getTeam2().get(j));
+				int p2t1j = playerToIndex.get(parent2.getTeam1().get(j));
+				int p2t2j = playerToIndex.get(parent2.getTeam2().get(j));
+				
+				counts[p1t1i][p1t1j]++;
+				counts[p1t1j][p1t1i]++;
+				
+				counts[p1t2i][p1t2j]++;
+				counts[p1t2j][p1t2i]++;
+				
+				counts[p2t1i][p2t1j]++;
+				counts[p2t1j][p2t1i]++;
+				
+				counts[p2t2i][p2t2j]++;
+				counts[p2t2j][p2t2i]++;
+			}
+		}
+			
+		return counts;
 	}
 	
 	/**
@@ -160,15 +221,18 @@ public abstract class AMatchupOrganism<P extends Player> implements ISexualOrgan
 	 * @param team1 The first team to fill
 	 * @param team2 The second team to fill
 	 */
-	private void fillTeams(Map<P, Map<P, Integer>> counts, List<P> team1, List<P> team2) {
-		
+	private void fillTeams(int[][] counts, List<P> team1, List<P> team2) {
+		//TODO
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public IOrganism reproduce(IOrganism mate) {
 		List<P> childTeam1 = new ArrayList<>();
 		List<P> childTeam2 = new ArrayList<>();
-		Map<P, Map<P, Integer>> counts = this.makeCounts();
+		AMatchupOrganism<P> parent2 = (AMatchupOrganism<P>)mate;
+		Map<P, Integer> playerToIndex = this.indexActivePlayers(this, parent2);
+		int[][] counts = this.makeCounts(playerToIndex, this, parent2);
 		this.fillTeams(counts, childTeam1, childTeam2);
 		return this.produceOrganism(childTeam1, childTeam2);
 	}
