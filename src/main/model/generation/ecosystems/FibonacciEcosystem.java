@@ -48,6 +48,7 @@ public class FibonacciEcosystem implements IEcosystem {
 	/**
 	 * The factory for an organism of the species.
 	 */
+	@SuppressWarnings("unused")
 	private final AOrganismFactory _foFactory;
 	
 	/**

@@ -76,6 +76,20 @@ public class FightingEcosystem extends ANaturalEcosystem {
 		this._reproducer = new Random();
 	}
 	
+	/**
+	 * Return a string in the format of
+	 * this._speciesName + " " + idx1 + ": " + name1 + " " + relationship + " " + this._speciesName + " " + idx2 + ": " + name2 + ".\n"
+	 * @param name1 The first name
+	 * @param idx1 The first index
+	 * @param name2 The second name
+	 * @param idx2 The second index
+	 * @param relationship The relationship between them
+	 * @return The complete string
+	 */
+	private String result(String name1, int idx1, String name2, int idx2, String relationship) {
+		return this._speciesName + " " + idx1 + ": " + name1 + " " + relationship + " " + this._speciesName + " " + idx2 + ": " + name2 + ".\n";
+	}
+	
 	@Override
 	public String analyzeCurrentGeneration() {
 		this._battleResults = new ArrayList<>();
@@ -92,12 +106,12 @@ public class FightingEcosystem extends ANaturalEcosystem {
 			int battleResult = fighter1.fight(fighter2); 
 			if (battleResult == 1) {
 				this._battleResults.add(fighter1);
-				results += this._speciesName + " " + idx1 + ": " + fighter1.getName() + " defeated " + this._speciesName + " " + idx2 + ": " + fighter2.getName() + ".\n";
+				results += this.result(fighter1.getName(), idx1, fighter2.getName(), idx2, "defeated");
 			} else if (battleResult == 0) {
-				results += this._speciesName + " " + idx1 + ": " + fighter1.getName() + " tied with " + this._speciesName + " " + idx2 + ": " + fighter2.getName() + ".\n";
+				results += this.result(fighter1.getName(), idx1, fighter2.getName(), idx2, "tied with");
 			} else {
 				this._battleResults.add(fighter2);
-				results += this._speciesName + " " + idx1 + ": " + fighter1.getName() + " was defeated by " + this._speciesName + " " + idx2 + ": " + fighter2.getName() + ".\n";
+				this.result(fighter1.getName(), idx1, fighter2.getName(), idx2, "was defeated by");
 			}
 		}
 		

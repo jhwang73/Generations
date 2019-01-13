@@ -3,6 +3,7 @@ package main.model.generation.organisms;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import main.model.generation.ecosystems.MatchmakingEcosystem.Player;
 
 import main.model.generation.IOrganism;
@@ -122,13 +123,63 @@ public abstract class AMatchupOrganism<P extends Player> implements ISexualOrgan
 		return "Team " + this._team1.get(0) + " VS Team " + this._team2.get(0);
 	}
 	
-	@Override
-	public IOrganism reproduce(IOrganism mate) {
-		
-		return this.produceOrganism();
+	/**
+	 * Count how many times each player has been on the same team as each other players.
+	 * @return A mapping of the counts
+	 */
+	private Map<P, Map<P, Integer>> makeCounts() {
+//		Map<String, Map<String, Integer>> counts = new IdentityHashMap<>();
+	    // // For every player
+	    // for (String player:players) {
+	    //   Map<String, Integer> map1 = new IdentityHashMap<>();
+	    //   for (String teammate:players) {
+	    //     map1.put(teammate, 0);
+	    //   }
+	    //   counts.put(player, map1);
+	    // }
+	    // for (int parent:parents) {
+	    //   for (String teammate:matchUps.get(parent).getTeam1()) {
+	    //     for (String teammate2:matchUps.get(parent).getTeam1()) {
+	    //       counts.get(teammate).put(teammate2, counts.get(teammate).get(teammate2) + 1);
+	    //       counts.get(teammate2).put(teammate, counts.get(teammate2).get(teammate) + 1);
+	    //     }
+	    //   }
+	    //   for (String teammate:matchUps.get(parent).getTeam2()) {
+	    //     for (String teammate2:matchUps.get(parent).getTeam2()) {
+	    //       counts.get(teammate).put(teammate2, counts.get(teammate).get(teammate2) + 1);
+	    //       counts.get(teammate2).put(teammate, counts.get(teammate2).get(teammate) + 1);
+	    //     }
+	    //   }
+	    // }
+		return null;
 	}
 	
-	protected abstract AMatchupOrganism<P> produceOrganism();
+	/**
+	 * Fill the two given teams according to the counts
+	 * @param counts The mapping of counts of the frequency of players being on the same team
+	 * @param team1 The first team to fill
+	 * @param team2 The second team to fill
+	 */
+	private void fillTeams(Map<P, Map<P, Integer>> counts, List<P> team1, List<P> team2) {
+		
+	}
+	
+	@Override
+	public IOrganism reproduce(IOrganism mate) {
+		List<P> childTeam1 = new ArrayList<>();
+		List<P> childTeam2 = new ArrayList<>();
+		Map<P, Map<P, Integer>> counts = this.makeCounts();
+		this.fillTeams(counts, childTeam1, childTeam2);
+		return this.produceOrganism(childTeam1, childTeam2);
+	}
+	
+	/**
+	 * Produce the organism with the given teams
+	 * @param team1 Team 1
+	 * @param team2 Team 2
+	 * @return The new AMatchupOrganism of type P.
+	 */
+	protected abstract AMatchupOrganism<P> produceOrganism(List<P> team1, List<P> team2);
 	
 	/**
 	 * Get the total score of the team
