@@ -123,17 +123,16 @@ public class FightingEcosystem extends ANaturalEcosystem {
 	
 	@Override
 	public String produceNextGeneration() {
-		this._currentGeneration = new ArrayList<>();
 		List<IFightingOrganism> newGeneration = new ArrayList<>();
 		String results = "";
 		
 		for (int i = 0; i < this._generationSize; i++) {
 			double change = Math.random();
-			if (change < 0.1) {
+			if (change < 0.05) {
 				IFightingOrganism randomOrganism = (IFightingOrganism)this._organismFactory.makeRandomOrganism();
 				results += randomOrganism.getName() + "has been randomly produced.\n";
 				newGeneration.add(randomOrganism);
-			} else if (change < 0.7 && !this._battleResults.isEmpty()) {
+			} else if (change < 0.75 && !this._battleResults.isEmpty()) {
 				IFightingOrganism oldOrganism = (IFightingOrganism)this._battleResults.get(this._reproducer.nextInt(this._battleResults.size()));
 				results += oldOrganism.getName() + " has survived to the next generation.\n";
 				newGeneration.add(oldOrganism);
@@ -146,6 +145,7 @@ public class FightingEcosystem extends ANaturalEcosystem {
 			}
 		}
 		
+		this._currentGeneration = new ArrayList<>();
 		this._currentGeneration.addAll(newGeneration);
 		
 		return results;
