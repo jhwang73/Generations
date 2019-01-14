@@ -16,14 +16,8 @@ import main.model.generation.IOrganism;
  */
 class GenerationInfoTest {
 	
-	/**
-	 * The test Generation Info
-	 */
 	private final GenerationInfo gi = new GenerationInfo(1, "GenerationInfo Test", new ArrayList<IOrganism>());
 	
-	/**
-	 * Test the error GI.
-	 */
 	@Test
 	void testErrorGI() {
 		assertEquals(-1, GenerationInfo.errorGI.getGenerationNumber());
@@ -31,25 +25,16 @@ class GenerationInfoTest {
 		assertEquals(new ArrayList<>(), GenerationInfo.errorGI.getGeneration());
 	}
 
-	/**
-	 * Test for getGenerationNumber
-	 */
 	@Test
 	void testGetGenerationNumber() {
 		assertEquals(1, gi.getGenerationNumber());
 	}
 
-	/**
-	 * Test for getInfo
-	 */
 	@Test
 	void testGetInfo() {
 		assertEquals("GenerationInfo Test", gi.getInfo());
 	}
 
-	/**
-	 * Test for getGeneration
-	 */
 	@Test
 	void testGetGeneration() {
 		assertEquals(new ArrayList<>(), gi.getGeneration());

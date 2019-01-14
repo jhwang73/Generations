@@ -162,7 +162,6 @@ public class Model {
 			@Override
 			public IOrganism makeRandomOrganism() {
 				return new NinjaOrganism();
-//				return NinjaOrganism.getRandomNinjaOrganism();
 			}
 
 			@Override

@@ -15,9 +15,6 @@ import main.model.generation.ecosystems.FibonacciEcosystem;
  */
 class FibonacciEcosystemTest {
 	
-	/**
-	 * Test initialGeneration
-	 */
 	@Test
 	void testInitialGeneration() {
 		FibonacciEcosystem fe = new FibonacciEcosystem(2, new AOrganismFactory() {
@@ -52,9 +49,6 @@ class FibonacciEcosystemTest {
 		assertEquals(1, fo1.getValue());
 	}
 
-	/**
-	 * Test nextGeneration
-	 */
 	@Test
 	void testNextGeneration() {
 		FibonacciEcosystem fe = new FibonacciEcosystem(4, new AOrganismFactory() {

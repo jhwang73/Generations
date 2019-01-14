@@ -7,6 +7,11 @@ import org.junit.jupiter.api.Test;
 import main.model.generation.organisms.RockPaperScissorsOrganism;
 import main.model.generation.organisms.RockPaperScissorsOrganism.RockPaperScissorsValue;
 
+/**
+ * Unit tests for RockPaperScissorsOrganism
+ * 
+ * @author jhwang73
+ */
 class RockPaperScissorsOrganismTest {
 
 	RockPaperScissorsOrganism rpsRock = new RockPaperScissorsOrganism(RockPaperScissorsValue.ROCK);

@@ -7,6 +7,11 @@ import org.junit.jupiter.api.Test;
 import main.model.generation.ecosystems.ANaturalEcosystem;
 import main.model.generation.*;
 
+/**
+ * Unit tests for ANaturalEcosystem
+ * 
+ * @author jhwang73
+ */
 class ANaturalEcosystemTest {
 	
 	ANaturalEcosystem ne = new ANaturalEcosystem(3, new AOrganismFactory() {
