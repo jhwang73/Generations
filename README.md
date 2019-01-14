@@ -5,7 +5,9 @@ Watch organisms of a species interact to simulate generations. Scalable in what 
 ## Getting Started
 
 Simply compile and run "src/main/controller/Controller.java" to start the application.
+
 In Command Prompt/Terminal:
+
 Go to the directory where you have cloned this repository.
 
 		$ javac src/main/controller/Controller.java
@@ -13,8 +15,11 @@ Go to the directory where you have cloned this repository.
 
 ### Prerequisites
 Java SE 10.0.2
+
 JDK
+
 Download the version of Java from [here](https://java.com/en/download/)
+
 Download the latest JDK from [here](https://www.oracle.com/technetwork/java/javase/downloads/index.html)
 
 ## Directions to use Generations
@@ -29,11 +34,13 @@ Download the latest JDK from [here](https://www.oracle.com/technetwork/java/java
 ## Built With
 
 Java SE 10.0.2
+
 Eclipse Photon Release(4.8.0)
 
 ## Acknowledgments
 
 Generations was inspired by my personal project [shoot-4-teams](https://github.com/jhwang73/shoot-4-teams).
+
 Check out the website link above for a demo & more information about this project!
 
 
