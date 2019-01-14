@@ -116,7 +116,7 @@ public class MatchmakingEcosystem extends ANaturalEcosystem {
 	@Override
 	protected String produceNextGeneration() {
 		this._currentGeneration = new ArrayList<>();
-		int numParents = (this._generationSize / 3) + 1;
+		int numParents = (this._generationSize / 3) + 2;
 		String production = "";
 		
 		for (int i = 0; i < this._generationSize; i++) {

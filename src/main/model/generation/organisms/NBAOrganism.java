@@ -14,7 +14,8 @@ import main.model.generation.ecosystems.MatchmakingEcosystem.Player;
 public class NBAOrganism extends AMatchupOrganism<NBAOrganism.NBAPlayer> {
 	
 	public enum NBAPlayer implements Player{
-		
+		// TEST WORKS WITH 11 PLAYERS
+		MICHAEL_JORDAN(99),
 		LEBRON_JAMES(98),
 		STEPHEN_CURRY(96),
 		PAUL_GEORGE(90),

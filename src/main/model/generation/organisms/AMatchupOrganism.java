@@ -153,14 +153,13 @@ public abstract class AMatchupOrganism<P extends Player> implements ISexualOrgan
 	}
 	
 	/**
-	 * Get all the active players, and map them to an index.
-	 * @param parent1 The first parent
-	 * @param parent2 The second parent
-	 * @return The mapping from players to their indices
+	 * Get the active players between this organism and another parent organism
+	 * @param parent2 The other parent
+	 * @return The list of active players in this organism and the other parent organism
 	 */
-	private Map<P, Integer> indexActivePlayers(AMatchupOrganism<P> parent1, AMatchupOrganism<P> parent2) {
+	public List<P> combinedActivePlayers(AMatchupOrganism<P> parent2) {
 		List<P> activePlayers = new ArrayList<>();
-		List<P> activePlayersP1 = parent1.getActivePlayers();
+		List<P> activePlayersP1 = this.getActivePlayers();
 		List<P> activePlayersP2 = parent2.getActivePlayers();
 		activePlayersP1.forEach((ap) -> {
 			if (!activePlayers.contains(ap))
@@ -171,6 +170,15 @@ public abstract class AMatchupOrganism<P extends Player> implements ISexualOrgan
 				activePlayers.add(ap);
 		});
 		
+		return activePlayers;
+	}
+	
+	/**
+	 * Map the active players to an index.
+	 * @param activePlayers The list of active players
+	 * @return The mapping from players to their indices
+	 */
+	private Map<P, Integer> indexActivePlayers(List<P> activePlayers) {
 		Map<P, Integer> playerToIndex = new HashMap<>();
 		for (int i = 0; i< activePlayers.size(); i++) {
 			playerToIndex.put(activePlayers.get(i), i);
@@ -186,7 +194,7 @@ public abstract class AMatchupOrganism<P extends Player> implements ISexualOrgan
 	private int[][] makeCounts(Map<P, Integer> playerToIndex, AMatchupOrganism<P> parent1, AMatchupOrganism<P> parent2) {
 		int numActivePlayers = playerToIndex.size();
 		int[][] counts = new int[numActivePlayers][numActivePlayers];
-		
+				
 		for (int i = 0; i < this._teamSize; i++) {
 			int p1t1i = playerToIndex.get(parent1.getTeam1().get(i));
 			int p1t2i = playerToIndex.get(parent1.getTeam2().get(i));
@@ -216,13 +224,37 @@ public abstract class AMatchupOrganism<P extends Player> implements ISexualOrgan
 	}
 	
 	/**
-	 * Fill the two given teams according to the counts
+	 * Fill the two given teams with players according to the counts
+	 * @param activePlayers The list of active players to be candidates for children
+	 * @param playerToIndex The mapping of players to their index in the counts array
 	 * @param counts The mapping of counts of the frequency of players being on the same team
 	 * @param team1 The first team to fill
 	 * @param team2 The second team to fill
 	 */
-	private void fillTeams(int[][] counts, List<P> team1, List<P> team2) {
-		//TODO
+	private void fillTeams(List<P> activePlayers, Map<P, Integer> playerToIndex, int[][] counts, List<P> team1, List<P> team2) {
+		while (team1.size() < this._teamSize && team2.size() < this._teamSize) {
+			P nextPlayer = activePlayers.remove(0);
+			int nextPlayerIndex = playerToIndex.get(nextPlayer);
+			
+			int team1TeammateCount = team1.stream().mapToInt((teammate) -> counts[nextPlayerIndex][playerToIndex.get(teammate)]).sum();
+			int team2TeammateCount = team2.stream().mapToInt((teammate) -> counts[nextPlayerIndex][playerToIndex.get(teammate)]).sum();
+			
+			int totalCount = team1TeammateCount + team2TeammateCount;
+			
+			// Proportionally select which team to be added to
+			if (Math.random() * totalCount < team1TeammateCount) {
+				team1.add(nextPlayer);
+			} else {
+				team2.add(nextPlayer);
+			}
+		}
+		
+		while (team1.size() < this._teamSize) {
+			team1.add(activePlayers.remove((int)(Math.random() * activePlayers.size())));
+		}
+		while (team2.size() < this._teamSize) {
+			team2.add(activePlayers.remove((int)(Math.random() * activePlayers.size())));
+		}
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -230,10 +262,25 @@ public abstract class AMatchupOrganism<P extends Player> implements ISexualOrgan
 	public IOrganism reproduce(IOrganism mate) {
 		List<P> childTeam1 = new ArrayList<>();
 		List<P> childTeam2 = new ArrayList<>();
+		
 		AMatchupOrganism<P> parent2 = (AMatchupOrganism<P>)mate;
-		Map<P, Integer> playerToIndex = this.indexActivePlayers(this, parent2);
+		
+		List<P> activePlayers = this.combinedActivePlayers(parent2);
+		
+		Map<P, Integer> playerToIndex = this.indexActivePlayers(activePlayers);
+		
 		int[][] counts = this.makeCounts(playerToIndex, this, parent2);
-		this.fillTeams(counts, childTeam1, childTeam2);
+		
+		for (int i = 0; i < counts.length; i++) {
+			for (int j = 0; j < counts[i].length; j++) {
+				System.out.print(counts[i][j]);
+				System.out.print("=");
+			}
+			System.out.println();
+		}
+		
+		this.fillTeams(activePlayers, playerToIndex, counts, childTeam1, childTeam2);
+		
 		return this.produceOrganism(childTeam1, childTeam2);
 	}
 	
