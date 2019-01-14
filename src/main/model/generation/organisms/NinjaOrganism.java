@@ -98,15 +98,6 @@ public class NinjaOrganism implements IFightingOrganism {
 		this._additionalChakra = 0;
 	}
 	
-//	/**
-//	 * Get a random ninja Organism.
-//	 * @return A Ninja Organism
-//	 */
-//	public static NinjaOrganism getRandomNinjaOrganism() {
-//		int ninja = (int) (Math.random() * _availableNinjas.size());
-//		return new NinjaOrganism(_availableNinjas.get(ninja));
-//	}
-	
 	@Override
 	public String toString() {
 		return this.getName() + "\n" + (this.getChakraLevel());
