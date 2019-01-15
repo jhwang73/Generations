@@ -61,7 +61,7 @@ public class View<Organism, Species, Ecosystem> extends JFrame {
 	 */
 	private final JButton btnBegin = new JButton("Begin");
 	/**
-	 * The panel which holds the generation info & actions.
+	 * The panel which holds the generation info and actions.
 	 */
 	private final JPanel panelSouth = new JPanel();
 	/**

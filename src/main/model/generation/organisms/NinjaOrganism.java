@@ -32,7 +32,7 @@ public class NinjaOrganism implements IFightingOrganism {
 		
 		/**
 		 * The constructor for the Ninja
-		 * @param chakraLevel The chakra level of the ninja
+		 * @param baseChakraLevel The base chakra level of the ninja
 		 */
 		private Ninja(int baseChakraLevel) {
 			this._baseChakraLevel = baseChakraLevel;

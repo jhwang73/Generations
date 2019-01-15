@@ -227,7 +227,7 @@ public class Model {
 	
 	/**
 	 * Get the list of available species for the selected ecosystem.
-	 * @param The selected ecosystem
+	 * @param ecosystem The selected ecosystem
 	 * @return The list of available species for the selected ecosystem
 	 */
 	public List<AOrganismFactory> getAvailableSpecies(AEcosystemFactory ecosystem) {

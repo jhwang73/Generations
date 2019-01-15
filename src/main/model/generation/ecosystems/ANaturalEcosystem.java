@@ -13,7 +13,6 @@ import main.model.generation.organisms.INaturalOrganism;
  * This is meant to mimic natural generations, where the best-suited organisms survive and reproduce.
  * 
  * @author jhwang73
- * @param <Species> The species in the ecosystem
  */
 public abstract class ANaturalEcosystem implements IEcosystem {
 	

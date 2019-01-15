@@ -14,7 +14,7 @@ public interface IEcosystem {
 	public String getEcosystemName();
 	
 	/**
-	 * Get the rules on how generations are made & advanced in this ecosystem.
+	 * Get the rules on how generations are made and advanced in this ecosystem.
 	 * @return The rules 
 	 */
 	public String getEcosystemRules();

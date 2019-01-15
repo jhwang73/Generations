@@ -189,6 +189,9 @@ public abstract class AMatchupOrganism<P extends Player> implements ISexualOrgan
 	
 	/**
 	 * Count how many times each active player has been on the same team as each other players.
+	 * @param playerToIndex The mapping of players to their index in the counts array
+	 * @param parent1 The first parent
+	 * @param parent2 The second parent
 	 * @return A matrix of the counts
 	 */
 	private int[][] makeCounts(Map<P, Integer> playerToIndex, AMatchupOrganism<P> parent1, AMatchupOrganism<P> parent2) {
@@ -299,7 +302,7 @@ public abstract class AMatchupOrganism<P extends Player> implements ISexualOrgan
 	
 	/**
 	 * Score the team matchup in terms of fairness.
-	 * @return
+	 * @return The score of the team
 	 */
 	public int score() {
 		int team1Score = this.teamScore(this._team1);

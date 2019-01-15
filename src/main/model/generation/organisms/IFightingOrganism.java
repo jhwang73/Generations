@@ -15,6 +15,7 @@ public interface IFightingOrganism extends IAsexualOrganism {
 	 * 0  Tie
 	 * 1  Win
 	 * @param opponent The opponent to fight
+	 * @return The int that describes the right result
 	 */
 	public int fight(IOrganism opponent);
 	
