@@ -1,7 +1,5 @@
 package main.model.generation.ecosystems;
 
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -17,6 +15,32 @@ import main.model.generation.organisms.INaturalOrganism;
  * @author jasonhwang
  */
 public class MatchmakingEcosystem extends ANaturalEcosystem {
+	
+	/**
+	 * A generic typed Pair class
+	 * @author jasonhwang
+	 *
+	 * @param <K> The type of key
+	 * @param <V> The type of Value
+	 */
+	public class Pair<K, V> {
+		private K _key;
+		
+		private V _value;
+		
+		public Pair(K key, V value) {
+			this._key = key;
+			this._value = value;
+		}
+		
+		public K getKey() {
+			return this._key;
+		}
+		
+		public V getValue() {
+			return this._value;
+		}
+	}
 	
 	public interface Player {
 		/**
@@ -46,14 +70,14 @@ public class MatchmakingEcosystem extends ANaturalEcosystem {
 	 * The score of every organism in the current generation, sorted in descending order.
 	 */
 	@SuppressWarnings("rawtypes")
-	private List<Entry<AMatchupOrganism, Integer>> _rankings;
+	private List<Pair<AMatchupOrganism, Integer>> _rankings;
 	
 	/**
-	 * The custom sorter which sorts a list of Entry elements.
+	 * The custom sorter which sorts a list of Pair elements.
 	 * Smaller values are "greater" than bigger values.
 	 */
 	@SuppressWarnings("rawtypes")
-	private Comparator<Entry<AMatchupOrganism, Integer>> _entrySorter;
+	private Comparator<Pair<AMatchupOrganism, Integer>> _PairSorter;
 	
 	/**
 	 * The constructor for the matchmaking ecosystem.
@@ -77,9 +101,9 @@ public class MatchmakingEcosystem extends ANaturalEcosystem {
 	@SuppressWarnings("rawtypes")
 	@Override
 	protected void setUp() {
-		this._entrySorter = new Comparator<Entry<AMatchupOrganism, Integer>>() {
+		this._PairSorter = new Comparator<Pair<AMatchupOrganism, Integer>>() {
 			@Override
-			public int compare(Entry<AMatchupOrganism, Integer> o1, Entry<AMatchupOrganism, Integer> o2) {
+			public int compare(Pair<AMatchupOrganism, Integer> o1, Pair<AMatchupOrganism, Integer> o2) {
 				if (o1.getValue() > o2.getValue()) {
 					return 1;
 				} else if (o1.getValue() == o2.getValue()) {
@@ -99,14 +123,14 @@ public class MatchmakingEcosystem extends ANaturalEcosystem {
 		
 		this._currentGeneration.forEach((organism) -> {
 			AMatchupOrganism muorganism = (AMatchupOrganism)organism;
-			this._rankings.add(Map.entry(muorganism, muorganism.score()));
+			this._rankings.add(new Pair<AMatchupOrganism, Integer>(muorganism, muorganism.score()));
 		});
 		
-		this._rankings.sort(this._entrySorter);
+		this._rankings.sort(this._PairSorter);
 		
 		for (int i = 0; i < this._generationSize; i++) {
-			Entry<AMatchupOrganism, Integer> entry = this._rankings.get(i);
-			analysis += entry.getKey().getName() + " - Difference between teams: " + this._rankings.get(i).getValue() + "\n";
+			Pair<AMatchupOrganism, Integer> Pair = this._rankings.get(i);
+			analysis += Pair.getKey().getName() + " - Difference between teams: " + this._rankings.get(i).getValue() + "\n";
 		}
 		
 		return analysis;

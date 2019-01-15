@@ -271,14 +271,6 @@ public abstract class AMatchupOrganism<P extends Player> implements ISexualOrgan
 		
 		int[][] counts = this.makeCounts(playerToIndex, this, parent2);
 		
-		for (int i = 0; i < counts.length; i++) {
-			for (int j = 0; j < counts[i].length; j++) {
-				System.out.print(counts[i][j]);
-				System.out.print("=");
-			}
-			System.out.println();
-		}
-		
 		this.fillTeams(activePlayers, playerToIndex, counts, childTeam1, childTeam2);
 		
 		return this.produceOrganism(childTeam1, childTeam2);

@@ -10,9 +10,6 @@ In Command Prompt/Terminal:
 
 Go to the directory where you have cloned this repository.
 
-		$ javac src/main/controller/Controller.java
-		$ java src/main/controller/Controller
-
 ### Prerequisites
 Java SE 10.0.2
 
