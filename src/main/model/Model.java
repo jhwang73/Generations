@@ -142,7 +142,6 @@ public class Model {
 			@Override
 			public IOrganism makeRandomOrganism() {
 				return new RockPaperScissorsOrganism();
-//				return RockPaperScissorsOrganism.getRandomRPSOrganism();
 			}
 
 			@Override
