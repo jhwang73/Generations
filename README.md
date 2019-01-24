@@ -1,6 +1,6 @@
 # Generations
 
-Watch organisms of a species interact to simulate generations. Scalable in what usable "species" and "ecosystems" are.
+Watch organisms of a species interact to simulate generations. Extensible in what usable "species" and "ecosystems" are.
 
 ## Getting Started
 
