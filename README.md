@@ -45,7 +45,7 @@ Eclipse Photon Release(4.8.0)
 
 ## Acknowledgments
 
-Generations was inspired by my personal project [shoot-4-teams](https://github.com/jhwang73/shoot-4-teams).
+Generations was inspired by my personal project [shoot-4-teams](https://github.com/jhwang73/shoot-4-teams). Generations was also inspired by a course taught by Stephen Wong at Rice University.
 
 Check out the website link above for a demo & more information about this project!
 
