@@ -10,14 +10,9 @@ In Command Prompt/Terminal:
 
 Go to the directory where you have cloned this repository.
 
-To compile (should already be done!):
-
+	mkdir bin
     javac -d bin/ -cp src ./src/main/controller/Controller.java
-
-To run:
-
 	java -cp bin main.controller.Controller
-(maybe only 2nd line necessary?)
 
 ### Prerequisites
 Java SE 10.0.2
