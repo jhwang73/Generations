@@ -1,0 +1,140 @@
+<!DOCTYPE HTML>
+<!--
+	Hyperspace by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Generations</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+	</head>
+	<body class="is-preload">
+
+		<!-- Sidebar -->
+			<section id="sidebar">
+				<div class="inner">
+					<nav>
+						<ul>
+							<li><a href="#intro">Generations</a></li>
+							<li><a href="#overview">Overview</a></li>
+							<li><a href="#demo">Demo</a></li>
+							<li><a href="#development">Development</a></li>
+							<li><a href="#reflection">Reflection</a></li>
+						</ul>
+					</nav>
+				</div>
+			</section>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Intro -->
+					<section id="intro" class="wrapper style1 fullscreen fade-up">
+						<div class="inner">
+							<h1>Generations</h1>
+							<p>Species, Ecosystems.<br>Generations.<br>A personal project by Jason Hwang.</p>
+							Source Code: <a href="https://github.com/jhwang73/Generations" target = "_blank" class="mx-3"><i class="fab fa-github"></i></a>
+						</div>
+					</section>
+
+				<!-- Overview -->
+					<section id="overview" class="wrapper style2 fullscreen fade-up">
+						<div class="inner">
+							<h1>Overview</h1>
+							<p>
+								Hi.
+								<br>
+								Generations is a personal project I began after taking an OOP course. The course gave me a taste of the power of good design. The illusionary dream of this good design inspired me to practice building a proper OOP program. Generations was also inspired by a previous personal project I did, called shoot-4-teams. You can see the repository <a href="https://github.com/jhwang73/shoot-4-teams" target = "_blank">here</a>.
+								<h3>Anyways, what is Generations?</h3>
+								Generations is an application in which you can watch organisms of various species interact within themselves to simulate generations. Scalable in what usable "species" and "ecosystems" are.
+							</p>
+							<h3>Some vocabulary to know (coming up with these took a while. Read more about it in the development sections!).</h3>
+							<ul>
+								<li>Organism - A mutable object that can be observed and interacted with</li>
+								<li>Species - A description of a certain group of organisms</li>
+								<li>Generations - A group of organisms of the same species</li>
+								<li>Ecosystem - A description of how generations are advanced. Ecosystems define the type of species which are allowed in that ecosystem.</li>
+							</ul>
+							<h3>Cool, so how do I use Generations?</h3>
+							<ol>
+								<li>Select a species.</li>
+								<li>Select an ecosystem that the species can live inside.</li>
+								<li>Generate an initial generation of organisms of the selected species. </li>
+								<li>Advance generations depending on how the ecosystem defines advances.</li>
+							</ol>
+						</div>
+					</section>
+
+				<!-- Demo -->
+					<section id="demo" class="wrapper style3 fullscreen fade-up">
+						<div class="inner">
+							<h1>Demo</h1>
+							<h3>Here's a demo:</h3>
+						</div>
+					</section>
+
+				<!-- Development -->
+					<section id="development" class="wrapper style4 fullscreen fade-up">
+						<div class="inner">
+							<h1>Development</h1>
+							<p>
+								As expected, I spent a lot of time on paper trying to figure out the architecture. The first step was to figure out what to even call my objects. The term organism was fully defined only in the middle of development. The terms species and ecosystem were conceived in the middle of development. In shoot-4-teams, I defined a matchup as an organism, and a group of matchups as a generation. In Generations, I wanted to extend to more types of organisms. After that idea, I realized I could separate ecosystems into their own entities, and make them extendable.
+								Back to the important semantics questions: What was an organism? What was a species? What was an ecosystem? Eventually, I settled on the definitions listed above in the overview. Although they may seem trivially understood, at the time it was a big semantics obstacle.
+							</p>
+							<h3>Notable Failures:</h3>
+							<ul>
+								<li>I wanted to allow for species behaviors to be easily compositely defined. For example, I wanted to take a description of a type of organisms which could fight other organisms called IFightingOrganism, and another description of asexual reproducers called IAsexualOrganism, then make a concrete species called AsexualFightingAlice which implemented both IFightingOrganism and IAsexualOrganism. I unfortunately found that Java did not allow multiple inheritance for concrete classes.</li>
+								<li> I wanted to be able to use class-level generic typing for ecosystems. This way, I would be able to ensure that, say Ninjas only fought other Ninjas, and this would allow for Ninjas to have a method called fight() which knew that it was fighting other Ninjas, instead of having to use typecasting. I ran into some terrible issues regarding Java wildcards, and had to scrap this feature.</li>
+								<li>I had terrible, terrible commit comments. I learned about git commit practices during the project.</li>
+							</ul>
+							<h3>Notable Successes:</h3>
+							<ul>
+								<li>I had clearly defined semantics, and stuck to them.</li>
+								<li>I had a proper seperation of concerns (Species did not need to know about generations, generations did not need to know about ecosystems) and encapsulation(ecosystems did not need to know how organisms worked, only what kind of behaviors they had).</li>
+								<li>I properly decoupled the model from the view using the MVC design pattern.</li>
+								<li>I documented regularly through the process both in writing and in code.</li>
+							</ul>
+						</div>
+					</section>
+
+				<!-- Reflection -->
+					<section id="reflection" class="wrapper style5 fullscreen fade-up">
+						<div class="inner">
+							<h1>Reflection</h1>
+							<p>
+								Design is hard. There was a lot of trial and error although this was a relatively small system, and honestly it was difficult to gauge if I was coding too much or not coding enough. I would often find issues only after I had started coding, but I wondered if that was a sign that I had not thought through the design well enough.
+								<br><br>
+								Last semester, while I was taking my first OOP course, I talked about shoot-4-teams to a lot of recruiters. I discussed the ways that I had inadvertently applied OOP concepts before learning about them, such as abstraction and encapsulation (Disclaimer: with many, many, many mistakes and bad choices). I dove into Generations hoping to employ the same concepts in a more correct, powerful, and elegant way. I consider this project as a failure in terms of meeting those criteria. I have a long, long way to go. Nevertheless, Generations was a lot of fun and makes me proud to know that I learned a lot about design!
+							</p>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Footer -->
+			<footer id="footer" class="wrapper style1-alt">
+				<div class="inner">
+					<ul class="menu">
+						<li>&copy; Jason Hwang. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+						<li>Source Code: <a href="https://github.com/jhwang73/Generations" target = "_blank" class="mx-3"><i class="fab fa-github"></i></a></li>
+						<li>Personal Website: <a href="https://jhwang73.github.io" target = "_blank" class="mx-3"><i class="fas fa-desktop"></i></a></li>
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
