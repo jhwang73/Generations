@@ -111,7 +111,7 @@ public class FightingEcosystem extends ANaturalEcosystem {
 				results += this.result(fighter1.getName(), idx1, fighter2.getName(), idx2, "tied with");
 			} else {
 				this._battleResults.add(fighter2);
-				this.result(fighter1.getName(), idx1, fighter2.getName(), idx2, "was defeated by");
+				results += this.result(fighter1.getName(), idx1, fighter2.getName(), idx2, "was defeated by");
 			}
 		}
 		
@@ -130,7 +130,7 @@ public class FightingEcosystem extends ANaturalEcosystem {
 			double change = Math.random();
 			if (change < 0.05) {
 				IFightingOrganism randomOrganism = (IFightingOrganism)this._organismFactory.makeRandomOrganism();
-				results += randomOrganism.getName() + "has been randomly produced.\n";
+				results += randomOrganism.getName() + " has been randomly produced.\n";
 				newGeneration.add(randomOrganism);
 			} else if (change < 0.75 && !this._battleResults.isEmpty()) {
 				IFightingOrganism oldOrganism = (IFightingOrganism)this._battleResults.get(this._reproducer.nextInt(this._battleResults.size()));
