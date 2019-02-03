@@ -29,7 +29,7 @@ public abstract class ANaturalEcosystem implements IEcosystem {
 	/**
 	 * The probability of an organism mutating.
 	 */
-	private static double ORGANISM_MUTATION_RATE = .1;
+	private static double ORGANISM_MUTATION_RATE = .03;
 	
 	/**
 	 * The current generation.

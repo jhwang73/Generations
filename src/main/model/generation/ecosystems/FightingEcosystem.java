@@ -128,7 +128,7 @@ public class FightingEcosystem extends ANaturalEcosystem {
 		
 		for (int i = 0; i < this._generationSize; i++) {
 			double change = Math.random();
-			if (change < 0.05) {
+			if (change < 0.03) {
 				IFightingOrganism randomOrganism = (IFightingOrganism)this._organismFactory.makeRandomOrganism();
 				results += randomOrganism.getName() + " has been randomly produced.\n";
 				newGeneration.add(randomOrganism);
